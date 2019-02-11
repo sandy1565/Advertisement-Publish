@@ -1,0 +1,28 @@
+<div class="login-page">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4" style="padding: 60px">
+            <img width="150px" />
+            <h1>Advertisment Publish</h1>
+
+            <form #Form="ngForm" (ngSubmit)="onSubmit(Form)">
+                <hr />
+                <!-- <div class="row" *ngIf="loginErrorMessage">
+                    <label for="">{{loginErrorMessage}}</label>
+                </div> -->
+                <!-- username -->
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" required name="username" [(ngModel)]="formData.username"
+                        #username="ngModel" maxlength="25">
+                </div>
+                <!-- password-->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" required name="password" [(ngModel)]="formData.password"
+                        #password="ngModel" maxlength="25">
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!Form.valid">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
