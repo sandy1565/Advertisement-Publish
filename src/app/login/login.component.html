@@ -1,28 +1,76 @@
-<div class="login-page">
-    <div class="row justify-content-md-center">
-        <div class="col-md-4" style="padding: 60px">
-            <img width="150px" />
-            <h1>Advertisment Publish</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Advertisement Publish</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header id="header">
+      <div class="inner">
+        <a href="index.html" class="logo">Advertisement Publish</a>
+        <nav id="nav">
+          <a href="index.html">Home</a>
+          <a href="#">About Us</a>
+          <a href="#">Contact Us</a>
+          <a routerLink="/login" class="button special">Login</a>
+        </nav>
+      </div>
+    </header>
+    <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
-            <form #Form="ngForm" (ngSubmit)="onSubmit(Form)">
-                <hr />
-                <!-- <div class="row" *ngIf="loginErrorMessage">
+    <div class="login-page">
+      <div >
+        <div class="col-md-4 col-sm-4 col-lg-4 col-xs-4" style="padding: 0 250px 0 250px;">
+          <img width="150px" />
+          <h1>Advertisment Publish</h1>
+
+          <form #Form="ngForm" class="col-md-4 col-sm-4 col-lg-4 col-xs-4" (ngSubmit)="onSubmit(Form)">
+            <hr />
+            <!-- <div class="row" *ngIf="loginErrorMessage">
                     <label for="">{{loginErrorMessage}}</label>
                 </div> -->
-                <!-- username -->
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" required name="username" [(ngModel)]="formData.username"
-                        #username="ngModel" maxlength="25">
-                </div>
-                <!-- password-->
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" required name="password" [(ngModel)]="formData.password"
-                        #password="ngModel" maxlength="25">
-                </div>
-                <button type="submit" class="btn btn-primary" [disabled]="!Form.valid">Submit</button>
-            </form>
+            <!-- username -->
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                required
+                name="username"
+                [(ngModel)]="formData.username"
+                #username="ngModel"
+                maxlength="25"
+              />
+            </div>
+            <!-- password-->
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                required
+                name="password"
+                [(ngModel)]="formData.password"
+                #password="ngModel"
+                maxlength="25"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!Form.valid"
+            >
+              Submit
+            </button>
+          </form>
         </div>
+      </div>
     </div>
-</div>
+  </body>
+</html>

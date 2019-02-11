@@ -15,6 +15,6 @@ import { HomepageComponent } from './homepage.component';
         FormsModule,
         HttpModule
     ],
-    declarations: [HomepageComponent],
+    declarations: [],
 })
 export class HomePageModule {}

@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
             userDetailsJSON.message !== '' ||
             userDetailsJSON.message !== 'undefined'
           ) {
-            // this.loginErrorMessage = returnUserDetailsJson.message;
             this.router.navigate(['/homepage']);
           }
       }

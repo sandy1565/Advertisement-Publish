@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [CommonModule, LoginRoutingModule, ReactiveFormsModule, FormsModule, HttpModule, BrowserAnimationsModule],
-  declarations: [LoginComponent],
+  declarations: [],
   providers: [LoginService]
 })
 export class LoginModule {}
