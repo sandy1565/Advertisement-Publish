@@ -14,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     AdminDashboardComponent,
     DashboardComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
