@@ -1,0 +1,262 @@
+<form class="form container" #personForm="ngForm">
+  <div class="container-fluid" style="margin-top: 100px;">
+    <h2>PERSON DETAILS</h2>
+    <div class="form-group">
+      <label class="label-control">First Name:</label>
+      <input
+        type="text"
+        name="firstname"
+        class="form-control"
+        minlength="3"
+        maxlength="20"
+        (keypress)="keyPressed($event)"
+        required
+        [(ngModel)]="firstname"
+        id="first_name"
+        #firstName="ngModel"
+      />
+      <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="text-danger">
+        <div [hidden]="!firstName.hasError('required')">First Name is Required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="label-control">Middle Name:</label>
+      <input
+        type="text"
+        name="middlename"
+        class="form-control"
+        minlength="3"
+        maxlength="20"
+        (keypress)="keyPressed($event)"
+        required
+        [(ngModel)]="middlename"
+        #middleName="ngModel"
+      />
+      <!-- <div *ngIf = "middlename.errors && (middlename.dirty || middlename.touched) " class="text-danger">
+          <div [hidden] ="!middlename.hasError('required')"> Middle Name is Required</div> -->
+      <!-- </div> -->
+    </div>
+    <div class="form-group">
+      <label class="label-control">Last Name:</label>
+      <input
+        type="text"
+        name="lastname"
+        class="form-control"
+        minlength="3"
+        maxlength="20"
+        (keypress)="keyPressed($event)"
+        required
+        [(ngModel)]="lastname"
+        #lastName="ngModel"
+      />
+      <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="text-danger">
+        <div [hidden]="!lastName.hasError('required')">Last name is Required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="Country">Country:</label>
+      <select
+        *ngIf="getCountries()"
+        [(ngModel)]="selectedCountry"
+        name="selectedCountry"
+        (change)="onSelectCountry($event.target.value)"
+        class="form-control input-lg"
+        id="country"
+      >
+        <option value="0">Select Country</option>
+        <option *ngFor="let country of getCountries()" value="{{ country.country_id }}">{{ country.country_name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="States">States:</label>
+      <select
+        [(ngModel)]="selectedState"
+        name="selectedState"
+        (change)="onSelectState($event.target.value)"
+        class="form-control input-lg"
+        id="state"
+      >
+        <option>Select State</option>
+        <option *ngFor="let state of states" value="{{ state.state_id }}">{{ state.statename }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="City">City:</label>
+      <select class="form-control input-lg" id="city" (change)="onSelectCity($event.target.value)">
+        <option>Select City</option>
+        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{ city.cityname }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="City">Location:</label>
+      <select
+        class="form-control input-lg"
+        [(ngModel)]="locationId"
+        #location_id="ngModel"
+        id="location"
+        name="location_name"
+        (change)="selectLocation()"
+      >
+        <option>Select Location</option>
+        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Block</label>
+      <select
+        id="block_id"
+        required
+        [(ngModel)]="blockId"
+        #block_id="ngModel"
+        (change)="selectBlockName()"
+        name="block_id"
+        class=" form-control"
+      >
+        <option [ngValue]="block.block_id" *ngFor="let block of blocks">
+          {{ block.blockname }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Floor:</label>
+      <select
+        id="floor_id"
+        required
+        [(ngModel)]="floorId"
+        #floor_id="ngModel"
+        (change)="selectFloorName()"
+        name="floor_id"
+        class="form-control"
+      >
+        <option [ngValue]="floor.floor_id" *ngFor="let floor of floors">
+          {{ floor.floor_type }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="label-control">Address:</label>
+      <input type="text" name="address" required [(ngModel)]="address" #Address="ngModel" class="form-control" />
+      <div *ngIf="Address.errors && (Address.dirty || Address.touched)" class="text-danger">
+        <div [hidden]="!Address.hasError('required')">Address is Required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="label-control">Pincode:</label>
+      <input
+        type="text"
+        name="pincode"
+        minlength="6"
+        maxlength="6"
+        (keypress)="keyPress($event)"
+        required
+        [(ngModel)]="pincode"
+        #Pincode="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="Pincode.errors && (Pincode.dirty || Pincode.touched)" class="text-danger">
+        <div [hidden]="!Pincode.hasError('required')">Pincode is Required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Date Of Birth:</label>
+      <input
+        type="date"
+        name="date_of_birth"
+        required
+        [(ngModel)]="date_of_birth"
+        #dateofBirth="ngModel"
+        class="form-control"
+        (click)="selectDate()"
+      />
+      <div *ngIf="dateofBirth.errors && (dateofBirth.dirty || dateofBirth.touched)" class="text-danger">
+        <div [hidden]="!dateofBirth.hasError('required')">Date of Birth is Required</div>
+      </div>
+    </div>
+
+    <!-- <div class="form-group">
+      <label for="">Gender: </label>
+      <ul class="genderList" *ngFor="let g of gender">
+        <li>
+          <input type="checkbox" name="gender" (click)="getValue(gender.value)" value="{{ g }}" #gender /> {{ g }}
+        </li>
+      </ul>
+    </div> -->
+
+    <label for="gender"><b>Gender</b></label>
+    <select placeholder="Select Gender" name="gender" [(ngModel)]="model.gender" #gender="ngModel" [ngClass]="{ 'is-invalid': personForm.submitted && gender.invalid }" required>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+    <!-- <div *ngIf="personForm.submitted && gender.invalid" class="invalid-text">
+      <div *ngIf="gender.errors.required">Gender is required</div>
+    </div> -->
+    <br>
+
+
+    <div class="form-group">
+      <label>Mobile Number 1:</label>
+      <input
+        id="mobile_number1"
+        name="mobile_number1"
+        minlength="10"
+        maxlength="10"
+        (keypress)="keyPress($event)"
+        required
+        [(ngModel)]="mobile_number1"
+        #mobilenumber1="ngModel"
+        class="form-control"
+      />
+      <div *ngIf="mobilenumber1.errors && (mobilenumber1.dirty || mobilenumber1.touched)" class="text-danger">
+        <div [hidden]="!mobilenumber1.hasError('required')">Mobile Numberis Required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Mobile Number 2:</label>
+      <input
+        id="mobile_number2"
+        name="mobile_number2"
+        minlength="10"
+        maxlength="10"
+        (keypress)="keyPress($event)"
+        required
+        [(ngModel)]="mobile_number2"
+        #mobilenumber2="ngModel"
+        class="form-control"
+      />
+    </div>
+    <!-- <app-alert-card></app-alert-card> -->
+    <button
+      type="button"
+      class="btn btn-primary mb-2"
+      style="margin-right: 10px;"
+      (click)="
+        onSubmit(
+          $event,
+          firstname.value,
+          middlename.value,
+          lastname.value,
+          Address.value,
+          Pincode.value,
+          dateofBirth.value,
+          mobilenumber1.value,
+          mobilenumber2.value
+        )
+      "
+    >
+      Submit
+    </button>
+    <!-- <button type="button" class="btn btn-danger mb-2"> Cancel </button> -->
+    <!-- routerLink="../person-list" -->
+  </div>
+</form>

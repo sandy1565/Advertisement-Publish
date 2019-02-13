@@ -15,6 +15,9 @@ import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { PersonFormComponent } from './PersonForm/add-person/add-person.component';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +28,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     DashboardComponent,
     HeaderComponent,
     SidebarComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PersonFormComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     HttpModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [ AuthGuard ],
   bootstrap: [AppComponent],
