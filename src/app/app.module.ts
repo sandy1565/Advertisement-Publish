@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -17,6 +16,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PersonFormComponent } from './PersonForm/add-person/add-person.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PersonListComponent  } from './PersonForm/person-list/person-list.component';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     SidebarComponent,
     SpinnerComponent,
-    PersonFormComponent
+    PersonFormComponent,
+    PersonListComponent 
   ],
   imports: [
     BrowserModule,
@@ -38,9 +41,11 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ModalModule.forRoot(),
+    Nggx
   ],
-  providers: [ AuthGuard ],
+  providers: [ AuthGuard, DatePipe, BsModalRef ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

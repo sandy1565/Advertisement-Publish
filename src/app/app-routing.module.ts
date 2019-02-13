@@ -7,6 +7,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { PersonFormComponent } from './PersonForm/add-person/add-person.component';
+import { PersonListComponent } from './PersonForm/person-list/person-list.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -16,7 +17,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'add-person', component: PersonFormComponent },
-      // { path: 'specs', component: Specs }
+      { path: 'person-list', component: PersonListComponent }
     ]
   },
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], },
