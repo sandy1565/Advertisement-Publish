@@ -10,6 +10,8 @@ import { PersonFormComponent } from './PersonForm/add-person/add-person.componen
 import { PersonListComponent } from './PersonForm/person-list/person-list.component';
 import { AdvertisePublishComponent } from './advertisement-publish/advertise-publish/advertise-publish.component';
 import { ViewPublishComponent } from './advertisement-publish/view-publish/view-publish.component';
+import { AdvtDetailsComponent } from './advertisment-details/advt-details/advt-details.component';
+import { AdvtDetailsListComponent } from './advertisment-details/advt-details-list/advt-details-list.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -21,14 +23,14 @@ const routes: Routes = [
       { path: 'add-person', component: PersonFormComponent },
       { path: 'person-list', component: PersonListComponent },
       { path: 'advertise-publish', component: AdvertisePublishComponent},
-      { path: 'view-publish', component: ViewPublishComponent}
+      { path: 'view-publish', component: ViewPublishComponent},
+      { path: 'advt-details', component: AdvtDetailsComponent},
+      { path: 'advt-details-list', component: AdvtDetailsListComponent}
     ]
   },
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], },
-
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

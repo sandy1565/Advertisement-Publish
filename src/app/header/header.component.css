@@ -1,3 +1,56 @@
 .link {
-    color: blue;
+  color: blue;
+}
+
+.dropdown-btn {
+  padding: 2px;
+  text-decoration: none;
+  color: #ffffff;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+}
+
+/* On mouse-over */
+.dropdown-btn:hover {
+  background-color: transparent;
+  color: black;
+}
+
+.dropdown-container a:hover {
+  background-color: none;
+  color: none;
+}
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+.active {
+  /* color: white; */
+}
+
+.dropdown-container {
+  display: none; 
+  top:0;
+  bottom: 0;
+}
+
+
+.fa-caret-down {
+  padding-right: 8px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
 }

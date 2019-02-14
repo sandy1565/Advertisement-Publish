@@ -39,13 +39,15 @@ export class PersonFormComponent implements OnInit {
   selectedState;
   selectedCity;
   model: any = {};
+  gender = ['Male', 'Female', 'Transgender'];
+
   constructor(private service: PersonServiceService, private route: Router) {}
 
   genderModel = new Gender();
 
-  getValue(gender) {
-    this.genderModel.gender = gender;
-    console.log('--------------this.genderModel.gender =================', this.genderModel.gender);
+  getValue(e){
+    this.gender = e.target.value;
+    console.log('--------------this.genderModel.gender =================', this.gender);
   }
 
   ngOnInit() {
@@ -171,7 +173,7 @@ export class PersonFormComponent implements OnInit {
     personDetails['mobile_number1'] = mobilenumber1;
     personDetails['mobile_number2'] = mobilenumber2;
     // if(this.validateinput.validateInput(personDetails)) {
-
+    console.log("================Get Object data=================",personDetails);
     this.service.addPersonDetails(personDetails).subscribe(data => {
       console.log(data);
       console.log('added successfully');

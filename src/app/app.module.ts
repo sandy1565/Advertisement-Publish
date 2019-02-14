@@ -23,6 +23,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxClickToEditModule } from 'ngx-click-to-edit';
 import { ViewPublishComponent } from './advertisement-publish/view-publish/view-publish.component';
 import { AdvertisePublishComponent } from './advertisement-publish/advertise-publish/advertise-publish.component';
+import { AdvtDetailsComponent } from './advertisment-details/advt-details/advt-details.component';
+import { AdvtDetailsListComponent } from './advertisment-details/advt-details-list/advt-details-list.component';
+import { NgxUiLoaderModule } from  'ngx-ui-loader';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,9 @@ import { AdvertisePublishComponent } from './advertisement-publish/advertise-pub
     PersonFormComponent,
     PersonListComponent,
     ViewPublishComponent,
-    AdvertisePublishComponent
+    AdvertisePublishComponent,
+    AdvtDetailsListComponent,
+    AdvtDetailsComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -49,7 +55,8 @@ import { AdvertisePublishComponent } from './advertisement-publish/advertise-pub
     HttpClientModule,
     ModalModule.forRoot(),
     NgxPaginationModule,
-    NgxClickToEditModule
+    NgxClickToEditModule,
+    NgxUiLoaderModule
   ],
   providers: [ AuthGuard, DatePipe, BsModalRef ],
   bootstrap: [AppComponent],

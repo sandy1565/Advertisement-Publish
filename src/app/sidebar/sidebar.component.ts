@@ -9,6 +9,7 @@ export class SidebarComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
   openDropdown(e) {
     console.log('hi this is ddp');
     const dropdown = document.getElementsByClassName('dropdown-btn');
@@ -25,4 +26,6 @@ export class SidebarComponent implements OnInit {
       });
     }
   }
+
+
 }

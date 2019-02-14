@@ -18,10 +18,13 @@
         <nav id="nav">
           <a href="#" class="link">Home</a>
           <a href="#" class="link">Contact Us</a>
-          <a href="#" class="link">About Us</a>
-          <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-              <i class="fa fa-user"></i> {{ firstname + ' ' + lastname }} <b class="caret"></b>
-          </a>
+          <a href="#" class="link">About Us</a> 
+          <button class="dropdown-btn" (click)="openDropdown($event)">{{ firstname + " " + lastname }}
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+              <a href="#" routerLink="/login">Logout</a>
+          </div>
         </nav>
       </div>
     </header>
