@@ -3,12 +3,42 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-   <div id="wrapper">
-
+   <div id="wrapper" >
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
+
+        <div class="sidenav" style="padding-top: 110px;">
+            <button class="dropdown-btn" (click)="openDropdown($event)">Person Details 
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+              <a href="#" routerLink="/super-admin-dashboard/add-person">Add Person Details</a>
+              <a href="#" routerLink="/super-admin-dashboard/person-list">View Person List</a>
+              <!-- <a href="#">Link 3</a> -->
+            </div>
+
+            <button class="dropdown-btn" (click)="openDropdown($event)">Advertisement Details 
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="#" routerLink="/super-admin-dashboard/add-person">Add Advertisement</a>
+                <a href="#" routerLink="/super-admin-dashboard/person-list">View Advertisement List</a>
+                <!-- <a href="#">Link 3</a> -->
+              </div>
+
+              <button class="dropdown-btn" (click)="openDropdown($event)">Publish Details 
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a href="#" routerLink="/super-admin-dashboard/advertise-publish">Add Advertise</a>
+                <a href="#" routerLink="/super-admin-dashboard/view-publish">View Advertise List</a>
+                <!-- <a href="#">Link 3</a> -->
+              </div>
+
+          </div>
+
+        <!-- <div id="sidebar-wrapper">
+             <ul class="sidebar-nav">
+               <li class="sidebar-brand">
                     <a href="#">
                         Advt Sidebar
                     </a>
@@ -23,7 +53,7 @@
                     <a href="#">Publish Advertisment</a>
                 </li>
             </ul>
-        </div>
+        </div> -->
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->

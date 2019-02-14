@@ -6,13 +6,11 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { DatePipe } from '@angular/common';
 import { Gender } from '../person-service/person.modal';
-
 @Component({
   selector: 'app-person-list',
   templateUrl: './person-list.component.html',
   styleUrls: ['./person-list.component.scss']
 })
-
 
 export class PersonListComponent implements OnInit {
   persons: any;

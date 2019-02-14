@@ -8,6 +8,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { PersonFormComponent } from './PersonForm/add-person/add-person.component';
 import { PersonListComponent } from './PersonForm/person-list/person-list.component';
+import { AdvertisePublishComponent } from './advertisement-publish/advertise-publish/advertise-publish.component';
+import { ViewPublishComponent } from './advertisement-publish/view-publish/view-publish.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -15,9 +17,11 @@ const routes: Routes = [
   {
     path: 'super-admin-dashboard', component: SuperAdminDashboardComponent, canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: '', redirectTo: 'super-admin-dashboard', pathMatch: 'full' },
       { path: 'add-person', component: PersonFormComponent },
-      { path: 'person-list', component: PersonListComponent }
+      { path: 'person-list', component: PersonListComponent },
+      { path: 'advertise-publish', component: AdvertisePublishComponent},
+      { path: 'view-publish', component: ViewPublishComponent}
     ]
   },
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], },

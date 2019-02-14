@@ -19,7 +19,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { PersonListComponent  } from './PersonForm/person-list/person-list.component';
 import { ModalModule, BsModalRef } from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxClickToEditModule } from 'ngx-click-to-edit';
+import { ViewPublishComponent } from './advertisement-publish/view-publish/view-publish.component';
+import { AdvertisePublishComponent } from './advertisement-publish/advertise-publish/advertise-publish.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,18 +35,21 @@ import { DatePipe } from '@angular/common';
     SidebarComponent,
     SpinnerComponent,
     PersonFormComponent,
-    PersonListComponent 
+    PersonListComponent,
+    ViewPublishComponent,
+    AdvertisePublishComponent
   ],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
-    Nggx
+    NgxPaginationModule,
+    NgxClickToEditModule
   ],
   providers: [ AuthGuard, DatePipe, BsModalRef ],
   bootstrap: [AppComponent],

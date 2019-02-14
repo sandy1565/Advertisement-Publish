@@ -11,6 +11,6 @@ import { PersonFormRoutingModule } from './person-form-routing.module';
         ReactiveFormsModule,
         FormsModule
     ],
-    declarations: [PersonFormComponent]
+    declarations: []
 })
 export class PersonFormModule {}
