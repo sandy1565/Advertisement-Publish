@@ -10,6 +10,8 @@ import { CommonConstant } from '../CommonConstant/CommonConstant';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  errorMessage: '';
   constructor(public router: Router, private loginService: LoginService) {}
 
   formData = {
@@ -18,19 +20,11 @@ export class LoginComponent implements OnInit {
   };
 
   ngOnInit() {}
-
-  // onSubmit(form: NgForm) {
-  //   this.loginService.getLogin(form.value).subscribe(data => {
-  //     const returnUserDetailsJson = data.json();
-  //       if(returnUserDetailsJson.status == 200 ) {
-
-  //       }
-  //       })
-  //     }
   onSubmit(form: NgForm) {
     this.loginService.getLogin(form.value).subscribe(data => {
       const userDetailsJSON = data.json();
       if (userDetailsJSON.status === 200) {
+        console.log(userDetailsJSON.message);
         localStorage.setItem('token', userDetailsJSON.accessToken);
         localStorage.setItem('firstname', userDetailsJSON.firstname);
         localStorage.setItem('lastName', userDetailsJSON.lastname);
@@ -48,16 +42,19 @@ export class LoginComponent implements OnInit {
           } else if (userDetailsJSON.typeOfUser === CommonConstant.NORMAL_USER) {
             this.router.navigate(['/dashboard']);
           }
-        } else if (userDetailsJSON.status === 401) {
+        }
+      }
+        else if (userDetailsJSON.status === 401) {
           if (
             userDetailsJSON.message != null ||
             userDetailsJSON.message !== '' ||
             userDetailsJSON.message !== 'undefined'
           ) {
-            this.router.navigate(['/homepage']);
+            console.log(userDetailsJSON);
+            // localStorage.setItem('errorMessage', userDetailsJSON.message);
+            this.errorMessage = userDetailsJSON.message;
           }
       }
-    }
     });
   }
 }

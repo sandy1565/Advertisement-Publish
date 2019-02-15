@@ -13,6 +13,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
+import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PersonFormComponent } from './PersonForm/add-person/add-person.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,8 +27,7 @@ import { ViewPublishComponent } from './advertisement-publish/view-publish/view-
 import { AdvertisePublishComponent } from './advertisement-publish/advertise-publish/advertise-publish.component';
 import { AdvtDetailsComponent } from './advertisment-details/advt-details/advt-details.component';
 import { AdvtDetailsListComponent } from './advertisment-details/advt-details-list/advt-details-list.component';
-import { NgxUiLoaderModule } from  'ngx-ui-loader';
-
+import { SearchAdvtDetailsPipe } from './advertisment-details/advt-details-list/search-advt-details.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,9 @@ import { NgxUiLoaderModule } from  'ngx-ui-loader';
     AdvertisePublishComponent,
     AdvtDetailsListComponent,
     AdvtDetailsComponent,
+    SearchAdvtDetailsPipe,
+    AdminSidebarComponent,
+    UserSidebarComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -56,7 +60,6 @@ import { NgxUiLoaderModule } from  'ngx-ui-loader';
     ModalModule.forRoot(),
     NgxPaginationModule,
     NgxClickToEditModule,
-    NgxUiLoaderModule
   ],
   providers: [ AuthGuard, DatePipe, BsModalRef ],
   bootstrap: [AppComponent],

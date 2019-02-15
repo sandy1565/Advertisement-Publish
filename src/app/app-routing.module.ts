@@ -28,8 +28,26 @@ const routes: Routes = [
       { path: 'advt-details-list', component: AdvtDetailsListComponent}
     ]
   },
-  { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], },
+  { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard],
+    children: [
+    { path: '', redirectTo: 'admin-dashboard', pathMatch: 'full' },
+    { path: 'add-person', component: PersonFormComponent },
+    { path: 'person-list', component: PersonListComponent },
+    { path: 'advertise-publish', component: AdvertisePublishComponent},
+    { path: 'view-publish', component: ViewPublishComponent},
+    { path: 'advt-details', component: AdvtDetailsComponent},
+    { path: 'advt-details-list', component: AdvtDetailsListComponent}
+  ] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
+  children: [
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: 'add-person', component: PersonFormComponent },
+    { path: 'person-list', component: PersonListComponent },
+    { path: 'advertise-publish', component: AdvertisePublishComponent},
+    { path: 'view-publish', component: ViewPublishComponent},
+    { path: 'advt-details', component: AdvtDetailsComponent},
+    { path: 'advt-details-list', component: AdvtDetailsListComponent}
+  ] },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
