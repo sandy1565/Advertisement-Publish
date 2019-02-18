@@ -1,3 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import '~bootstrap/scss/bootstrap'; */
 @import './styles/spinner.scss';
+
+#left-nav.open{
+    display:block !important;
+}
+
+.navPanelToggle {
+    left:0px !important;
+}

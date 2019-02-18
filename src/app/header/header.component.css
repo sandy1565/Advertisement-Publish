@@ -13,12 +13,6 @@
   background-color: transparent;
 }
 
-/* On mouse-over */
-.dropdown-btn:hover {
-  background-color: transparent;
-  color: black;
-}
-
 .dropdown-container a:hover {
   background-color: none;
   color: none;
@@ -31,26 +25,8 @@
   padding: 0px 10px;
 }
 
-.active {
-  /* color: white; */
-}
-
 #header {
   z-index: 1000 !important;
-}
-
-
-
-
-.dropdown-container {
-  display: none; 
-  top:0;
-  bottom: 0;
-}
-
-
-.fa-caret-down {
-  padding-right: 8px;
 }
 
 @media screen and (max-height: 450px) {

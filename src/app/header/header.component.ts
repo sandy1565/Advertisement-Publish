@@ -19,6 +19,16 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("isLoggedin");
   }
 
+  toggleSideBar(){
+    let wrapper = document.getElementById('left-nav');
+    if(!wrapper.classList.value.includes("open")){
+      wrapper.classList.value = "d-none d-sm-none d-md-none col-md-3 d-lg-block d-xl-block open";
+    }
+    else{
+      wrapper.classList.value = "d-none d-sm-none d-md-none col-md-3 d-lg-block d-xl-block";
+    }
+  }
+
   openDropdown($event) {
     console.log('hi this is ddp');
     const dropdown = document.getElementsByClassName('dropdown-btn');

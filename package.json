@@ -27,6 +27,7 @@
     "ngx-click-to-edit": "0.0.7",
     "ngx-pagination": "^3.2.1",
     "ngx-ui-loader": "^1.2.5",
+    "popper.js": "^1.14.7",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

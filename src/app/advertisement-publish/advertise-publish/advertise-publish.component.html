@@ -2,9 +2,19 @@
   <div class="container-fluid">
     <h2>Publish Your Advertisement</h2>
     <div class="form-group">
-      <label for="gender" class="control-label">Send Messages To Male, Female or Both</label> 
-      <select placeholder="Select Gender" name="gender" [(ngModel)]="genderModel.gender" (change)="getValue($event)"
-        #gender="ngModel" class="form-control input-lg" [ngClass]="{ 'is-invalid': personForm.submitted && gender.invalid }" required>
+      <label for="gender" class="control-label"
+        >Send Messages To Male, Female or Both</label
+      >
+      <select
+        placeholder="Select Gender"
+        name="gender"
+        [(ngModel)]="genderModel.gender"
+        (change)="getValue($event)"
+        #gender="ngModel"
+        class="form-control input-lg"
+        [ngClass]="{ 'is-invalid': personForm.submitted && gender.invalid }"
+        required
+      >
         <option>Male</option>
         <option>Female</option>
         <option>Other</option>
@@ -22,7 +32,11 @@
         id="country"
       >
         <option value="0">Select Country</option>
-        <option *ngFor="let country of getCountries()" value="{{ country.country_id }}">{{ country.country_name }}</option>
+        <option
+          *ngFor="let country of getCountries()"
+          value="{{ country.country_id }}"
+          >{{ country.country_name }}</option
+        >
       </select>
     </div>
 
@@ -36,15 +50,23 @@
         id="state"
       >
         <option selected disabled="true"> Select State</option>
-        <option *ngFor="let state of states" value="{{ state.state_id }}">{{ state.statename }}</option>
+        <option *ngFor="let state of states" value="{{ state.state_id }}">{{
+          state.statename
+        }}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label class="control-label" for="City">City:</label>
-      <select class="form-control input-lg" id="city" (change)="onSelectCity($event.target.value)">
+      <select
+        class="form-control input-lg"
+        id="city"
+        (change)="onSelectCity($event.target.value)"
+      >
         <option selected disabled="true">Select City</option>
-        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{ city.cityname }}</option>
+        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{
+          city.cityname
+        }}</option>
       </select>
     </div>
 
@@ -59,32 +81,38 @@
         (change)="selectLocation()"
       >
         <option>Select Location</option>
-        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}</option>
+        <option
+          *ngFor="let location of locations"
+          [ngValue]="location.location_id"
+          >{{ location.location_name }}</option
+        >
       </select>
     </div>
 
-      <div class="form-group">
-        <label class="label-control">Block:</label>
-        <select
-          id="block_id"
-          #block_id="ngModel"
-          class="hideLabel form-control"
-          [(ngModel)]="blockId"
-          name="block_id"
-          (change)="selectBlockName()"
-        >
-          <option selected="" value="">Select Your block</option>
-          <option [ngValue]="block.block_id" *ngFor="let block of blocks">
-            {{ block.blockname }}
-          </option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label class="label-control">Block:</label>
+      <select
+        id="block_id"
+        #block_id="ngModel"
+        class="hideLabel form-control"
+        [(ngModel)]="blockId"
+        name="block_id"
+        (change)="selectBlockName()"
+      >
+        <option selected="" value="">Select Your block</option>
+        <option [ngValue]="block.block_id" *ngFor="let block of blocks">
+          {{ block.blockname }}
+        </option>
+      </select>
+    </div>
 
-      <!-- messages to senior citizens -->
-      <div class="form-group">
-        <label class="col-form-label"> Send message to particular age group:</label>
-        <br>
-        <label class="col-md-2">From Age</label> 
+    <!-- messages to senior citizens -->
+    <div class="row">
+        <label class="col-form-label">
+          Send message to particular age group:</label
+        >
+        <div class="form-group col-sm-6 col-md-6">
+        <label class="col-form-label">From Age</label>
         <input
           #ageGroup
           type="text"
@@ -94,8 +122,9 @@
           name="ageGrp"
           #from_age
         />
-        <br />
-        <label class="col-md-2">To Age</label> 
+      </div>
+      <div class="form-group col-sm-6 col-md-6">
+        <label class="col-form-label">To Age</label>
         <input
           #ageGroup
           type="text"
@@ -106,31 +135,46 @@
           #to_age
         />
       </div>
-      <!-- Add Message -->
-      <div class="form-group">
-        <label  class="label-control">Write Your Message :</label>
-        <textarea type="text" name="advt_details"  id= "advt_details" required
-         [(ngModel)]="textMessage" #Message="ngModel" class = "form-control"></textarea>
-         <div *ngIf ="Message.errors && (Message.dirty||  Message.touched)" class ="text-danger">
-           <div [hidden] ="!Message.hasError('required')"> message details required</div>
-         </div> 
-      </div>
-
-      <!-- Submit your data -->
-
-      <div class="form-group">
-        <input
-          type="button"
-          data-dismiss="modal"
-          style="display:none"
-          #dismissBtn
-        />
-        <input
-          value="SUBMIT"
-          class=" btn btn-primary"
-          type="submit"
-          (click)="publishDetails($event, from_age.value, to_age.value, Message.value )"
-        />
+    </div>
+    <!-- Add Message -->
+    <div class="form-group">
+      <label class="label-control">Write Your Message :</label>
+      <textarea
+        type="text"
+        name="advt_details"
+        id="advt_details"
+        required
+        [(ngModel)]="textMessage"
+        #Message="ngModel"
+        class="form-control"
+      ></textarea>
+      <div
+        *ngIf="Message.errors && (Message.dirty || Message.touched)"
+        class="text-danger"
+      >
+        <div [hidden]="!Message.hasError('required')">
+          message details required
+        </div>
       </div>
     </div>
+
+    <!-- Submit your data -->
+
+    <div class="form-group">
+      <input
+        type="button"
+        data-dismiss="modal"
+        style="display:none"
+        #dismissBtn
+      />
+      <input
+        value="SUBMIT"
+        class=" btn btn-primary"
+        type="submit"
+        (click)="
+          publishDetails($event, from_age.value, to_age.value, Message.value)
+        "
+      />
+    </div>
+  </div>
 </form>

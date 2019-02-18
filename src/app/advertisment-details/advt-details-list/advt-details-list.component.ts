@@ -7,7 +7,7 @@ import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 @Component({
   selector: "app-advt-details-list",
   templateUrl: "./advt-details-list.component.html",
-  styleUrls: ["./advt-details-list.component.css"]
+  styleUrls: ["./advt-details-list.component.scss"]
 })
 export class AdvtDetailsListComponent implements OnInit {
   users: any;

@@ -7,7 +7,7 @@ import { HttpHeaders } from "@angular/common/http";
 @Component({
   selector: 'app-advt-details',
   templateUrl: './advt-details.component.html',
-  styleUrls: ['./advt-details.component.css']
+  styleUrls: ['./advt-details.component.scss']
 })
 export class AdvtDetailsComponent implements OnInit {
   constructor(private advtService: AdvtDetailsService) {}

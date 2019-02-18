@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Advertisement Publish</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=no"
-    />
-    <link rel="stylesheet" href="../../assets/css/main.css" />
-    <!-- <link rel="stylesheet" href="assets/css/main.css" /> -->
-  </head>
-  <body>
-    <!-- Header -->
-    <header id="header">
-      <div class="inner">
-        <a href="index.html" class="logo">Advertisement Publish</a>
-        <nav id="nav">
-          <a href="#" class="link">Home</a>
-          <a href="#" class="link">Contact Us</a>
-          <a href="#" class="link">About Us</a> 
-          <button class="dropdown-btn" (click)="openDropdown($event)">{{ firstname + " " + lastname }}
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-container">
-              <a href="#" routerLink="/login">Logout</a>
-          </div>
-        </nav>
+<a class="navPanelToggle" (click)="toggleSideBar()"
+  ><span class="fa fa-bars"></span
+></a>
+<!-- Header -->
+<header id="header">
+  <div class="inner">
+    <a href="index.html" class="logo">Advertisement Publish</a>
+    <nav id="nav">
+      <a href="#" class="link">Home</a>
+      <a href="#" class="link">Contact Us</a>
+      <a href="#" class="link">About Us</a>
+    </nav>
+    <!-- <div style="display: inline-block">
+      <button class="dropdown-btn" (click)="openDropdown($event)">
+        {{ firstname + " " + lastname }}
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container" style="background-color: #efe9e9; text-align: left;">
+        <a href="#" routerLink="/login">Logout</a>
       </div>
-    </header>
-    
-    <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-  </body>
-</html>
+    </div> -->
+
+    <div class="dropdown">
+        <button class="dropdown-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ firstname + " " + lastname }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a href="#" routerLink="/login">Logout</a>
+          </div>
+      </div>
+  </div>
+</header>
