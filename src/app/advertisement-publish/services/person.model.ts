@@ -10,7 +10,7 @@ export class PersonModel{
     public mobile_number1:string;
     public mobile_number2:string;
     public username :string; 
-    public gender :string; 
+    public PersonModel :string; 
     public date_of_birth :Date; 
 }
 

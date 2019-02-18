@@ -1,75 +1,25 @@
-.container-fluid{
-  width: 75%;
-  padding-top: 110px;
-  margin-left: 200px;
-} 
-.autocomplete {
-    position: relative;
-    width: 100%;
-    height: auto;
+.genderList {
+  list-style: none;
 }
 
-.chips-input-container{
-  display: inline-flex;
-  border: 1px solid grey;
+.form-group {
+  font-size: 80%;
 }
 
-input {
-  font-weight: 600;
-  border: none;
-  outline: none;
-}
-input:hover{
-  border:none;
-  border-radius: 0px;
+.h2 {
+  font-size: 170%;
 }
 
-.autocomplete-items {
-    position: absolute;
-    border: 1px solid #d4d4d4;
-    border-radius: 4px;
-    margin-top: 15px;
-    top: 100%;
-    left: 0;
-    right: 50%;
-}
-
-.selected-suggestion{
-    background-color: red !important; 
-    color: white;
-}
-
-.autocomplete-items div {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #fff;
-    border-bottom: 1px solid #d4d4d41a;
-}
-
-.autocomplete-items div:hover {
-    background-color: #a695957a; 
-}
-
-.user-chip{
-  border: 1px solid;
-  background: grey;
-  padding: 4px 0px;
-  border-radius: 10px;
-  width: 150px;
+.header {
   text-align: center;
-  color: white;
+}
+.container-fluid {
+  width: 70%;
+  padding-top: 100px;
+  margin-left: 250px;
 }
 
-.delete-icon-chip {
-    color: white;
-    opacity: 0.7;
-    cursor: pointer;
-    float: right;
-    position: relative;
-    right: 7px;
-    font-size: 12px;
-}
-
-.delete-icon-chip:hover {
-  opacity: 1;
+.input-lg,
+.form-group-lg .form-control {
+  padding: 0px 1px 1px 10px;
 }

@@ -9,7 +9,7 @@ import { URN } from '../../CommonConst/constURN';
 @Injectable({
   providedIn: 'root'
 })
-export class PersonServiceService {
+export class PersonService {
   constructor(private http: HttpClient) {}
 
   public getPerson() {

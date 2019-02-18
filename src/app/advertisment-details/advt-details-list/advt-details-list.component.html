@@ -1,50 +1,55 @@
 <form class="form container">
   <div class="container-fluid">
-  <!-- <input class="form-control form-control-dark" id = "search"  placeholder="Search By Client Name" aria-label="Search" [(ngModel)]="searchTerm"> -->
-   
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">CLIENT NAME</th>
-      <th scope="col">ADVERTISEMENT DETAILS</th>
-      <th scope="col">ACTIONS</th>
-    </tr>
-  </thead>
-  <tbody>
-      <!-- | searchAdvtDetails: _searchTerm  -->
-    <tr *ngFor = "let a of users | paginate: {itemsPerPage:4, currentPage:p}"  (click)="onItemClick(a)" >
-      <td>{{a.clientName}}</td>
-      <td>{{a.advt_details}}</td>
-      <button type="button" class="btn btn-light" (click)="clickOnEditCardBtn($event, a)" data-target="#editModal" data-toggle="modal">Edit</button>
-      <button type="button" class="btn btn-primary">Delete</button>
-    
-    </tr>
-  </tbody>
-</table>
+    <!-- <input class="form-control form-control-dark" id = "search"  placeholder="Search By Client Name" aria-label="Search" [(ngModel)]="searchTerm"> -->
 
-<div class="page">
-<pagination-controls (pageChange) ="p =$event"></pagination-controls>
-</div>
-</div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">CLIENT NAME</th>
+          <th scope="col">ADVERTISEMENT DETAILS</th>
+          <th scope="col">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- | searchAdvtDetails: _searchTerm  -->
+        <tr
+          *ngFor="
+            let a of (users | paginate: { itemsPerPage: 4, currentPage: p })
+          "
+          (click)="onItemClick(a)"
+        >
+          <td>{{ a.clientName }}</td>
+          <td>{{ a.advt_details }}</td>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="clickOnEditCardBtn($event, a)"
+            data-target="#editModal"
+            data-toggle="modal"
+          >
+            Edit
+          </button>
+          <button type="button" class="btn btn-danger">Delete</button>
+        </tr>
+      </tbody>
+    </table>
 
-<router-outlet></router-outlet>
+    <div class="page">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
 
+  <router-outlet></router-outlet>
+  <!-- 
 <div class="modal fade" id="editModal" trole="dialog" tabindex="-1" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
       <div class="modal-body" style="margin-top: 175px;">
-
-<form #advtForm="ngForm" class ="form">
+      <form #advtForm="ngForm" class ="form">
     <h1>ADVERTISEMENT DETAILS</h1>
   
-    <div class="form-group">
-      <label>ClientName</label>
+  <div class="form-group">
+  <label>ClientName</label>
   <select id="client_id" [(ngModel)]="clientId" #client_id="ngModel" (change)="selectClientName()" name="clientId" class="form-control">
   <option [ngValue]="client.clientId" *ngFor=" let client of clientName" >
     {{client.clientName}}
@@ -86,12 +91,95 @@
         </div>
       </div>
   
-   <!-- <button type="button" class="btn btn-primary"  routerLink="../advt-details-list"  (click)="onSubmit($event, AdvtDetails.value, publishDate.value, ageFrom.value, ageTo.value )">submit</button>                   -->
+    <button type="button" class="btn btn-primary"  routerLink="../advt-details-list"  (click)="onSubmit($event, AdvtDetails.value, publishDate.value, ageFrom.value, ageTo.value )">submit</button>                    
+      </form> -->
+
+  <div
+    class="modal fade"
+    id="editModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Advertisment List :
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body row">
+          <div class="form-group col-md-6 col-sm-12">
+            <label>ClientName</label>
+            <select
+              id="client_id"
+              [(ngModel)]="clientId"
+              #client_id="ngModel"
+              (change)="selectClientName()"
+              name="clientId"
+              class="form-control"
+            >
+              <option
+                [ngValue]="client.clientId"
+                *ngFor="let client of clientName"
+              >
+                {{ client.clientname }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6 col-sm-12">
+            <label  class="label-control">Advertisement Details:</label>
+            <input type="text" name="advt_details"  id= "advt_details"   (keypress)="keyPressed($event)" required
+             [(ngModel)]="cardToEdit.advt_details" #AdvtDetails="ngModel" class = "form-control">
+             <div *ngIf ="AdvtDetails.errors && (AdvtDetails.dirty||  AdvtDetails.touched)" class ="text-danger">
+               <div [hidden] ="!AdvtDetails.hasError('required')"> Advertisement details required</div>
+             </div> 
+          </div>
+
+          <div class="form-group col-md-6 col-sm-12">
      
-  </form>
-  
-  
-  
-  
-  
-  
+            <label class="label-control">Publish Date:</label>
+              <input class="form-control" type="date" name="publish_date" [(ngModel)]="cardToEdit.publish_date" #publishDate="ngModel">
+           
+        </div>   
+        
+        <div class="form-group col-md-6 col-sm-12">
+            <label  class="label-control">Age From:</label>
+            <input type="text" name="ageFrom" class="form-control"  value="age_from"   id="age_from" [(ngModel)]="age_from"  (change)= "fromDate(age_from.value)"  minlength ="2" maxlength ="3"  (keypress)="keyPress($event)" #ageFrom="ngModel" required>
+            <div *ngIf ="ageFrom.errors && (ageFrom.dirty|| ageFrom.touched)" class="text-danger">
+              <div [hidden] ="!ageFrom.hasError('required')"> Age is Required</div>
+            </div>
+          </div>
+      
+          <div class="form-group col-md-6 col-sm-12">
+            <label  class="label-control">Age To:</label>
+            <input type="text" name="age_to"  id ="age_to"  value ="age_to" class="form-control"   (change)="checkPrice()" [(ngModel)]="age_to" minlength="2" maxlength="3"   (keypress)="keyPress($event)" #ageTo="ngModel" required>
+            <div *ngIf ="ageTo.errors && (ageTo.dirty || ageTo.touched)" class ="text-danger">
+              <div [hidden] ="!ageTo.hasError('required')"> Age is Required</div>
+            </div>
+          </div>
+          <!-- (click)="onSubmit($event, AdvtDetails.value, publishDate.value, ageFrom.value, ageTo.value )"                     -->
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary"  routerLink="../advt-details-list" >submit</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

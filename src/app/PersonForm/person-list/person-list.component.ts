@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { PersonModel } from '../person-service/person.modal';
-import { PersonServiceService } from '../person-service/person.service';
+import { PersonService } from '../person-service/person.service';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -49,7 +49,7 @@ export class PersonListComponent implements OnInit {
 
   modalRef: BsModalRef | null;
   modalRef2: BsModalRef;
-  constructor(private service: PersonServiceService, private router: Router,
+  constructor(private service: PersonService, private router: Router,
     private modalService: BsModalService, private datePipe: DatePipe) {
   }
 

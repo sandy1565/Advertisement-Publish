@@ -1,82 +1,136 @@
-<form class="form container">
+<form class="form container" #personForm="ngForm">
   <div class="container-fluid">
     <h2>Publish Your Advertisement</h2>
     <div class="form-group">
-      <label for="gender">Send Messages To Male, Female or Both</label>
-      <!-- <div class="form-check">
-        <input type="radio" value="male" name="gender" ngModel="gender" required #gender_type /> Male
-        <input type="radio" value="female" name="gender1" [(ngModel)]="gender" required [ngModelOptions]="{standalone: true}" /> Female
-      </div> -->
-      <div class="form-group">
-          <label for="">Gender: </label>
-          <ul class="genderList">
-            <li *ngFor="let g of gender">
-              <input type="radio" name="gender" (click)="getValue(gender.value)" value="{{g}}" #gender> {{g}}
-            </li>
-          </ul>
-        </div>
+      <label for="gender" class="control-label">Send Messages To Male, Female or Both</label> 
+      <select placeholder="Select Gender" name="gender" [(ngModel)]="genderModel.gender" (change)="getValue($event)"
+        #gender="ngModel" class="form-control input-lg" [ngClass]="{ 'is-invalid': personForm.submitted && gender.invalid }" required>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </div>
 
-      <div class="form-group">
-        <label class="label-control">Location:</label>
-       
-        <select id="location_id" class="hideLabel form-control" ngModel>
-          <option value="please select any value" selected>Select any value</option>
-          <option [value]="location.location_id" *ngFor="let location of locations">
-            {{ location.location_name }}
-          </option>
-        </select>
+    <div class="form-group">
+      <label class="control-label" for="Country">Country:</label>
+      <select
+        *ngIf="getCountries()"
+        [(ngModel)]="selectedCountry"
+        name="selectedCountry"
+        (change)="onSelectCountry($event.target.value)"
+        class="form-control input-lg"
+        id="country"
+      >
+        <option value="0">Select Country</option>
+        <option *ngFor="let country of getCountries()" value="{{ country.country_id }}">{{ country.country_name }}</option>
+      </select>
+    </div>
 
-        <!-- <div class="autocomplete">
-          <div class="chips-input-container">
-            <div class="user-chip" *ngFor="let location of userSelects">
-              {{location.locationName}}
-              <span (click)="deleteSelects(location)" class="delete-icon-chip">&#10006;</span>
-            </div>
-            <input name="suggestion" type="text" placeholder="Location" (click)="suggest()" ngModel="userSelectsString">
-          </div>
-          <div class="autocomplete-items" *ngIf="show">
-            <div *ngFor="let s of locations" [ngClass]="isSelected(s) ? 'selected-suggestion' : ''" (click)="selectSuggestion(s)">{{
-              s.location_name }}</div>
-          </div>
-        </div> -->
-      </div>
+    <div class="form-group">
+      <label class="control-label" for="States">States:</label>
+      <select
+        [(ngModel)]="selectedState"
+        name="selectedState"
+        (change)="onSelectState($event.target.value)"
+        class="form-control input-lg"
+        id="state"
+      >
+        <option selected disabled="true"> Select State</option>
+        <option *ngFor="let state of states" value="{{ state.state_id }}">{{ state.statename }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="City">City:</label>
+      <select class="form-control input-lg" id="city" (change)="onSelectCity($event.target.value)">
+        <option selected disabled="true">Select City</option>
+        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{ city.cityname }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="City">Location:</label>
+      <select
+        class="form-control input-lg"
+        [(ngModel)]="locationId"
+        #location_id="ngModel"
+        id="location"
+        name="location_name"
+        (change)="selectLocation()"
+      >
+        <option>Select Location</option>
+        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}</option>
+      </select>
+    </div>
 
       <div class="form-group">
         <label class="label-control">Block:</label>
-        <select id="block_id" class="hideLabel form-control" ngModel="blockId" name="block_id" (change)="selectBlockName()">
-          <option value="please select any value" selected>Select any value</option>
-          <option [value]="block.block_id" *ngFor="let block of blocks">
-            {{ block.block_name }}
+        <select
+          id="block_id"
+          #block_id="ngModel"
+          class="hideLabel form-control"
+          [(ngModel)]="blockId"
+          name="block_id"
+          (change)="selectBlockName()"
+        >
+          <option selected="" value="">Select Your block</option>
+          <option [ngValue]="block.block_id" *ngFor="let block of blocks">
+            {{ block.blockname }}
           </option>
         </select>
       </div>
 
       <!-- messages to senior citizens -->
       <div class="form-group">
-        <label class="label-control">Send Messages To Senior Citizens Or All.</label>
+        <label class="col-form-label"> Send message to particular age group:</label>
+        <br>
+        <label class="col-md-2">From Age</label> 
+        <input
+          #ageGroup
+          type="text"
+          class="form-control"
+          id="ageGroup"
+          [(ngModel)]="fromAge"
+          name="ageGrp"
+          #from_age
+        />
         <br />
-        <!-- <input type="radio" name="messages_to_send" ngModel="message_to_send" class="form-control" id="messages_to_ss"
-          #messages_to_send>Senior Citizen
-        <input type="radio" name="messages_to_all" class="form-control" ngModel="message_to_send" id="messages_to_all"
-          #messages_to_send>All -->
-        <input type="radio" value="messages_to_send" name="messages" ngModel="messages" required #messages_to_send /> Senior Citizen
-        <input type="radio" value="messages_to_send" name="messages_to_send" ngModel="messages_to_sen" required #messages_to_send /> All
+        <label class="col-md-2">To Age</label> 
+        <input
+          #ageGroup
+          type="text"
+          class="form-control"
+          id="ageGroup"
+          [(ngModel)]="toAge"
+          name="ageGrp"
+          #to_age
+        />
+      </div>
+      <!-- Add Message -->
+      <div class="form-group">
+        <label  class="label-control">Write Your Message :</label>
+        <textarea type="text" name="advt_details"  id= "advt_details" required
+         [(ngModel)]="textMessage" #Message="ngModel" class = "form-control"></textarea>
+         <div *ngIf ="Message.errors && (Message.dirty||  Message.touched)" class ="text-danger">
+           <div [hidden] ="!Message.hasError('required')"> message details required</div>
+         </div> 
       </div>
 
-      <div class="form-group">
-        <label class="label-control">Send message to particular age group:</label>
-        <input #ageGroup type="text" class="form-control" id="ageGroup" ngModel="inputAddGroup" name="ageGrp" />
-      </div>
+      <!-- Submit your data -->
 
       <div class="form-group">
-        <input type="button" data-dismiss="modal" style="display:none" #dismissBtn />
+        <input
+          type="button"
+          data-dismiss="modal"
+          style="display:none"
+          #dismissBtn
+        />
         <input
           value="SUBMIT"
           class=" btn btn-primary"
           type="submit"
-          (click)="publishDetails($event, ageGroup.value, gender.value, messages_to_send.value)"
+          (click)="publishDetails($event, from_age.value, to_age.value, Message.value )"
         />
       </div>
     </div>
-  </div>
 </form>

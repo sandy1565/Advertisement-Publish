@@ -18,6 +18,7 @@ export class AdvertisePublishService {
     });
   }
   addPublish(advertisepublish) {
+    console.log("hi there");
     return this.http.post(`${URN}advtPublish`, advertisepublish, {
       headers: authHeader()
     });

@@ -35,6 +35,13 @@
   /* color: white; */
 }
 
+#header {
+  z-index: 1000 !important;
+}
+
+
+
+
 .dropdown-container {
   display: none; 
   top:0;

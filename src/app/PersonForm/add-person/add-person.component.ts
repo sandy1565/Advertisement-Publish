@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormsModule } from '@angular/forms';
-import { PersonServiceService } from '../person-service/person.service';
-// import { PersonModel, Floor, Block, Location } from '../services/person.model';
+import { PersonService } from '../person-service/person.service';
 import { Router } from '@angular/router';
 import { Gender } from '../person-service/person.modal';
 @Component({
@@ -41,7 +40,7 @@ export class PersonFormComponent implements OnInit {
   model: any = {};
   gender = ['Male', 'Female', 'Transgender'];
 
-  constructor(private service: PersonServiceService, private route: Router) {}
+  constructor(private service: PersonService, private route: Router) {}
 
   genderModel = new Gender();
 
@@ -177,7 +176,7 @@ export class PersonFormComponent implements OnInit {
     this.service.addPersonDetails(personDetails).subscribe(data => {
       console.log(data);
       console.log('added successfully');
-      this.route.navigateByUrl('/person-list');
+      this.route.navigateByUrl('../person-list');
     });
     // }
   }

@@ -8,7 +8,7 @@ import { authHeader } from '../../CommonConst/authHeader';
 @Injectable({
   providedIn: 'root'
 })
-export class PersonServiceService {
+export class PersonService {
   selectedPerson = new EventEmitter<PersonModel>();
   constructor(private http: HttpClient) {
   }
