@@ -12,7 +12,9 @@ import { AdvertisePublishComponent } from './advertisement-publish/advertise-pub
 import { ViewPublishComponent } from './advertisement-publish/view-publish/view-publish.component';
 import { AdvtDetailsComponent } from './advertisment-details/advt-details/advt-details.component';
 import { AdvtDetailsListComponent } from './advertisment-details/advt-details-list/advt-details-list.component';
-
+import { AddClientComponent } from './client-details/add-client/add-client.component';
+import { ClientListComponent } from './client-details/client-list/client-list.component';
+ 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
@@ -25,7 +27,9 @@ const routes: Routes = [
       { path: 'advertise-publish', component: AdvertisePublishComponent},
       { path: 'view-publish', component: ViewPublishComponent},
       { path: 'advt-details', component: AdvtDetailsComponent},
-      { path: 'advt-details-list', component: AdvtDetailsListComponent}
+      { path: 'advt-details-list', component: AdvtDetailsListComponent},
+      { path: 'add-client', component: AddClientComponent},
+      { path: 'client-list', component: ClientListComponent }
     ]
   },
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard],
@@ -37,7 +41,8 @@ const routes: Routes = [
     { path: 'view-publish', component: ViewPublishComponent},
     { path: 'advt-details', component: AdvtDetailsComponent},
     { path: 'advt-details-list', component: AdvtDetailsListComponent}
-  ] },
+  ]
+ },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
   children: [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

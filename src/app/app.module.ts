@@ -28,6 +28,8 @@ import { AdvertisePublishComponent } from './advertisement-publish/advertise-pub
 import { AdvtDetailsComponent } from './advertisment-details/advt-details/advt-details.component';
 import { AdvtDetailsListComponent } from './advertisment-details/advt-details-list/advt-details-list.component';
 import { SearchAdvtDetailsPipe } from './advertisment-details/advt-details-list/search-advt-details.pipe';
+import { AddClientComponent } from './client-details/add-client/add-client.component';
+import { ClientListComponent } from './client-details/client-list/client-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +49,9 @@ import { SearchAdvtDetailsPipe } from './advertisment-details/advt-details-list/
     AdvtDetailsComponent,
     SearchAdvtDetailsPipe,
     AdminSidebarComponent,
-    UserSidebarComponent
+    UserSidebarComponent,
+    AddClientComponent,
+    ClientListComponent
   ],
   imports: [
     ReactiveFormsModule,

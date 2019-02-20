@@ -1,0 +1,39 @@
+<form class="form container">
+    <div class="container-fluid">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Client Name</th>
+          <th scope="col">Representative Name</th>
+          <th scope="col">Representative ID</th>
+          <th scope="col">Mobile Number</th>
+          <th scope="col">ACTIONS</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <tr *ngFor="let client of clientList; let i= index">
+            <tr *ngFor="let client of clientList | paginate: {itemsPerPage:4, currentPage:p}; let i= index">
+          <td>{{client.clientName}}</td>
+          <td>{{client.representativeName}}</td>
+          <td>{{client.represnetativeId}}</td>
+          <td>{{client.mobileNumber}}</td>
+  
+          <button type="button" class="btn-sm btn-primary" (click)="clickOnEditCardBtn($event)" data-target="#exampleModal" data-toggle="modal">
+            Edit
+          </button>
+          <button type="button" class="btn-sm btn-danger" >Delete</button>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-info btn-md" routerLink="../add-client">Add new client </button>
+    <div class="page">
+      <pagination-controls (pageChange)="p =$event"></pagination-controls>
+    </div>
+  
+  <div>
+  <router-outlet></router-outlet>
+  </div>
+  
+  
+  

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormsModule } from '@angular/forms';
 import { PersonService } from '../person-service/person.service';
 import { Router } from '@angular/router';
-import { Gender } from '../person-service/person.modal';
+import { Gender } from '../../services/commonModal';
+import { CommonService } from '../../services/commonService';
 @Component({
   selector: 'app-add-person',
   templateUrl: './add-person.component.html',
@@ -40,7 +41,7 @@ export class PersonFormComponent implements OnInit {
   model: any = {};
   gender = ['Male', 'Female', 'Transgender'];
 
-  constructor(private service: PersonService, private route: Router) {}
+  constructor(private service: PersonService, private route: Router, private commonService: CommonService) {}
 
   genderModel = new Gender();
 
@@ -50,24 +51,24 @@ export class PersonFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.getCountryDetails().subscribe(countryList => {
+    this.commonService.getCountryDetails().subscribe(countryList => {
       localStorage.setItem('countryDetails', JSON.stringify(countryList));
       this.onSelectCountry(this.selectedCountry);
     });
 
-    this.service.getStateDetails().subscribe(statesList => {
+    this.commonService.getStateDetails().subscribe(statesList => {
       localStorage.setItem('stateDetail', JSON.stringify(statesList));
     });
 
-    this.service.getCitiesDetails().subscribe(cityList => {
+    this.commonService.getCitiesDetails().subscribe(cityList => {
       localStorage.setItem('cityDetails', JSON.stringify(cityList));
     });
 
-    this.service.getFloor().subscribe(data => {
+    this.commonService.getFloor().subscribe(data => {
       this.floors = data;
     });
 
-    this.service.getBlock().subscribe(data => {
+    this.commonService.getBlock().subscribe(data => {
       this.blocks = data;
     });
   }
@@ -108,7 +109,7 @@ export class PersonFormComponent implements OnInit {
     const request_data = new URLSearchParams();
     this.locations = [];
     request_data.set('locationData', locationData);
-    this.service.getLocation(locationData).subscribe(data => {
+    this.commonService.getLocation(locationData).subscribe(data => {
       console.log('==================', data);
       return (this.locations = JSON.parse(
         (JSON.stringify(data))

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AdvertisePublishService } from '../services/advertise-publish.service';
-// import { PersonService } from '../services/person-service.service';
-import { Gender } from '../../PersonForm/person-service/person.modal';
-import { PersonService } from '../../PersonForm/person-service/person.service';
+import { Gender } from '../../services/commonModal';
+import { CommonService } from '../../services/commonService';
 
 @Component({
   selector: 'app-advertise-publish',
@@ -12,7 +11,7 @@ import { PersonService } from '../../PersonForm/person-service/person.service';
 })
 
 export class AdvertisePublishComponent implements OnInit  {
-  constructor(private advertisepublishService: AdvertisePublishService, private personService: PersonService) {  }
+  constructor(private advertisepublishService: AdvertisePublishService, private commonService: CommonService) {  }
   userSelectsString = '';
   locations = [];
   blocks = [];
@@ -47,12 +46,12 @@ export class AdvertisePublishComponent implements OnInit  {
     this.blocks = [];
     this.locations = [];
 
-    this.personService.getCountryDetails().subscribe(countryList => {
+    this.commonService.getCountryDetails().subscribe(countryList => {
         localStorage.setItem('countryDetails', JSON.stringify(countryList));
         this.onSelectCountry(this.selectedCountry);
       });
 
-    this.personService.getBlock().subscribe(data => {
+    this.commonService.getBlock().subscribe(data => {
       this.blocks = data;
     });
 
@@ -60,18 +59,15 @@ export class AdvertisePublishComponent implements OnInit  {
 
   onSelectCountry(country_id: number) {
     this.selectedCountry = country_id;
-    // console.log('=============country_id===================', country_id);
     this.states = this.getStates().filter(item => {
       return item.country_id === Number(country_id);
     });
   }
 
   onSelectState(state_id: number) {
-    // console.log('=========================== Onselect');
     this.selectedState = state_id;
     this.selectedStateName = this.selectedState;
     this.cities = this.getCity().filter(item => {
-      // console.log("-----onSelectState--------this.cities", this.cities);
       return item.state_id === Number(state_id);
     });
   }
@@ -94,8 +90,7 @@ export class AdvertisePublishComponent implements OnInit  {
     const request_data = new URLSearchParams();
     this.locations = [];
     request_data.set('locationData', locationData);
-    this.personService.getLocation(locationData).subscribe(data => {
-    //   console.log('==================', data);
+    this.commonService.getLocation(locationData).subscribe(data => {
       return (this.locations = JSON.parse(
         (JSON.stringify(data))
         ));
@@ -108,35 +103,27 @@ export class AdvertisePublishComponent implements OnInit  {
   }
 
   getStates() {
-    // console.log('get states ==========================');
     return JSON.parse(localStorage.getItem('stateDetail'));
   }
 
   getCity() {
-    // console.log('=================== getCity()');
     return JSON.parse(localStorage.getItem('cityDetails'));
   }
 
   selectLocation() {
     this.selectedLocationName = this.locationId;
-    // console.log(this.selectedLocationName);
   }
-
-
 
   getValue(e){
     this.gender = e.target.value;
-    // console.log('--------------this.genderModel.gender =================', this.gender);
   }
   
   selectLocationName() { 
       this.selectionLocationId = this.locationId;
-    //   console.log(this.selectionLocationId);
   } 
  
   selectBlockName() {
     this.selectedBlockId = this.blockId;
-    // console.log(this.selectedBlockId);
   }
 
   assignToNgModel() {
@@ -144,12 +131,8 @@ export class AdvertisePublishComponent implements OnInit  {
     this.userSelects.map((item) => this.userSelectsString += item.locationName + ' ');
   }
  
-  publishDetails(event, fromAge, toAge, textMessage) {
-    console.log("===================",fromAge);
-    
+  publishDetails(event, fromAge, toAge, textMessage) {  
     const publishModel = {};
-    // console.log(this.userSelects);
-    // console.log(this.selectedBlockId);
     publishModel['gender'] = this.genderModel.gender;
     publishModel['fromAge'] = fromAge;
     publishModel['toAge'] = toAge;

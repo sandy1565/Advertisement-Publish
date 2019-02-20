@@ -1,0 +1,172 @@
+<form class="form container" #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm.value)">
+  <div class="container-fluid">
+    <h2>Client Details: </h2>
+
+    <!-- Client Name-->
+    <div class="form-group">
+      <label for="" class="label-control">Client Name: </label>
+      <input type="text" class="form-control" name="client_name" ngModel/>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-group">
+      <label for="" class="label-control">Phone Number</label>
+      <input type="text" placeholder="Phone Number" name="phone_number" ngModel/>
+    </div>
+
+    <!-- Email Id-->
+    <div class="form-group">
+      <label for="" class="label-control">Email Id: </label>
+      <input type="email" placeholder="email ID" name="email_address" ngModel/>
+    </div>
+
+    <!-- Address -->
+
+    <div class="form-group">
+      <label class="control-label" for="Country">Country:</label>
+      <select
+        *ngIf="getCountries()"
+        [(ngModel)]="selectedCountry"
+        name="country_id"
+        (change)="onSelectCountry($event.target.value)"
+        class="form-control input-lg"
+        id="country"
+      >
+        <option value="0">Select Country</option>
+        <option
+          *ngFor="let country of getCountries()"
+          value="{{ country.country_id }}"
+          >{{ country.country_name }}</option
+        >
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="States">States:</label>
+      <select
+        [(ngModel)]="selectedState"
+        name="state_id"
+        (change)="onSelectState($event.target.value)"
+        class="form-control input-lg"
+        id="state"
+      >
+        <option>Select State</option>
+        <option *ngFor="let state of states" value="{{ state.state_id }}">{{
+          state.statename
+        }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="City">City:</label>
+      <select
+        class="form-control input-lg"
+        id="city"
+        ngModel
+        name="city_id"
+        (change)="onSelectCity($event.target.value)"
+      >
+        <!-- <option value="-1">Select City</option> -->
+        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{
+          city.cityname
+        }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="City">Location:</label>
+      <select
+        class="form-control input-lg"
+        [(ngModel)]="locationId"
+        #location_id="ngModel"
+        id="location"
+        name="location_id"
+        (change)="selectLocation()"
+      >
+        <option>Select Location</option>
+        <option
+          *ngFor="let location of locations"
+          [ngValue]="location.location_id"
+          >{{ location.location_name }}</option
+        >
+      </select>
+    </div>
+
+    <!--Block ID-->
+    <div class="form-group">
+        <label>Block</label>
+        <select
+          id="block_id"
+          required
+          ngModel
+          name="block_id"
+          class=" form-control"
+        >
+          <option [ngValue]="block.block_id" *ngFor="let block of blocks">
+            {{ block.blockname }}
+          </option>
+        </select>
+      </div>
+
+    <!-- Client Representative name -->
+    <div class="form-group">
+      <label for="" class="control-label">Client Representative Name: </label>
+      <input type="text" name="representative_name" ngModel placeholder="resprntative name" />
+    </div>
+
+    <!-- Representative Photo -->
+    <div class="form-group">
+      <label class="control-label"> Client Representative Photo: </label>
+      <input type="file" />
+    </div>
+
+    <!-- Representative Id -->
+    <div class="form-group">
+      <label for="" class="control-label" >Representative Id: </label>
+      <input type="text" placeholder="" name="representative_id" ngModel/>
+    </div>
+
+    <!-- Type of Firm -->
+    <div class="form-group">
+      <label for="" class="control-label">Type of firm: </label>
+      <select name="firm_type" ngModel>
+        <option [value]="firmName" *ngFor="let firmName of typeOfFirm">
+          {{ firmName }}</option
+        >
+      </select>
+    </div>
+
+    <!-- Gst Number-->
+     <div class="form-group">
+        <label for="" class="control-label" >GST Number: </label>
+        <input type="text" placeholder="" name="gst_number" ngModel/>
+      </div>
+
+
+    <!-- Registration Detials -->
+    <div class="form-group">
+      <label for="" class="control-label" >Registration Details: </label>
+      <textarea
+        name="registration_details" ngModel
+        id=""
+        cols="15"
+        rows="10"
+        placeholder="Registration details"
+      ></textarea>
+    </div>
+
+    <!-- Regitration Document -->
+    <div class="form-group">
+      <label for="" class="control-label">Registration Document: </label>
+      <input type="file" />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary mb-2"
+      style="margin-right: 10px;"
+   >
+      Submit
+    </button>
+  </div>
+</form>
