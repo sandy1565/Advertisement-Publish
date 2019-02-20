@@ -29,6 +29,7 @@ const routes: Routes = [
       { path: 'advt-details', component: AdvtDetailsComponent},
       { path: 'advt-details-list', component: AdvtDetailsListComponent},
       { path: 'add-client', component: AddClientComponent},
+      {path: 'edit-client/:id', component: AddClientComponent},
       { path: 'client-list', component: ClientListComponent }
     ]
   },

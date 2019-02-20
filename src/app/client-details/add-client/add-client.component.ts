@@ -19,7 +19,9 @@ export class AddClientComponent implements OnInit {
   locations = [];
   blocks = [];
   locationId;
-  private base64textString:String="";
+  profile_pic = null;
+  document_file = null;
+  private base64textString:any="";
 
   constructor(
     private commonService: CommonService,
@@ -112,13 +114,27 @@ export class AddClientComponent implements OnInit {
     console.log(this.selectedLocationName);
   }
 
+  handleImageSelect(evt) {
+    const files = evt.target.files;
+    const file = files[0];
+    if (files && file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload =  () =>{
+        this.profile_pic =  reader.result;
+      };
+    }
+  }
+
   handleFileSelect(evt) {
     const files = evt.target.files;
     const file = files[0];
     if (files && file) {
       const reader = new FileReader();
-      reader.onload = this._handleReaderLoaded.bind(this);
-      reader.readAsBinaryString(file);
+      reader.readAsDataURL(file);
+      reader.onload =  () =>{
+        this.document_file =  reader.result;
+      };
     }
   }
 
@@ -130,7 +146,8 @@ export class AddClientComponent implements OnInit {
   }
 
   onSubmit(data) {
-    data.profile_pic = this.base64textString;
+    data.profile_pic = this.profile_pic;
+    data.document_file = this.document_file;
     this.clientService
       .addClient(data)
       .subscribe((resp: any) => {}, (err: any) => {});

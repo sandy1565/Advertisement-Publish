@@ -15,4 +15,10 @@ export class ClientService {
       headers: authHeader()
     });
   }
+
+  getClients(){
+    return this.http.get(`${URN}client`,{
+      headers: authHeader()
+    });
+  }
 }

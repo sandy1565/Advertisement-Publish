@@ -14,12 +14,12 @@
       <tbody>
         <tr *ngFor="let client of clientList; let i= index">
             <tr *ngFor="let client of clientList | paginate: {itemsPerPage:4, currentPage:p}; let i= index">
-          <td>{{client.clientName}}</td>
-          <td>{{client.representativeName}}</td>
-          <td>{{client.represnetativeId}}</td>
-          <td>{{client.mobileNumber}}</td>
+          <td>{{client.client_name}}</td>
+          <td>{{client.representative_name}}</td>
+          <td>{{client.represnetative_id}}</td>
+          <td>{{client.mobile_number}}</td>
   
-          <button type="button" class="btn-sm btn-primary" (click)="clickOnEditCardBtn($event)" data-target="#exampleModal" data-toggle="modal">
+          <button type="button" class="btn-sm btn-primary" [routerLink]="['/super-admin-dashboard','edit-client',client.client_id]" data-target="#exampleModal" data-toggle="modal">
             Edit
           </button>
           <button type="button" class="btn-sm btn-danger" >Delete</button>
