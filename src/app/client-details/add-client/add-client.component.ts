@@ -19,6 +19,7 @@ export class AddClientComponent implements OnInit {
   locations = [];
   blocks = [];
   locationId;
+  private base64textString:String="";
 
   constructor(
     private commonService: CommonService,
@@ -48,7 +49,6 @@ export class AddClientComponent implements OnInit {
     this.commonService.getBlock().subscribe(data => {
       this.blocks = data;
     });
-
   }
 
   onSelectCountry(country_id: number) {
@@ -87,7 +87,7 @@ export class AddClientComponent implements OnInit {
   getLocations(locationData) {
     const request_data = new URLSearchParams();
     this.locations = [];
-    request_data.set('locationData', locationData);
+    request_data.set("locationData", locationData);
     this.commonService.getLocation(locationData).subscribe(data => {
       return (this.locations = JSON.parse(JSON.stringify(data)));
     });
@@ -112,7 +112,25 @@ export class AddClientComponent implements OnInit {
     console.log(this.selectedLocationName);
   }
 
+  handleFileSelect(evt) {
+    const files = evt.target.files;
+    const file = files[0];
+    if (files && file) {
+      const reader = new FileReader();
+      reader.onload = this._handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
+
+  _handleReaderLoaded(readerEvt) {
+    const binaryString = readerEvt.target.result;
+    this.base64textString = btoa(binaryString);
+    // console.log(binaryString);
+    console.log(btoa(binaryString));
+  }
+
   onSubmit(data) {
+    data.profile_pic = this.base64textString;
     this.clientService
       .addClient(data)
       .subscribe((resp: any) => {}, (err: any) => {});
