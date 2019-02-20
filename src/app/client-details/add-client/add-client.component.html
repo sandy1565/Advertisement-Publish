@@ -117,7 +117,7 @@
     <!-- Representative Photo -->
     <div class="form-group">
       <label class="control-label"> Client Representative Photo: </label>
-      <input type="file" id="filePicker" placeholder="Please upload your image" (change)="handleFileSelect($event)"/>
+      <input type="file" id="filePicker" placeholder="Please upload your image" (change)="handleImageSelect($event)"/>
     </div>
 
     <!-- Representative Id -->
@@ -158,7 +158,7 @@
     <!-- Regitration Document -->
     <div class="form-group">
       <label for="" class="control-label">Registration Document: </label>
-      <input type="file" />
+      <input type="file"  (change)="handleFileSelect($event)"/>
     </div>
 
     <button
