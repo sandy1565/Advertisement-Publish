@@ -1,171 +1,184 @@
-<form class="form container" #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm.value)">
+o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.valid && onSubmit(clientForm.value)">
   <div class="container-fluid">
     <h2>Client Details: </h2>
 
     <!-- Client Name-->
     <div class="form-group">
       <label for="" class="label-control">Client Name: </label>
-      <input type="text" class="form-control" name="client_name" ngModel/>
+      <input type="text" class="form-control" name="client_name" ngModel #clientName="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && clientName.invalid }" required>
+      <div *ngIf="clientForm.submitted && clientName.invalid" class="invalid-feedback">
+        <div *ngIf="clientName.errors.required">Client Name is required</div>
+      </div>
     </div>
 
     <!-- Phone Number -->
     <div class="form-group">
       <label for="" class="label-control">Phone Number</label>
-      <input type="text" placeholder="Phone Number" name="phone_number" ngModel/>
+      <input type="text" placeholder="Phone Number" name="phone_number" ngModel #phoneNumber="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && phoneNumber.invalid }" required />
+      <div *ngIf="clientForm.submitted && phoneNumber.invalid" class="invalid-feedback">
+        <div *ngIf="phoneNumber.errors.required">Phone Number is required</div>
+      </div>
     </div>
 
     <!-- Email Id-->
     <div class="form-group">
       <label for="" class="label-control">Email Id: </label>
-      <input type="email" placeholder="email ID" name="email_address" ngModel/>
+      <input type="email" placeholder="email ID" name="email_address" ngModel #emailId="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && emailId.invalid }" required />
+      <div *ngIf="clientForm.submitted && emailId.invalid" class="invalid-feedback">
+        <div *ngIf="emailId.errors.required">Email Id is required</div>
+      </div>
     </div>
 
     <!-- Address -->
 
     <div class="form-group">
       <label class="control-label" for="Country">Country:</label>
-      <select
-        *ngIf="getCountries()"
-        [(ngModel)]="selectedCountry"
-        name="country_id"
-        (change)="onSelectCountry($event.target.value)"
-        class="form-control input-lg"
-        id="country"
-      >
+      <select *ngIf="getCountries()" [(ngModel)]="selectedCountry" name="country_id"
+        (change)="onSelectCountry($event.target.value)" class="form-control input-lg" id="country"
+        #countryName="ngModel" [ngClass]="{ 'is-invalid': clientForm.submitted && countryName.invalid }" required>
         <option value="0">Select Country</option>
-        <option
-          *ngFor="let country of getCountries()"
-          value="{{ country.country_id }}"
-          >{{ country.country_name }}</option
-        >
+        <option *ngFor="let country of getCountries()" value="{{ country.country_id }}">{{ country.country_name }}
+        </option>
+        <div *ngIf="clientForm.submitted && countryName.invalid" class="invalid-feedback">
+          <div *ngIf="countryName.errors.required">Country Name is required</div>
+        </div>
       </select>
     </div>
 
     <div class="form-group">
       <label class="control-label" for="States">States:</label>
-      <select
-        [(ngModel)]="selectedState"
-        name="state_id"
-        (change)="onSelectState($event.target.value)"
-        class="form-control input-lg"
-        id="state"
-      >
+      <select [(ngModel)]="selectedState" name="state_id" (change)="onSelectState($event.target.value)"
+        class="form-control input-lg" id="state" #stateName="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && stateName.invalid }" required>
         <option>Select State</option>
         <option *ngFor="let state of states" value="{{ state.state_id }}">{{
           state.statename
         }}</option>
+        <div *ngIf="clientForm.submitted && stateName.invalid" class="invalid-feedback">
+          <div *ngIf="stateName.errors.required">State Name is required</div>
+        </div>
       </select>
     </div>
 
     <div class="form-group">
       <label class="control-label" for="City">City:</label>
-      <select
-        class="form-control input-lg"
-        id="city"
-        ngModel
-        name="city_id"
-        (change)="onSelectCity($event.target.value)"
-      >
-        <!-- <option value="-1">Select City</option> -->
+      <select class="form-control input-lg" id="city" ngModel name="city_id"
+        (change)="onSelectCity($event.target.value)" #cityName="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && cityName.invalid }" required>
         <option *ngFor="let city of cities" value="{{ city.city_id }}">{{
           city.cityname
         }}</option>
+        <div *ngIf="clientForm.submitted && cityName.invalid" class="invalid-feedback">
+          <div *ngIf="cityName.errors.required">City Name is required</div>
+        </div>
       </select>
     </div>
 
+    <!--Location-->
     <div class="form-group">
       <label class="control-label" for="City">Location:</label>
-      <select
-        class="form-control input-lg"
-        [(ngModel)]="locationId"
-        #location_id="ngModel"
-        id="location"
-        name="location_id"
-        (change)="selectLocation()"
-      >
+      <select class="form-control input-lg" [(ngModel)]="locationId" #location_id="ngModel" id="location"
+        name="location_id" (change)="selectLocation()" #locationName="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && locationName.invalid }" required>
         <option>Select Location</option>
-        <option
-          *ngFor="let location of locations"
-          [ngValue]="location.location_id"
-          >{{ location.location_name }}</option
-        >
+        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}
+        </option>
+        <div *ngIf="clientForm.submitted && locationName.invalid" class="invalid-feedback">
+          <div *ngIf="locationName.errors.required">Location Name is required</div>
+        </div>
       </select>
     </div>
 
     <!--Block ID-->
     <div class="form-group">
-        <label>Block</label>
-        <select
-          id="block_id"
-          required
-          ngModel
-          name="block_id"
-          class=" form-control"
-        >
-          <option [ngValue]="block.block_id" *ngFor="let block of blocks">
-            {{ block.blockname }}
-          </option>
-        </select>
-      </div>
+      <label>Block</label>
+      <select id="block_id" ngModel name="block_id" class=" form-control" #blockName="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && blockName.invalid }" required>
+        <option [ngValue]="block.block_id" *ngFor="let block of blocks">
+          {{ block.blockname }}
+        </option>
+        <div *ngIf="clientForm.submitted && blockName.invalid" class="invalid-feedback">
+          <div *ngIf="blockName.errors.required">Block Name is required</div>
+        </div>
+      </select>
+    </div>
 
     <!-- Client Representative name -->
     <div class="form-group">
       <label for="" class="control-label">Client Representative Name: </label>
-      <input type="text" name="representative_name" ngModel placeholder="resprntative name" />
+      <input type="text" name="representative_name" ngModel placeholder="resprntative name" #representativeName="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && representativeName.invalid }" required />
+        <div *ngIf="clientForm.submitted && representativeName.invalid" class="invalid-feedback">
+          <div *ngIf="representativeName.errors.required">Representative Name is required</div>
+        </div>
     </div>
 
     <!-- Representative Photo -->
     <div class="form-group">
       <label class="control-label"> Client Representative Photo: </label>
-      <input type="file" id="filePicker" placeholder="Please upload your image" (change)="handleFileSelect($event)"/>
+      <input type="file" id="filePicker" placeholder="Please upload your image" ngModel name="profile pic"
+        (change)="handleFileSelect($event)" #repImage="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && repImage.invalid }" required />
+        <div *ngIf="clientForm.submitted && repImage.invalid" class="invalid-feedback">
+          <div *ngIf="repImage.errors.required">Representative Image is required</div>
+        </div>
     </div>
 
     <!-- Representative Id -->
     <div class="form-group">
-      <label for="" class="control-label" >Representative Id: </label>
-      <input type="text" placeholder="" name="representative_id" ngModel/>
+      <label for="" class="control-label">Representative Id: </label>
+      <input type="text" placeholder="" name="representative_id" ngModel #repId="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && repId.invalid }" required />
+        <div *ngIf="clientForm.submitted && repId.invalid" class="invalid-feedback">
+          <div *ngIf="repId.errors.required">Representative Id is required</div>
+        </div>
     </div>
 
     <!-- Type of Firm -->
     <div class="form-group">
       <label for="" class="control-label">Type of firm: </label>
-      <select name="firm_type" ngModel>
+      <select name="firm_type" ngModel >
         <option [value]="firmName" *ngFor="let firmName of typeOfFirm">
-          {{ firmName }}</option
-        >
+          {{ firmName }}</option>
       </select>
     </div>
 
     <!-- Gst Number-->
-     <div class="form-group">
-        <label for="" class="control-label" >GST Number: </label>
-        <input type="text" placeholder="" name="gst_number" ngModel/>
-      </div>
+    <div class="form-group">
+      <label for="" class="control-label">GST Number: </label>
+      <input type="text" placeholder="" name="gst_number" ngModel #gstNumber="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && gstNumber.invalid }" required />
+        <div *ngIf="clientForm.submitted && gstNumber.invalid" class="invalid-feedback">
+          <div *ngIf="gstNumber.errors.required">GST Number is required</div>
+        </div>
+    </div>
 
 
     <!-- Registration Detials -->
     <div class="form-group">
-      <label for="" class="control-label" >Registration Details: </label>
-      <textarea
-        name="registration_details" ngModel
-        id=""
-        cols="15"
-        rows="10"
-        placeholder="Registration details"
-      ></textarea>
+      <label for="" class="control-label">Registration Details: </label>
+      <textarea name="registration_details" ngModel id="" cols="15" rows="10" placeholder="Registration details"
+        #regDetails="ngModel" [ngClass]="{ 'is-invalid': clientForm.submitted && regDetails.invalid }"
+        required></textarea>
+        <div *ngIf="clientForm.submitted && regDetails.invalid" class="invalid-feedback">
+          <div *ngIf="regDetails.errors.required">Registration Details is required</div>
+        </div>
     </div>
 
     <!-- Regitration Document -->
     <div class="form-group">
       <label for="" class="control-label">Registration Document: </label>
-      <input type="file" />
+      <input type="file" name="file" ngModel #regDoc="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && regDoc.invalid }" required />
+        <div *ngIf="clientForm.submitted && regDoc.invalid" class="invalid-feedback">
+          <div *ngIf="regDoc.errors.required">Registration Documents is required</div>
+        </div>
     </div>
 
-    <button
-      type="submit"
-      class="btn btn-primary mb-2"
-      style="margin-right: 10px;"
-   >
+    <button type="submit" class="btn btn-primary mb-2" style="margin-right: 10px;">
       Submit
     </button>
   </div>
