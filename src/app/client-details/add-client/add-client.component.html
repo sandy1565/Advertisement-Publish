@@ -119,16 +119,13 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Representative Photo -->
     <div class="form-group">
       <label class="control-label"> Client Representative Photo: </label>
-<<<<<<< HEAD
       <input type="file" id="filePicker" placeholder="Please upload your image" ngModel name="profile pic"
         (change)="handleFileSelect($event)" #repImage="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && repImage.invalid }" required />
         <div *ngIf="clientForm.submitted && repImage.invalid" class="invalid-feedback">
           <div *ngIf="repImage.errors.required">Representative Image is required</div>
         </div>
-=======
-      <input type="file" id="filePicker" placeholder="Please upload your image" (change)="handleImageSelect($event)"/>
->>>>>>> 3a0722e1b40e35d521d5296c041453b5d63151b1
+      
     </div>
 
     <!-- Representative Id -->
@@ -175,15 +172,12 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Regitration Document -->
     <div class="form-group">
       <label for="" class="control-label">Registration Document: </label>
-<<<<<<< HEAD
       <input type="file" name="file" ngModel #regDoc="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && regDoc.invalid }" required />
         <div *ngIf="clientForm.submitted && regDoc.invalid" class="invalid-feedback">
           <div *ngIf="regDoc.errors.required">Registration Documents is required</div>
         </div>
-=======
-      <input type="file"  (change)="handleFileSelect($event)"/>
->>>>>>> 3a0722e1b40e35d521d5296c041453b5d63151b1
+     
     </div>
 
     <button type="submit" class="btn btn-primary mb-2" style="margin-right: 10px;">
