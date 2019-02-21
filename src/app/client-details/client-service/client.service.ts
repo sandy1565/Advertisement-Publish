@@ -16,6 +16,18 @@ export class ClientService {
     });
   }
 
+  getClient(id){
+    return this.http.get(`${URN}client/${id}`,{
+      headers: authHeader()
+    })
+  }
+
+  updateClient(id, data){
+    return this.http.put(`${URN}client/${id}`,data,{
+      headers: authHeader()
+    })
+  }
+
   getClients(){
     return this.http.get(`${URN}client`,{
       headers: authHeader()

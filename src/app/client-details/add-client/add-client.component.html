@@ -5,7 +5,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Client Name-->
     <div class="form-group">
       <label for="" class="label-control">Client Name: </label>
-      <input type="text" class="form-control" name="client_name" ngModel #clientName="ngModel"
+      <input type="text" class="form-control" name="client_name" [(ngModel)]="client_record.client_name" #clientName="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && clientName.invalid }" required>
       <div *ngIf="clientForm.submitted && clientName.invalid" class="invalid-feedback">
         <div *ngIf="clientName.errors.required">Client Name is required</div>
@@ -15,7 +15,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Phone Number -->
     <div class="form-group">
       <label for="" class="label-control">Phone Number</label>
-      <input type="text" placeholder="Phone Number" name="phone_number" ngModel #phoneNumber="ngModel"
+      <input type="text" placeholder="Phone Number" name="phone_number" [(ngModel)]="client_record.phone_number" #phoneNumber="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && phoneNumber.invalid }" required />
       <div *ngIf="clientForm.submitted && phoneNumber.invalid" class="invalid-feedback">
         <div *ngIf="phoneNumber.errors.required">Phone Number is required</div>
@@ -25,7 +25,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Email Id-->
     <div class="form-group">
       <label for="" class="label-control">Email Id: </label>
-      <input type="email" placeholder="email ID" name="email_address" ngModel #emailId="ngModel"
+      <input type="email" placeholder="email ID" name="email_address"  [(ngModel)]="client_record.email_address" #emailId="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && emailId.invalid }" required />
       <div *ngIf="clientForm.submitted && emailId.invalid" class="invalid-feedback">
         <div *ngIf="emailId.errors.required">Email Id is required</div>
@@ -36,7 +36,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
 
     <div class="form-group">
       <label class="control-label" for="Country">Country:</label>
-      <select *ngIf="getCountries()" [(ngModel)]="selectedCountry" name="country_id"
+      <select *ngIf="getCountries()"  [(ngModel)]="client_record.country_id" name="country_id"
         (change)="onSelectCountry($event.target.value)" class="form-control input-lg" id="country"
         #countryName="ngModel" [ngClass]="{ 'is-invalid': clientForm.submitted && countryName.invalid }" required>
         <option value="0">Select Country</option>
@@ -50,7 +50,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
 
     <div class="form-group">
       <label class="control-label" for="States">States:</label>
-      <select [(ngModel)]="selectedState" name="state_id" (change)="onSelectState($event.target.value)"
+      <select  [(ngModel)]="client_record.state_id" name="state_id" (change)="onSelectState($event.target.value)"
         class="form-control input-lg" id="state" #stateName="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && stateName.invalid }" required>
         <option>Select State</option>
@@ -65,7 +65,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
 
     <div class="form-group">
       <label class="control-label" for="City">City:</label>
-      <select class="form-control input-lg" id="city" ngModel name="city_id"
+      <select class="form-control input-lg" id="city" [(ngModel)]="client_record.city_id" name="city_id"
         (change)="onSelectCity($event.target.value)" #cityName="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && cityName.invalid }" required>
         <option *ngFor="let city of cities" value="{{ city.city_id }}">{{
@@ -80,7 +80,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!--Location-->
     <div class="form-group">
       <label class="control-label" for="City">Location:</label>
-      <select class="form-control input-lg" [(ngModel)]="locationId" #location_id="ngModel" id="location"
+      <select class="form-control input-lg" [(ngModel)]="client_record.location_id" #location_id="ngModel" id="location"
         name="location_id" (change)="selectLocation()" #locationName="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && locationName.invalid }" required>
         <option>Select Location</option>
@@ -95,7 +95,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!--Block ID-->
     <div class="form-group">
       <label>Block</label>
-      <select id="block_id" ngModel name="block_id" class=" form-control" #blockName="ngModel"
+      <select id="block_id" [(ngModel)]="client_record.block_id" name="block_id" class=" form-control" #blockName="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && blockName.invalid }" required>
         <option [ngValue]="block.block_id" *ngFor="let block of blocks">
           {{ block.blockname }}
@@ -109,7 +109,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Client Representative name -->
     <div class="form-group">
       <label for="" class="control-label">Client Representative Name: </label>
-      <input type="text" name="representative_name" ngModel placeholder="resprntative name" #representativeName="ngModel"
+      <input type="text" name="representative_name" [(ngModel)]="client_record.representative_name" placeholder="resprntative name" #representativeName="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && representativeName.invalid }" required />
         <div *ngIf="clientForm.submitted && representativeName.invalid" class="invalid-feedback">
           <div *ngIf="representativeName.errors.required">Representative Name is required</div>
@@ -119,9 +119,12 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Representative Photo -->
     <div class="form-group">
       <label class="control-label"> Client Representative Photo: </label>
+      <div *ngIf="editMode && client_record.profile_pic">
+        <img src="{{client_record.profile_pic}}" width="200px" height="200px">
+      </div>
       <input type="file" id="filePicker" placeholder="Please upload your image" ngModel name="profile pic"
-        (change)="handleFileSelect($event)" #repImage="ngModel"
-        [ngClass]="{ 'is-invalid': clientForm.submitted && repImage.invalid }" required />
+        (change)="handleImageSelect($event)" #repImage="ngModel"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && repImage.invalid }" />
         <div *ngIf="clientForm.submitted && repImage.invalid" class="invalid-feedback">
           <div *ngIf="repImage.errors.required">Representative Image is required</div>
         </div>
@@ -130,7 +133,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Representative Id -->
     <div class="form-group">
       <label for="" class="control-label">Representative Id: </label>
-      <input type="text" placeholder="" name="representative_id" ngModel #repId="ngModel"
+      <input type="text" placeholder="" name="representative_id" [(ngModel)]="client_record.representative_id"  #repId="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && repId.invalid }" required />
         <div *ngIf="clientForm.submitted && repId.invalid" class="invalid-feedback">
           <div *ngIf="repId.errors.required">Representative Id is required</div>
@@ -140,7 +143,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Type of Firm -->
     <div class="form-group">
       <label for="" class="control-label">Type of firm: </label>
-      <select name="firm_type" ngModel >
+      <select name="firm_type" [(ngModel)]="client_record.firm_type" >
         <option [value]="firmName" *ngFor="let firmName of typeOfFirm">
           {{ firmName }}</option>
       </select>
@@ -149,7 +152,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Gst Number-->
     <div class="form-group">
       <label for="" class="control-label">GST Number: </label>
-      <input type="text" placeholder="" name="gst_number" ngModel #gstNumber="ngModel"
+      <input type="text" placeholder="" name="gst_number" [(ngModel)]="client_record.gst_number" #gstNumber="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && gstNumber.invalid }" required />
         <div *ngIf="clientForm.submitted && gstNumber.invalid" class="invalid-feedback">
           <div *ngIf="gstNumber.errors.required">GST Number is required</div>
@@ -160,7 +163,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Registration Detials -->
     <div class="form-group">
       <label for="" class="control-label">Registration Details: </label>
-      <textarea name="registration_details" ngModel id="" cols="15" rows="10" placeholder="Registration details"
+      <textarea name="registration_details" [(ngModel)]="client_record.registration_details" id="" cols="15" rows="10" placeholder="Registration details"
         #regDetails="ngModel" [ngClass]="{ 'is-invalid': clientForm.submitted && regDetails.invalid }"
         required></textarea>
         <div *ngIf="clientForm.submitted && regDetails.invalid" class="invalid-feedback">
@@ -171,8 +174,12 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Regitration Document -->
     <div class="form-group">
       <label for="" class="control-label">Registration Document: </label>
+      <div *ngIf="editMode && client_record.document_file">
+       <a href="{{client_record.document_file}}" target="_blank" download>download File</a>
+      </div>
       <input type="file" name="file" ngModel #regDoc="ngModel"
-        [ngClass]="{ 'is-invalid': clientForm.submitted && regDoc.invalid }" required />
+      (change)="handleFileSelect($event)"
+        [ngClass]="{ 'is-invalid': clientForm.submitted && regDoc.invalid }"  />
         <div *ngIf="clientForm.submitted && regDoc.invalid" class="invalid-feedback">
           <div *ngIf="regDoc.errors.required">Registration Documents is required</div>
         </div>

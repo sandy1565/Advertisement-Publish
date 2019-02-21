@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonService } from "../../services/commonService";
 import { ClientService } from "../client-service/client.service";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: "app-add-client",
@@ -22,10 +23,13 @@ export class AddClientComponent implements OnInit {
   profile_pic = null;
   document_file = null;
   private base64textString:any="";
-
+  client_record:any = {};
+  editMode = false;
   constructor(
     private commonService: CommonService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private activatedRoute:ActivatedRoute,
+    private router:Router
   ) {}
 
   typeOfFirm = [
@@ -35,6 +39,19 @@ export class AddClientComponent implements OnInit {
   ];
 
   ngOnInit() {
+    if(this.activatedRoute.snapshot.params.id){
+        let client_id = this.activatedRoute.snapshot.params.id;
+        this.editMode = true;
+        this.clientService.getClient(client_id).subscribe((resp:any)=>{
+          this.client_record = resp.data;
+          this.onSelectCountry(+this.client_record.country_id);
+          this.onSelectState(+this.client_record.state_id);
+          this.onSelectCity(+this.client_record.city_id);
+          
+        },(err)=>{
+
+        });
+    }
     this.commonService.getCountryDetails().subscribe(countryList => {
       localStorage.setItem("countryDetails", JSON.stringify(countryList));
       this.onSelectCountry(this.selectedCountry);
@@ -146,6 +163,26 @@ export class AddClientComponent implements OnInit {
   }
 
   onSubmit(data) {
+    if(this.editMode){
+      if(this.profile_pic){
+        this.client_record.profile_pic = this.profile_pic;
+      }
+      else{
+        this.client_record.profile_pic = null;
+      }
+      if(this.document_file){
+        this.client_record.document_file = this.document_file;
+      }
+      else{
+        this.client_record.document_file  = null;
+      }
+      this.clientService.updateClient(this.client_record.client_id,this.client_record).subscribe((resp:any)=>{
+       this.router.navigateByUrl("/super-admin-dashboard/client-list")
+      },(err)=>{
+        alert('failure')
+      });
+      return;
+    }
     data.profile_pic = this.profile_pic;
     data.document_file = this.document_file;
     this.clientService
