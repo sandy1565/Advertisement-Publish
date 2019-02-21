@@ -47,7 +47,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
         </div>
       </select>
     </div>
-
+    
     <div class="form-group">
       <label class="control-label" for="States">States:</label>
       <select  [(ngModel)]="client_record.state_id" name="state_id" (change)="onSelectState($event.target.value)"

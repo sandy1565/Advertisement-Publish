@@ -16,8 +16,8 @@
             <tr *ngFor="let client of clientList | paginate: {itemsPerPage:4, currentPage:p}; let i= index">
           <td>{{client.client_name}}</td>
           <td>{{client.representative_name}}</td>
-          <td>{{client.represnetative_id}}</td>
-          <td>{{client.mobile_number}}</td>
+          <td>{{client.representative_id}}</td>
+          <td>{{client.phone_number}}</td>
   
           <button type="button" class="btn-sm btn-primary" [routerLink]="['/super-admin-dashboard','edit-client',client.client_id]">
             Edit

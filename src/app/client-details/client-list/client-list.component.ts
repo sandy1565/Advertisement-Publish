@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class ClientListComponent implements OnInit {
 
   clientList = [];
+  p = 1;
   constructor(private clientService:ClientService, private router:Router) { }
 
   ngOnInit() {
