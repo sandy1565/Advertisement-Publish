@@ -125,7 +125,6 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
         <div *ngIf="clientForm.submitted && repImage.invalid" class="invalid-feedback">
           <div *ngIf="repImage.errors.required">Representative Image is required</div>
         </div>
-      
     </div>
 
     <!-- Representative Id -->
@@ -177,7 +176,6 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
         <div *ngIf="clientForm.submitted && regDoc.invalid" class="invalid-feedback">
           <div *ngIf="regDoc.errors.required">Registration Documents is required</div>
         </div>
-     
     </div>
 
     <button type="submit" class="btn btn-primary mb-2" style="margin-right: 10px;">
