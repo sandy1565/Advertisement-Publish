@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../client-service/client.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-list',
@@ -9,7 +10,7 @@ import { ClientService } from '../client-service/client.service';
 export class ClientListComponent implements OnInit {
 
   clientList = [];
-  constructor(private clientService:ClientService) { }
+  constructor(private clientService:ClientService, private router:Router) { }
 
   ngOnInit() {
 
@@ -20,4 +21,12 @@ export class ClientListComponent implements OnInit {
     })
   }
 
+  onClickDelete(client_id) {
+    console.log(client_id);
+    this.clientService.deleteClient(client_id).subscribe((res:any) => {
+      console.log("successful");
+      this.ngOnInit();
+    });
+    this.router.navigateByUrl("/super-admin-dashboard/client-list")  }
+ 
 }

@@ -19,10 +19,10 @@
           <td>{{client.represnetative_id}}</td>
           <td>{{client.mobile_number}}</td>
   
-          <button type="button" class="btn-sm btn-primary" [routerLink]="['/super-admin-dashboard','edit-client',client.client_id]" data-target="#exampleModal" data-toggle="modal">
+          <button type="button" class="btn-sm btn-primary" [routerLink]="['/super-admin-dashboard','edit-client',client.client_id]">
             Edit
           </button>
-          <button type="button" class="btn-sm btn-danger" >Delete</button>
+          <button type="button" class="btn-sm btn-danger" (click)="onClickDelete(client.client_id)" >Delete</button>
         </tr>
       </tbody>
     </table>

@@ -28,6 +28,14 @@ export class ClientService {
     })
   }
 
+  deleteClient(id) {
+    console.log("hi");
+    return this.http.delete(`${URN}client/${id}`, {
+      headers: authHeader()
+    })
+  }
+
+
   getClients(){
     return this.http.get(`${URN}client`,{
       headers: authHeader()
