@@ -43,12 +43,12 @@ export class AdvtDetailsListComponent implements OnInit {
 
   ngOnInit() {
     this.filteredRegistration = this.users;
-    this.dataRefresher = setInterval(() => {
-      this.advtService.getAdvtDetails().subscribe(data => {
+      this.advtService.getAdvts().subscribe(data => {
         this.users = data;
       });
-    }, 1500);
 
+      
+      
     this.clientName = [];
 
     this.advtService.getClient().subscribe(data => {

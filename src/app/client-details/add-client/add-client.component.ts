@@ -49,7 +49,6 @@ export class AddClientComponent implements OnInit {
           this.onSelectCity(+this.client_record.city_id);
           
         },(err)=>{
-
         });
     }
     this.commonService.getCountryDetails().subscribe(countryList => {

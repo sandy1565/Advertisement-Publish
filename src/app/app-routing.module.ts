@@ -27,6 +27,7 @@ const routes: Routes = [
       { path: 'advertise-publish', component: AdvertisePublishComponent},
       { path: 'view-publish', component: ViewPublishComponent},
       { path: 'advt-details', component: AdvtDetailsComponent},
+      { path: 'edit-details/:id', component: AdvtDetailsComponent},
       { path: 'advt-details-list', component: AdvtDetailsListComponent},
       { path: 'add-client', component: AddClientComponent},
       {path: 'edit-client/:id', component: AddClientComponent},

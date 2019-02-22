@@ -12,8 +12,14 @@ import { authHeader } from "../../CommonConst/authHeader";
 export class AdvtDetailsService {
   constructor(private http: HttpClient) {}
 
-  public getAdvtDetails() {
-    return this.http.get(`${URN}getAdvt`, {
+  public getAdvts() {
+    return this.http.get(`${URN}getAdvts`, {
+      headers: authHeader()
+    });
+  }
+
+  public getAdvt(id) {
+    return this.http.get(`${URN}getAdvt/${id}`, {
       headers: authHeader()
     });
   }
@@ -25,7 +31,7 @@ export class AdvtDetailsService {
   }
 
   public updateAdvtDetails(details: AdvtModel, key: number) {
-    return this.http.put(`${URN}updateAdvt/` + key, { details, headers: authHeader()
+    return this.http.put(`${URN}updateAdvt/` + key, details,{  headers: authHeader()
     });
   }
 

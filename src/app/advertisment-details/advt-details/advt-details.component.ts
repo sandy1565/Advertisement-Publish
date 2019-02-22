@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AdvtDetailsService } from "../services/advt-details.service";
 import { CommonService } from '../../services/commonService';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-advt-details',
@@ -8,7 +9,8 @@ import { CommonService } from '../../services/commonService';
   styleUrls: ['./advt-details.component.scss']
 })
 export class AdvtDetailsComponent implements OnInit {
-  constructor(private advtService: AdvtDetailsService, private commonService: CommonService) { }
+  constructor(private advtService: AdvtDetailsService, private commonService: CommonService, 
+              private router: Router, private activatedRoute:ActivatedRoute) { }
 
   clients = [];
   blocks = [];
@@ -40,8 +42,25 @@ export class AdvtDetailsComponent implements OnInit {
   client = [];
   selectedBlockId;
   blockId;
-
+  advt_record:any = {};
+  editMode = false;
   ngOnInit() {
+
+    if(this.activatedRoute.snapshot.params.id){
+      let advt_id = this.activatedRoute.snapshot.params.id;
+      this.editMode = true;
+      this.advtService.getAdvt(advt_id).subscribe((resp:any)=>{
+      
+        this.advt_record = resp.data;
+        this.onSelectCountry(+this.advt_record.country_id);
+        this.onSelectState(+this.advt_record.state_id);
+        this.onSelectCity(+this.advt_record.city_id);
+        
+      },(err)=>{
+
+      });
+  }
+
     this.advtService.getClient().subscribe(data => {
       this.clients = data;
     });
@@ -49,6 +68,14 @@ export class AdvtDetailsComponent implements OnInit {
     this.commonService.getCountryDetails().subscribe(countryList => {
       localStorage.setItem('countryDetails', JSON.stringify(countryList));
       this.onSelectCountry(this.selectedCountry);
+    });
+
+    this.commonService.getStateDetails().subscribe(statesList => {
+      localStorage.setItem("stateDetail", JSON.stringify(statesList));
+    });
+
+    this.commonService.getCitiesDetails().subscribe(cityList => {
+      localStorage.setItem("cityDetails", JSON.stringify(cityList));
     });
 
     this.commonService.getBlock().subscribe(data => {
@@ -128,10 +155,20 @@ export class AdvtDetailsComponent implements OnInit {
   }
 
   onSubmit(data) {
-       this.advtService.addAdvtDetails(data).subscribe(data => {
-      console.log(data);
+     if(this.editMode) {
+       this.advtService.updateAdvtDetails(this.advt_record, this.advt_record.advt_id).subscribe(data => {
+        console.log("updated");
+        this.router.navigateByUrl("/super-admin-dashboard/advt-details-list")
+       })
+     } 
+     else {
+      this.advtService.addAdvtDetails(data).subscribe(data => {
       console.log('added successfully');
+      this.router.navigateByUrl("/super-admin-dashboard/advt-details-list")
+
     });
+  }
+  
   }
 
   keyPress(event: any) {

@@ -10,6 +10,7 @@ export class SuperAdminDashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
+    console.log(localStorage.getItem('token'));
+  } 
 
 }
