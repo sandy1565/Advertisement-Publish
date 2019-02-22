@@ -38,6 +38,8 @@ export class AdvtDetailsComponent implements OnInit {
   getValue;
   advt_subject;
   client = [];
+  selectedBlockId;
+  blockId;
 
   ngOnInit() {
     this.advtService.getClient().subscribe(data => {
@@ -93,6 +95,11 @@ export class AdvtDetailsComponent implements OnInit {
       ));
     });
     return this.locations;
+  }
+
+  selectBlockName() {
+    console.log("abc");
+    
   }
 
   getCountries() {

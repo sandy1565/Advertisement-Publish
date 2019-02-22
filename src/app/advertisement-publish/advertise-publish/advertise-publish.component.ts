@@ -14,6 +14,8 @@ export class AdvertisePublishComponent implements OnInit {
   constructor(private advertisepublishService: AdvertisePublishService, private commonService: CommonService) { }
   userSelectsString = '';
   age_as_per_advtPublishDate;
+  selectedBlockId;
+  blockId;
   show = false;
   userSelects = [];
   gender = ['Male', 'Female', 'Transgender'];
@@ -33,7 +35,7 @@ export class AdvertisePublishComponent implements OnInit {
     this.userSelects.map((item) => this.userSelectsString += item.locationName + ' ');
   }
 
-  publishDetails(event, fromAge, toAge, textMessage) {
+  publishDetails(event, textMessage) {
     const publishModel = {};
     publishModel['gender'] = this.genderModel.gender;
     publishModel['text_message'] = textMessage;

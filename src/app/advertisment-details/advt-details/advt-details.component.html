@@ -93,7 +93,7 @@
       class="hideLabel form-control"
       [(ngModel)]="blockId"
       name="block_id"
-      (change)="selectBlockName()"
+      <!-- (change)="selectBlockName()" -->
     >
       <option selected="" value="">Select Your block</option>
       <option [ngValue]="block.block_id" *ngFor="let block of blocks">
