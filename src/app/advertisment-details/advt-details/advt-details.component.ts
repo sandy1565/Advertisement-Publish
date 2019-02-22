@@ -127,15 +127,8 @@ export class AdvtDetailsComponent implements OnInit {
     console.log(this.selectedClientName);
   }
 
-  onSubmit(event, AdvtDetails, publishDate, ageFrom, ageTo) {
-    const advtDetails = {};
-    advtDetails['client_id'] = this.selectedClientName;
-    advtDetails['advt_details'] = AdvtDetails;
-    advtDetails['publish_date'] = publishDate;
-    advtDetails['age_from'] = ageFrom;
-    advtDetails['age_to'] = ageTo;
-
-    this.advtService.addAdvtDetails(advtDetails).subscribe(data => {
+  onSubmit(data) {
+       this.advtService.addAdvtDetails(data).subscribe(data => {
       console.log(data);
       console.log('added successfully');
     });

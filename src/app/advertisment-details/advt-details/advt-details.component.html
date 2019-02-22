@@ -1,11 +1,11 @@
-<form class="form container" #personForm="ngForm">
+<form class="form container" #publishDetails="ngForm" (ngSubmit)="onSubmit(publishDetails.value)">
   <div class="container-fluid">
   <h1>ADVERTISEMENT DETAILS</h1>
 
   <!-- Client Name -->
   <div class="form-group">
     <label>ClientName</label>
-    <select id="client_id" [(ngModel)]="clientId" #client_id="ngModel" (change)="selectClientName()" name="client_id" class="form-control">
+    <select id="client_id" [(ngModel)]="clientId" #client_id="ngModel" (change)="selectClientName()" name="client_id" class="form-control" ngModel name="client_name">
       <option [ngValue]="client.client_id" *ngFor=" let client of clients" >
         {{client.clientname}}
       </option>
@@ -22,6 +22,7 @@
       (change)="onSelectCountry($event.target.value)"
       class="form-control input-lg"
       id="country"
+
     >
       <option value="0">Select Country</option>
       <option
@@ -83,6 +84,79 @@
       >
     </select>
   </div>
+<!-- Address -->
+
+    <div class="form-group">
+      <label class="control-label" for="Country">Country:</label>
+      <select *ngIf="getCountries()"  [(ngModel)]="client_record.country_id" name="country_id"
+        (change)="onSelectCountry($event.target.value)" class="form-control input-lg" id="country"
+        #countryName="ngModel" [ngClass]="{ 'is-invalid': publishDetails.submitted && countryName.invalid }" required>
+        <option value="0">Select Country</option>
+        <option *ngFor="let country of getCountries()" value="{{ country.country_id }}">{{ country.country_name }}
+        </option>
+        <div *ngIf="publishDetails.submitted && countryName.invalid" class="invalid-feedback">
+          <div *ngIf="countryName.errors.required">Country Name is required</div>
+        </div>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label" for="States">States:</label>
+      <select  [(ngModel)]="client_record.state_id" name="state_id" (change)="onSelectState($event.target.value)"
+        class="form-control input-lg" id="state" #stateName="ngModel"
+        [ngClass]="{ 'is-invalid': publishDetails.submitted && stateName.invalid }" required>
+        <option>Select State</option>
+        <option *ngFor="let state of states" value="{{ state.state_id }}">{{
+          state.statename
+        }}</option>
+        <div *ngIf="publishDetails.submitted && stateName.invalid" class="invalid-feedback">
+          <div *ngIf="stateName.errors.required">State Name is required</div>
+        </div>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label" for="City">City:</label>
+      <select class="form-control input-lg" id="city" [(ngModel)]="client_record.city_id" name="city_id"
+        (change)="onSelectCity($event.target.value)" #cityName="ngModel"
+        [ngClass]="{ 'is-invalid': publishDetails.submitted && cityName.invalid }" required>
+        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{
+          city.cityname
+        }}</option>
+        <div *ngIf="publishDetails.submitted && cityName.invalid" class="invalid-feedback">
+          <div *ngIf="cityName.errors.required">City Name is required</div>
+        </div>
+      </select>
+    </div>
+
+    <!--Location-->
+    <div class="form-group">
+      <label class="control-label" for="City">Location:</label>
+      <select class="form-control input-lg" [(ngModel)]="client_record.location_id" #location_id="ngModel" id="location"
+        name="location_id" (change)="selectLocation()" #locationName="ngModel"
+        [ngClass]="{ 'is-invalid': publishDetails.submitted && locationName.invalid }" required>
+        <option>Select Location</option>
+        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}
+        </option>
+        <div *ngIf="publishDetails.submitted && locationName.invalid" class="invalid-feedback">
+          <div *ngIf="locationName.errors.required">Location Name is required</div>
+        </div>
+      </select>
+    </div>
+
+    <!--Block ID-->
+    <div class="form-group">
+      <label>Block</label>
+      <select id="block_id" [(ngModel)]="client_record.block_id" name="block_id" class=" form-control" #blockName="ngModel"
+        [ngClass]="{ 'is-invalid': publishDetails.submitted && blockName.invalid }" required>
+        <option [ngValue]="block.block_id" *ngFor="let block of blocks">
+          {{ block.blockname }}
+        </option>
+        <div *ngIf="publishDetails.submitted && blockName.invalid" class="invalid-feedback">
+          <div *ngIf="blockName.errors.required">Block Name is required</div>
+        </div>
+      </select>
+    </div>
 
   <!-- Select Block-->
   <div class="form-group">
@@ -93,7 +167,7 @@
       class="hideLabel form-control"
       [(ngModel)]="blockId"
       name="block_id"
-      <!-- (change)="selectBlockName()" -->
+      (change)="selectBlockName()"
     >
       <option selected="" value="">Select Your block</option>
       <option [ngValue]="block.block_id" *ngFor="let block of blocks">
@@ -101,8 +175,6 @@
       </option>
     </select>
   </div>
-
-
 
   <!-- Advertisement Subject -->
   <div class="form-group">
@@ -134,7 +206,7 @@
   <!--Age From-->
   <div class="form-group">
       <label  class="label-control">Age From:</label>
-      <input type="text" name="ageFrom" class="form-control"  value="age_from"   id="age_from" [(ngModel)]="age_from"  (change)= "fromDate(age_from.value)"  minlength ="2" maxlength ="3"  (keypress)="keyPress($event)" #ageFrom="ngModel" required>
+      <input type="text" name="ageFrom" class="form-control"  value="age_from"  id="age_from" [(ngModel)]="age_from"  (change)= "fromDate(age_from.value)"  minlength ="2" maxlength ="3"  (keypress)="keyPress($event)" #ageFrom="ngModel" required>
       <div *ngIf ="ageFrom.errors && (ageFrom.dirty|| ageFrom.touched)" class="text-danger">
         <div [hidden] ="!ageFrom.hasError('required')"> Age is Required</div>
       </div>
@@ -143,13 +215,13 @@
   <!-- To age-->
   <div class="form-group">
       <label  class="label-control">Age To:</label>
-      <input type="text" name="age_to"  id ="age_to"  value ="age_to" class="form-control"   (change)="checkPrice()" [(ngModel)]="age_to" minlength="2" maxlength="3"   (keypress)="keyPress($event)" #ageTo="ngModel" required>
+      <input type="text" name="age_to"  id ="age_to"  value ="age_to" class="form-control" (change)="checkPrice()" [(ngModel)]="age_to" minlength="2" maxlength="3" (keypress)="keyPress($event)" #ageTo="ngModel" required>
       <div *ngIf ="ageTo.errors && (ageTo.dirty || ageTo.touched)" class ="text-danger">
         <div [hidden] ="!ageTo.hasError('required')"> Age is Required</div>
       </div>
   </div>
 
- <button type="button" class="btn btn-primary"  routerLink="../advt-details-list"  (click)="onSubmit($event, AdvtDetails.value, publishDate.value, ageFrom.value, ageTo.value )">submit</button>                  
+ <button type="submit" class="btn btn-primary"  routerLink="../advt-details-list">submit</button>                  
 </div>    
 </form>
 
