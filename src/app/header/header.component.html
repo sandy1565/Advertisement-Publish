@@ -10,16 +10,6 @@
       <a href="#" class="link">Contact Us</a>
       <a href="#" class="link">About Us</a>
     </nav>
-    <!-- <div style="display: inline-block">
-      <button class="dropdown-btn" (click)="openDropdown($event)">
-        {{ firstname + " " + lastname }}
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-container" style="background-color: #efe9e9; text-align: left;">
-        <a href="#" routerLink="/login">Logout</a>
-      </div>
-    </div> -->
-
     <div class="dropdown" style="display:inline-block">
         <button class="dropdown-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ firstname + " " + lastname }}
@@ -27,6 +17,6 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a href="#" routerLink="/login">Logout</a>
           </div>
-      </div>
+    </div>
   </div>
 </header>
