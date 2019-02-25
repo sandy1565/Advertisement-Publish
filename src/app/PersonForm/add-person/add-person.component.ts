@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormGroup, FormsModule } from '@angular/forms';
 import { PersonService } from '../person-service/person.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Gender } from '../../services/commonModal';
 import { CommonService } from '../../services/commonService';
 @Component({
@@ -40,12 +40,13 @@ export class PersonFormComponent implements OnInit {
   selectedCity;
   model: any = {};
   gender = ['Male', 'Female', 'Transgender'];
+  person_record:any = {};
 
-  constructor(private service: PersonService, private route: Router, private commonService: CommonService) {}
+  constructor(private service: PersonService, private route: Router, private commonService: CommonService, private activatedRoute: ActivatedRoute) { }
 
   genderModel = new Gender();
 
-  getValue(e){
+  getValue(e) {
     this.gender = e.target.value;
     console.log('--------------this.genderModel.gender =================', this.gender);
   }
@@ -71,9 +72,20 @@ export class PersonFormComponent implements OnInit {
     this.commonService.getBlock().subscribe(data => {
       this.blocks = data;
     });
+
+    if (this.activatedRoute.snapshot.params.id) {
+      let person_id = this.activatedRoute.snapshot.params.id;
+      console.log(person_id);
+      this.service.getPersonDetails(person_id).subscribe((resp: any) => {
+        this.person_record = resp.data;
+        this.onSelectCountry(+this.person_record.country_id);
+        this.onSelectState(+this.person_record.state_id);
+        this.onSelectCity(+this.person_record.city_id);
+      })
+    };
   }
 
-  onSelectCountry(country_id: number) {
+  onSelectCountry(country_id: number) {  
     this.selectedCountry = country_id;
     console.log('=============country_id===================', country_id);
     this.states = this.getStates().filter(item => {
@@ -113,7 +125,7 @@ export class PersonFormComponent implements OnInit {
       console.log('==================', data);
       return (this.locations = JSON.parse(
         (JSON.stringify(data))
-        ));
+      ));
     });
     return this.locations;
   }
@@ -150,6 +162,7 @@ export class PersonFormComponent implements OnInit {
   }
 
   selectFloorName() {
+    console.log(this.person_record)
     this.selectedFloorType = this.floorId;
     console.log(this.selectedFloorType);
   }
@@ -173,7 +186,7 @@ export class PersonFormComponent implements OnInit {
     personDetails['mobile_number1'] = mobilenumber1;
     personDetails['mobile_number2'] = mobilenumber2;
     // if(this.validateinput.validateInput(personDetails)) {
-    console.log("================Get Object data=================",personDetails);
+    console.log("================Get Object data=================", personDetails);
     this.service.addPersonDetails(personDetails).subscribe(data => {
       console.log(data);
       console.log('added successfully');

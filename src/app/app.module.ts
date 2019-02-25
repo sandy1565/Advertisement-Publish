@@ -30,8 +30,11 @@ import { AdvtDetailsListComponent } from './advertisment-details/advt-details-li
 import { SearchAdvtDetailsPipe } from './advertisment-details/advt-details-list/search-advt-details.pipe';
 import { AddClientComponent } from './client-details/add-client/add-client.component';
 import { ClientListComponent } from './client-details/client-list/client-list.component';
+import { PasswordInputComponent } from '../app/login/password-input';
+
 @NgModule({
   declarations: [
+    PasswordInputComponent,
     AppComponent,
     HomepageComponent,
     LoginComponent,

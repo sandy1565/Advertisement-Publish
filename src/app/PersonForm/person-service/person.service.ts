@@ -20,6 +20,13 @@ export class PersonService {
     });
   }
 
+  public getPersonDetails(id){
+    return this.http.get(`${URN}getPersonData/${id}`,{
+      headers: authHeader()
+    })
+  }
+
+
   public getPersons(id: number): Observable<PersonModel> {
     return this.http.get<PersonModel>(`${URN}getPerson`, {
       headers: authHeader()

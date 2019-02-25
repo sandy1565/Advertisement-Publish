@@ -1,6 +1,7 @@
 <form class="form container" #personForm="ngForm">
   <div class="container-fluid">
     <h2>PERSON DETAILS</h2>
+    <!--First Name-->
     <div class="form-group">
       <label class="label-control">First Name:</label>
       <input
@@ -11,7 +12,7 @@
         maxlength="20"
         (keypress)="keyPressed($event)"
         required
-        [(ngModel)]="firstname"
+        [(ngModel)]="person_record.firstname"
         id="first_name"
         #firstName="ngModel"
       />
@@ -19,6 +20,8 @@
         <div [hidden]="!firstName.hasError('required')">First Name is Required</div>
       </div>
     </div>
+    
+    <!-- Middle Name -->
     <div class="form-group">
       <label class="label-control">Middle Name:</label>
       <input
@@ -29,13 +32,12 @@
         maxlength="20"
         (keypress)="keyPressed($event)"
         required
-        [(ngModel)]="middlename"
+        [(ngModel)]="person_record.middlename"
         #middleName="ngModel"
       />
-      <!-- <div *ngIf = "middlename.errors && (middlename.dirty || middlename.touched) " class="text-danger">
-          <div [hidden] ="!middlename.hasError('required')"> Middle Name is Required</div> -->
-      <!-- </div> -->
     </div>
+
+    <!-- Last Name -->
     <div class="form-group">
       <label class="label-control">Last Name:</label>
       <input
@@ -46,7 +48,7 @@
         maxlength="20"
         (keypress)="keyPressed($event)"
         required
-        [(ngModel)]="lastname"
+        [(ngModel)]="person_record.lastname"
         #lastName="ngModel"
       />
       <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="text-danger">
@@ -54,81 +56,87 @@
       </div>
     </div>
 
+    <!-- Country Name -->
     <div class="form-group">
       <label class="control-label" for="Country">Country:</label>
       <select
         *ngIf="getCountries()"
-        [(ngModel)]="selectedCountry"
+        [(ngModel)]="person_record.selectedCountry"
         name="selectedCountry"
         (change)="onSelectCountry($event.target.value)"
         class="form-control input-lg"
         id="country"
       >
-        <option value="0">Select Country</option>
+        <!-- <option value="0">Select Country</option> -->
         <option *ngFor="let country of getCountries()" value="{{ country.country_id }}">{{ country.country_name }}</option>
       </select>
     </div>
 
+    <!-- State Name -->
     <div class="form-group">
       <label class="control-label" for="States">States:</label>
       <select
-        [(ngModel)]="selectedState"
+        [(ngModel)]="person_record.selectedState"
         name="selectedState"
         (change)="onSelectState($event.target.value)"
         class="form-control input-lg"
         id="state"
       >
-        <option>Select State</option>
         <option *ngFor="let state of states" value="{{ state.state_id }}">{{ state.statename }}</option>
       </select>
     </div>
 
+    <!-- City Name -->
     <div class="form-group">
       <label class="control-label" for="City">City:</label>
-      <select class="form-control input-lg" id="city" (change)="onSelectCity($event.target.value)">
-        <option>Select City</option>
-        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{ city.cityname }}</option>
+      <select class="form-control input-lg" id="city" [(ngModel)]="person_record.city_id" name="city_id"
+        (change)="onSelectCity($event.target.value)" #cityName="ngModel"
+        [ngClass]="{ 'is-invalid': personForm.submitted && cityName.invalid }" required>
+        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{
+          city.cityname
+        }}</option>
+        <div *ngIf="personForm.submitted && cityName.invalid" class="invalid-feedback">
+          <div *ngIf="cityName.errors.required">City Name is required</div>
+        </div>
       </select>
     </div>
 
+    <!--Location-->
     <div class="form-group">
       <label class="control-label" for="City">Location:</label>
-      <select
-        class="form-control input-lg"
-        [(ngModel)]="locationId"
-        #location_id="ngModel"
-        id="location"
-        name="location_name"
-        (change)="selectLocation()"
-      >
+      <select class="form-control input-lg" [(ngModel)]="person_record.location_id" #location_id="ngModel" id="location"
+        name="location_id" (change)="selectLocation()" #locationName="ngModel"
+        [ngClass]="{ 'is-invalid': personForm.submitted && locationName.invalid }" required>
         <option>Select Location</option>
-        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}</option>
+        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}
+        </option>
+        <div *ngIf="personForm.submitted && locationName.invalid" class="invalid-feedback">
+          <div *ngIf="locationName.errors.required">Location Name is required</div>
+        </div>
       </select>
     </div>
 
+    <!--Block ID-->
     <div class="form-group">
       <label>Block</label>
-      <select
-        id="block_id"
-        required
-        [(ngModel)]="blockId"
-        #block_id="ngModel"
-        (change)="selectBlockName()"
-        name="block_id"
-        class=" form-control"
-      >
+      <select id="block_id" [(ngModel)]="person_record.block_id" name="block_id" class=" form-control" #blockName="ngModel"
+        [ngClass]="{ 'is-invalid': personForm.submitted && blockName.invalid }" required>
         <option [ngValue]="block.block_id" *ngFor="let block of blocks">
           {{ block.blockname }}
         </option>
+        <div *ngIf="personForm.submitted && blockName.invalid" class="invalid-feedback">
+          <div *ngIf="blockName.errors.required">Block Name is required</div>
+        </div>
       </select>
     </div>
 
+    <!-- Floor Name-->
     <div class="form-group">
       <label>Floor:</label>
       <select
         id="floor_id"
         required
-        [(ngModel)]="floorId"
+        [(ngModel)]="person_record.floorId"
         #floor_id="ngModel"
         (change)="selectFloorName()"
         name="floor_id"
@@ -139,7 +147,7 @@
         </option>
       </select>
     </div>
-
+    
     <div class="form-group">
       <label class="label-control">Address:</label>
       <input type="text" name="address" required [(ngModel)]="address" #Address="ngModel" class="form-control" />

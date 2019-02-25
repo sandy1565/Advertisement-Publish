@@ -23,14 +23,15 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'super-admin-dashboard', pathMatch: 'full' },
       { path: 'add-person', component: PersonFormComponent },
+      { path: 'edit-person-details/:id', component: PersonFormComponent },
       { path: 'person-list', component: PersonListComponent },
-      { path: 'advertise-publish', component: AdvertisePublishComponent},
-      { path: 'view-publish', component: ViewPublishComponent},
-      { path: 'advt-details', component: AdvtDetailsComponent},
-      { path: 'edit-details/:id', component: AdvtDetailsComponent},
-      { path: 'advt-details-list', component: AdvtDetailsListComponent},
-      { path: 'add-client', component: AddClientComponent},
-      {path: 'edit-client/:id', component: AddClientComponent},
+      { path: 'advertise-publish', component: AdvertisePublishComponent },
+      { path: 'view-publish', component: ViewPublishComponent },
+      { path: 'advt-details', component: AdvtDetailsComponent },
+      { path: 'edit-details/:id', component: AdvtDetailsComponent },
+      { path: 'advt-details-list', component: AdvtDetailsListComponent },
+      { path: 'add-client', component: AddClientComponent },
+      { path: 'edit-client/:id', component: AddClientComponent },
       { path: 'client-list', component: ClientListComponent }
     ]
   },
@@ -39,10 +40,10 @@ const routes: Routes = [
     { path: '', redirectTo: 'admin-dashboard', pathMatch: 'full' },
     { path: 'add-person', component: PersonFormComponent },
     { path: 'person-list', component: PersonListComponent },
-    { path: 'advertise-publish', component: AdvertisePublishComponent},
-    { path: 'view-publish', component: ViewPublishComponent},
-    { path: 'advt-details', component: AdvtDetailsComponent},
-    { path: 'advt-details-list', component: AdvtDetailsListComponent}
+    { path: 'advertise-publish', component: AdvertisePublishComponent },
+    { path: 'view-publish', component: ViewPublishComponent },
+    { path: 'advt-details', component: AdvtDetailsComponent },
+    { path: 'advt-details-list', component: AdvtDetailsListComponent }
   ]
  },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
