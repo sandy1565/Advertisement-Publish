@@ -173,14 +173,14 @@ export class PersonFormComponent implements OnInit {
     if(this.editMode) {
       this.service.updatePersonDetail(data, this.person_record.person_id).subscribe(data => {
         console.log(data);
-        this.route.navigateByUrl('../../person-list');
+        this.route.navigateByUrl('/super-admin-dashboard/person-list');
       })
     }
     else{
     this.service.addPersonDetails(data).subscribe(data => {
       console.log(data);
       console.log('added successfully');
-      this.route.navigateByUrl('../person-list');
+      this.route.navigateByUrl('/super-admin-dashboard/person-list');
     });
   }
   }
