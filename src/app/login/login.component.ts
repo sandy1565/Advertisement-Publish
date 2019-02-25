@@ -42,6 +42,9 @@ export class LoginComponent implements OnInit {
           } else if (userDetailsJSON.typeOfUser === CommonConstant.NORMAL_USER) {
             this.router.navigate(['/dashboard']);
           }
+          else if (userDetailsJSON.typeOfUser === CommonConstant.CLIENT_USER){
+            this.router.navigate(["/client-dashboard"]);
+          }
         }
       }
         else if (userDetailsJSON.status === 401) {

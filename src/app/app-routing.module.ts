@@ -14,6 +14,7 @@ import { AdvtDetailsComponent } from './advertisment-details/advt-details/advt-d
 import { AdvtDetailsListComponent } from './advertisment-details/advt-details-list/advt-details-list.component';
 import { AddClientComponent } from './client-details/add-client/add-client.component';
 import { ClientListComponent } from './client-details/client-list/client-list.component';
+import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
  
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -56,6 +57,12 @@ const routes: Routes = [
     { path: 'advt-details', component: AdvtDetailsComponent},
     { path: 'advt-details-list', component: AdvtDetailsListComponent}
   ] },
+  {
+    path:'client-dashboard', component:ClientDashboardComponent, canActivate:[AuthGuard],
+    children:[
+     { path:'',component:AdvtDetailsListComponent}
+    ]
+  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
