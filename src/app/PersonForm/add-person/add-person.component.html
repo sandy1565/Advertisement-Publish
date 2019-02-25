@@ -1,56 +1,29 @@
-<form class="form container" #personForm="ngForm">
+<form class="form container" #personForm="ngForm" (ngSubmit)="onSubmit(personForm.value)">
   <div class="container-fluid">
     <h2>PERSON DETAILS</h2>
     <!--First Name-->
     <div class="form-group">
       <label class="label-control">First Name:</label>
-      <input
-        type="text"
-        name="firstname"
-        class="form-control"
-        minlength="3"
-        maxlength="20"
-        (keypress)="keyPressed($event)"
-        required
-        [(ngModel)]="person_record.firstname"
-        id="first_name"
-        #firstName="ngModel"
-      />
+      <input type="text" name="firstname" class="form-control" minlength="3" maxlength="20"
+        (keypress)="keyPressed($event)" required [(ngModel)]="person_record.firstname" id="first_name"
+        #firstName="ngModel" />
       <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="text-danger">
         <div [hidden]="!firstName.hasError('required')">First Name is Required</div>
       </div>
     </div>
-    
+
     <!-- Middle Name -->
     <div class="form-group">
       <label class="label-control">Middle Name:</label>
-      <input
-        type="text"
-        name="middlename"
-        class="form-control"
-        minlength="3"
-        maxlength="20"
-        (keypress)="keyPressed($event)"
-        required
-        [(ngModel)]="person_record.middlename"
-        #middleName="ngModel"
-      />
+      <input type="text" name="middlename" class="form-control" minlength="3" maxlength="20"
+        (keypress)="keyPressed($event)" required [(ngModel)]="person_record.middlename" #middleName="ngModel" />
     </div>
 
     <!-- Last Name -->
     <div class="form-group">
       <label class="label-control">Last Name:</label>
-      <input
-        type="text"
-        name="lastname"
-        class="form-control"
-        minlength="3"
-        maxlength="20"
-        (keypress)="keyPressed($event)"
-        required
-        [(ngModel)]="person_record.lastname"
-        #lastName="ngModel"
-      />
+      <input type="text" name="lastname" class="form-control" minlength="3" maxlength="20"
+        (keypress)="keyPressed($event)" required [(ngModel)]="person_record.lastname" #lastName="ngModel" />
       <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="text-danger">
         <div [hidden]="!lastName.hasError('required')">Last name is Required</div>
       </div>
@@ -59,68 +32,66 @@
     <!-- Country Name -->
     <div class="form-group">
       <label class="control-label" for="Country">Country:</label>
-      <select
-        *ngIf="getCountries()"
-        [(ngModel)]="person_record.selectedCountry"
-        name="selectedCountry"
-        (change)="onSelectCountry($event.target.value)"
-        class="form-control input-lg"
-        id="country"
-      >
-        <!-- <option value="0">Select Country</option> -->
-        <option *ngFor="let country of getCountries()" value="{{ country.country_id }}">{{ country.country_name }}</option>
+      <select *ngIf="getCountries()" [(ngModel)]="person_record.country_id" name="country_id"
+        (change)="onSelectCountry($event.target.value)" class="form-control input-lg" id="country"
+        #countryName="ngModel" [ngClass]="{ 'is-invalid': personForm.submitted && countryName.invalid }" required>
+        <option value="0">Select Country</option>
+        <option *ngFor="let country of getCountries()" value="{{ country.country_id }}">{{ country.country_name }}
+        </option>
+        <div *ngIf="personForm.submitted && countryName.invalid" class="invalid-feedback">
+          <div *ngIf="countryName.errors.required">Country Name is required</div>
+        </div>
       </select>
     </div>
 
-    <!-- State Name -->
     <div class="form-group">
       <label class="control-label" for="States">States:</label>
-      <select
-        [(ngModel)]="person_record.selectedState"
-        name="selectedState"
-        (change)="onSelectState($event.target.value)"
-        class="form-control input-lg"
-        id="state"
-      >
+      <select [(ngModel)]="person_record.state_id" name="state_id" (change)="onSelectState($event.target.value)"
+        class="form-control input-lg" id="state" #stateName="ngModel"
+        [ngClass]="{ 'is-invalid': personForm.submitted && stateName.invalid }" required>
         <option>Select State</option>
-        <option *ngFor="let state of states" value="{{ state.state_id }}">{{ state.statename }}</option>
+        <option *ngFor="let state of states" value="{{ state.state_id }}">{{
+          state.statename
+        }}</option>
+        <div *ngIf="personForm.submitted && stateName.invalid" class="invalid-feedback">
+          <div *ngIf="stateName.errors.required">State Name is required</div>
+        </div>
       </select>
     </div>
 
     <div class="form-group">
       <label class="control-label" for="City">City:</label>
-      <select class="form-control input-lg" id="city" (change)="onSelectCity($event.target.value)">
-        <option>Select City</option>
-        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{ city.cityname }}</option>
+      <select class="form-control input-lg" id="city" [(ngModel)]="person_record.city_id" name="city_id"
+        (change)="onSelectCity($event.target.value)" #cityName="ngModel"
+        [ngClass]="{ 'is-invalid': personForm.submitted && cityName.invalid }" required>
+        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{
+          city.cityname
+        }}</option>
+        <div *ngIf="personForm.submitted && cityName.invalid" class="invalid-feedback">
+          <div *ngIf="cityName.errors.required">City Name is required</div>
+        </div>
       </select>
     </div>
 
+    <!--Location-->
     <div class="form-group">
       <label class="control-label" for="City">Location:</label>
-      <select
-        class="form-control input-lg"
-        [(ngModel)]="locationId"
-        #location_id="ngModel"
-        id="location"
-        name="location_name"
-        (change)="selectLocation()"
-      >
+      <select class="form-control input-lg" [(ngModel)]="person_record.location_id" #location_id="ngModel" id="location"
+        name="location_id" (change)="selectLocation()" #locationName="ngModel"
+        [ngClass]="{ 'is-invalid': personForm.submitted && locationName.invalid }" required>
         <option>Select Location</option>
-        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}</option>
+        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}
+        </option>
+        <div *ngIf="personForm.submitted && locationName.invalid" class="invalid-feedback">
+          <div *ngIf="locationName.errors.required">Location Name is required</div>
+        </div>
       </select>
     </div>
 
     <div class="form-group">
       <label>Block</label>
-      <select
-        id="block_id"
-        required
-        [(ngModel)]="blockId"
-        #block_id="ngModel"
-        (change)="selectBlockName()"
-        name="block_id"
-        class=" form-control"
-      >
+      <select id="block_id" required [(ngModel)]="person_record.block_id" #block_id="ngModel"
+        (change)="selectBlockName()" name="block_id" class=" form-control">
         <option [ngValue]="block.block_id" *ngFor="let block of blocks">
           {{ block.blockname }}
         </option>
@@ -129,15 +100,8 @@
 
     <div class="form-group">
       <label>Floor:</label>
-      <select
-        id="floor_id"
-        required
-        [(ngModel)]="floorId"
-        #floor_id="ngModel"
-        (change)="selectFloorName()"
-        name="floor_id"
-        class="form-control"
-      >
+      <select id="floor_id" required [(ngModel)]="person_record.floor_id" #floor_id="ngModel"
+        (change)="selectFloorName()" name="floor_id" class="form-control">
         <option [ngValue]="floor.floor_id" *ngFor="let floor of floors">
           {{ floor.floor_type }}
         </option>
@@ -146,7 +110,8 @@
 
     <div class="form-group">
       <label class="label-control">Address:</label>
-      <input type="text" name="address" required [(ngModel)]="address" #Address="ngModel" class="form-control" />
+      <input type="text" name="address" required [(ngModel)]="person_record.address" #Address="ngModel"
+        class="form-control" />
       <div *ngIf="Address.errors && (Address.dirty || Address.touched)" class="text-danger">
         <div [hidden]="!Address.hasError('required')">Address is Required</div>
       </div>
@@ -154,17 +119,8 @@
 
     <div class="form-group">
       <label class="label-control">Pincode:</label>
-      <input
-        type="text"
-        name="pincode"
-        minlength="6"
-        maxlength="6"
-        (keypress)="keyPress($event)"
-        required
-        [(ngModel)]="pincode"
-        #Pincode="ngModel"
-        class="form-control"
-      />
+      <input type="text" name="pincode" minlength="6" maxlength="6" (keypress)="keyPress($event)" required
+        [(ngModel)]="person_record.pincode" #Pincode="ngModel" class="form-control" />
       <div *ngIf="Pincode.errors && (Pincode.dirty || Pincode.touched)" class="text-danger">
         <div [hidden]="!Pincode.hasError('required')">Pincode is Required</div>
       </div>
@@ -172,45 +128,29 @@
 
     <div class="form-group">
       <label>Date Of Birth:</label>
-      <input
-        type="date"
-        name="date_of_birth"
-        required
-        [(ngModel)]="date_of_birth"
-        #dateofBirth="ngModel"
-        class="form-control"
-        (click)="selectDate()"
-      />
+      <input type="date" name="date_of_birth" required [(ngModel)]="person_record.date_of_birth" #dateofBirth="ngModel"
+        class="form-control" (click)="selectDate()" />
       <div *ngIf="dateofBirth.errors && (dateofBirth.dirty || dateofBirth.touched)" class="text-danger">
         <div [hidden]="!dateofBirth.hasError('required')">Date of Birth is Required</div>
       </div>
     </div>
 
-    
+
 
     <label for="gender">Gender</label>
-    <select placeholder="Select Gender" name="gender" [(ngModel)]=" genderModel.gender" (change)="getValue($event)" #gender="ngModel" [ngClass]="{ 'is-invalid': personForm.submitted && gender.invalid }" required>
-      <option>Male</option>
-      <option>Female</option>
-      <option>Other</option>
+    <select placeholder="Select Gender" name="gender" [(ngModel)]="person_record.gender" [ngClass]="{ 'is-invalid': personForm.submitted && gender.invalid }" required>
+      <option ngValue="Male">Male</option>
+      <option ngValue="Female">Female</option>
+      <option ngValue="Other">Other</option>
     </select>
-  
+
     <br>
 
 
     <div class="form-group">
       <label>Mobile Number 1:</label>
-      <input
-        id="mobile_number1"
-        name="mobile_number1"
-        minlength="10"
-        maxlength="10"
-        (keypress)="keyPress($event)"
-        required
-        [(ngModel)]="mobile_number1"
-        #mobilenumber1="ngModel"
-        class="form-control"
-      />
+      <input id="mobile_number1" name="mobile_number1" minlength="10" maxlength="10" (keypress)="keyPress($event)"
+        required [(ngModel)]="person_record.mobile_number1" #mobilenumber1="ngModel" class="form-control" />
       <div *ngIf="mobilenumber1.errors && (mobilenumber1.dirty || mobilenumber1.touched)" class="text-danger">
         <div [hidden]="!mobilenumber1.hasError('required')">Mobile Numberis Required</div>
       </div>
@@ -218,37 +158,11 @@
 
     <div class="form-group">
       <label>Mobile Number 2:</label>
-      <input
-        id="mobile_number2"
-        name="mobile_number2"
-        minlength="10"
-        maxlength="10"
-        (keypress)="keyPress($event)"
-        required
-        [(ngModel)]="mobile_number2"
-        #mobilenumber2="ngModel"
-        class="form-control"
-      />
+      <input id="mobile_number2" name="mobile_number2" minlength="10" maxlength="10" (keypress)="keyPress($event)"
+        required [(ngModel)]="person_record.mobile_number2" #mobilenumber2="ngModel" class="form-control" />
     </div>
     <!-- <app-alert-card></app-alert-card> -->
-    <button
-      type="button"
-      class="btn btn-primary mb-2"
-      style="margin-right: 10px;"
-      (click)="
-        onSubmit(
-          $event,
-          firstName.value,
-          middleName.value,
-          lastName.value,
-          Address.value,
-          Pincode.value,
-          dateofBirth.value,
-          mobilenumber1.value,
-          mobilenumber2.value
-        )
-      "
-    >
+    <button type="submit" class="btn btn-primary mb-2" style="margin-right: 10px;">
       Submit
     </button>
   </div>

@@ -42,12 +42,7 @@ export class PersonService {
   public updatePersonDetail(person, key: number) {
     return this.http.put(`${URN}updatePerson/` + key, person, {
       headers: authHeader()
-    }).subscribe(data => {
-      console.log(data);
-      if (status === '200') {
-        console.log('sand');
-      }
-    });
+    })
   }
 
   public deletePersonDetails(key: number) {

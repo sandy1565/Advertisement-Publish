@@ -41,6 +41,7 @@ export class PersonFormComponent implements OnInit {
   model: any = {};
   gender = ['Male', 'Female', 'Transgender'];
   person_record:any = {};
+  editMode = false;
 
   constructor(private service: PersonService, private route: Router, private commonService: CommonService, private activatedRoute: ActivatedRoute) { }
 
@@ -76,6 +77,7 @@ export class PersonFormComponent implements OnInit {
     if (this.activatedRoute.snapshot.params.id) {
       let person_id = this.activatedRoute.snapshot.params.id;
       console.log(person_id);
+      this.editMode = true;
       this.service.getPersonDetails(person_id).subscribe((resp: any) => {
         this.person_record = resp.data;
         this.onSelectCountry(+this.person_record.country_id);
@@ -167,32 +169,20 @@ export class PersonFormComponent implements OnInit {
     console.log(this.selectedFloorType);
   }
 
-  onSubmit(event, firstName, middleName, lastName, Address, Pincode, dateofbirth, mobilenumber1, mobilenumber2) {
-    const personDetails = {};
-    personDetails['firstname'] = firstName;
-    personDetails['middlename'] = middleName;
-    personDetails['lastname'] = lastName;
-    personDetails['block_id'] = this.selectedBlockName;
-    personDetails['address'] = Address;
-    personDetails['country_id'] = this.selectedCountry;
-    personDetails['state_id'] = this.selectedState;
-    personDetails['state_id'] = this.selectedState;
-    personDetails['city_id'] = this.selectedCity;
-    personDetails['floor_id'] = this.selectedFloorType;
-    personDetails['location_id'] = this.selectedLocationName;
-    personDetails['date_of_birth'] = dateofbirth;
-    personDetails['pincode'] = Pincode;
-    personDetails['gender'] = this.genderModel.gender;
-    personDetails['mobile_number1'] = mobilenumber1;
-    personDetails['mobile_number2'] = mobilenumber2;
-    // if(this.validateinput.validateInput(personDetails)) {
-    console.log("================Get Object data=================", personDetails);
-    this.service.addPersonDetails(personDetails).subscribe(data => {
+  onSubmit(data){
+    if(this.editMode) {
+      this.service.updatePersonDetail(data, this.person_record.person_id).subscribe(data => {
+        console.log(data);
+        this.route.navigateByUrl('../../person-list');
+      })
+    }
+    else{
+    this.service.addPersonDetails(data).subscribe(data => {
       console.log(data);
       console.log('added successfully');
       this.route.navigateByUrl('../person-list');
     });
-    // }
+  }
   }
 
   ////// validation/////////////
