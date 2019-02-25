@@ -61,7 +61,8 @@ const routes: Routes = [
   {
     path:'client-dashboard', component:ClientDashboardComponent, canActivate:[AuthGuard],
     children:[
-     { path:'',component:ClientAdvtListComponent}
+     { path:'',component:ClientAdvtListComponent},
+     { path: 'profile/client', component: AddClientComponent },
     ]
   }
 ];
