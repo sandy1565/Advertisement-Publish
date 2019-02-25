@@ -32,6 +32,7 @@ import { AddClientComponent } from './client-details/add-client/add-client.compo
 import { ClientListComponent } from './client-details/client-list/client-list.component';
 import { PasswordInputComponent } from '../app/login/password-input';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
+import { ClientAdvtListComponent } from './client-dashboard/advt-list/advt-list.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ClientDashboardComponent } from './client-dashboard/client-dashboard.co
     UserSidebarComponent,
     AddClientComponent,
     ClientListComponent,
-    ClientDashboardComponent
+    ClientDashboardComponent,
+    ClientAdvtListComponent
   ],
   imports: [
     ReactiveFormsModule,

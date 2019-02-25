@@ -15,6 +15,7 @@ import { AdvtDetailsListComponent } from './advertisment-details/advt-details-li
 import { AddClientComponent } from './client-details/add-client/add-client.component';
 import { ClientListComponent } from './client-details/client-list/client-list.component';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
+import { ClientAdvtListComponent } from './client-dashboard/advt-list/advt-list.component';
  
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -60,7 +61,7 @@ const routes: Routes = [
   {
     path:'client-dashboard', component:ClientDashboardComponent, canActivate:[AuthGuard],
     children:[
-     { path:'',component:AdvtDetailsListComponent}
+     { path:'',component:ClientAdvtListComponent}
     ]
   }
 ];

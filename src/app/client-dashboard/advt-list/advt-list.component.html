@@ -1,0 +1,32 @@
+<form class="form container">
+  <div class="container-fluid">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">CLIENT NAME</th>
+          <th scope="col">ADVERTISEMENT DETAILS</th>
+          <th scope="col">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- | searchAdvtDetails: _searchTerm  -->
+        <tr *ngFor="
+            let advt of (users | paginate: { itemsPerPage: 4, currentPage: p })
+          " (click)="onItemClick(a)">
+          <td>{{ advt.client_name }}</td>
+          <td>{{ advt.advt_details }}</td>
+          <label class="container" (change)="approveAdvrt(advt)"> {{advt.status ? 'Approved':'UnApproved'}}
+            <input type="checkbox" #chkRef [(ngModel)]="advt.status">
+            <span class="checkmark"></span>
+          </label>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</form>
