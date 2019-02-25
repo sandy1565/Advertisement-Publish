@@ -82,61 +82,57 @@
         class="form-control input-lg"
         id="state"
       >
+        <option>Select State</option>
         <option *ngFor="let state of states" value="{{ state.state_id }}">{{ state.statename }}</option>
       </select>
     </div>
 
-    <!-- City Name -->
     <div class="form-group">
       <label class="control-label" for="City">City:</label>
-      <select class="form-control input-lg" id="city" [(ngModel)]="person_record.city_id" name="city_id"
-        (change)="onSelectCity($event.target.value)" #cityName="ngModel"
-        [ngClass]="{ 'is-invalid': personForm.submitted && cityName.invalid }" required>
-        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{
-          city.cityname
-        }}</option>
-        <div *ngIf="personForm.submitted && cityName.invalid" class="invalid-feedback">
-          <div *ngIf="cityName.errors.required">City Name is required</div>
-        </div>
+      <select class="form-control input-lg" id="city" (change)="onSelectCity($event.target.value)">
+        <option>Select City</option>
+        <option *ngFor="let city of cities" value="{{ city.city_id }}">{{ city.cityname }}</option>
       </select>
     </div>
 
-    <!--Location-->
     <div class="form-group">
       <label class="control-label" for="City">Location:</label>
-      <select class="form-control input-lg" [(ngModel)]="person_record.location_id" #location_id="ngModel" id="location"
-        name="location_id" (change)="selectLocation()" #locationName="ngModel"
-        [ngClass]="{ 'is-invalid': personForm.submitted && locationName.invalid }" required>
+      <select
+        class="form-control input-lg"
+        [(ngModel)]="locationId"
+        #location_id="ngModel"
+        id="location"
+        name="location_name"
+        (change)="selectLocation()"
+      >
         <option>Select Location</option>
-        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}
-        </option>
-        <div *ngIf="personForm.submitted && locationName.invalid" class="invalid-feedback">
-          <div *ngIf="locationName.errors.required">Location Name is required</div>
-        </div>
+        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}</option>
       </select>
     </div>
 
-    <!--Block ID-->
     <div class="form-group">
       <label>Block</label>
-      <select id="block_id" [(ngModel)]="person_record.block_id" name="block_id" class=" form-control" #blockName="ngModel"
-        [ngClass]="{ 'is-invalid': personForm.submitted && blockName.invalid }" required>
+      <select
+        id="block_id"
+        required
+        [(ngModel)]="blockId"
+        #block_id="ngModel"
+        (change)="selectBlockName()"
+        name="block_id"
+        class=" form-control"
+      >
         <option [ngValue]="block.block_id" *ngFor="let block of blocks">
           {{ block.blockname }}
         </option>
-        <div *ngIf="personForm.submitted && blockName.invalid" class="invalid-feedback">
-          <div *ngIf="blockName.errors.required">Block Name is required</div>
-        </div>
       </select>
     </div>
 
-    <!-- Floor Name-->
     <div class="form-group">
       <label>Floor:</label>
       <select
         id="floor_id"
         required
-        [(ngModel)]="person_record.floorId"
+        [(ngModel)]="floorId"
         #floor_id="ngModel"
         (change)="selectFloorName()"
         name="floor_id"
@@ -147,7 +143,7 @@
         </option>
       </select>
     </div>
-    
+
     <div class="form-group">
       <label class="label-control">Address:</label>
       <input type="text" name="address" required [(ngModel)]="address" #Address="ngModel" class="form-control" />
