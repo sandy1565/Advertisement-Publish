@@ -31,6 +31,7 @@ const routes: Routes = [
       { path: 'view-publish', component: ViewPublishComponent },
       { path: 'advt-details', component: AdvtDetailsComponent },
       { path: 'edit-details/:id', component: AdvtDetailsComponent },
+      { path: 'view-details/:id', component: AdvtDetailsComponent },
       { path: 'advt-details-list', component: AdvtDetailsListComponent },
       { path: 'add-client', component: AddClientComponent },
       { path: 'edit-client/:id', component: AddClientComponent },
@@ -62,7 +63,9 @@ const routes: Routes = [
     path:'client-dashboard', component:ClientDashboardComponent, canActivate:[AuthGuard],
     children:[
      { path:'',component:ClientAdvtListComponent},
-     { path: 'profile/client', component: AddClientComponent },
+     { path: 'view-details/:id', component: AdvtDetailsComponent },
+     { path:'advt-details-list', component:ClientAdvtListComponent},
+     { path: 'profile/:id', component: AddClientComponent },
     ]
   }
 ];

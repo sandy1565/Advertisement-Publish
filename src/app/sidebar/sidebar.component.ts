@@ -9,10 +9,11 @@ export class SidebarComponent implements OnInit {
   @Input('role') role;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
 
-  openDropdown(e) {
-    console.log('hi this is ddp');
+  }
+
+  ngAfterViewInit(){
     const dropdown = document.getElementsByClassName('dropdown-btn');
     let i;
     for (i = 0; i < dropdown.length; i++) {
@@ -26,6 +27,11 @@ export class SidebarComponent implements OnInit {
         }
       });
     }
+  }
+
+  openDropdown(e) {
+    console.log('hi this is ddp');
+   
   }
 
 
