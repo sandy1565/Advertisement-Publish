@@ -33,6 +33,7 @@ import { ClientListComponent } from './client-details/client-list/client-list.co
 import { PasswordInputComponent } from '../app/login/password-input';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 import { ClientAdvtListComponent } from './client-dashboard/advt-list/advt-list.component';
+import { SearchlistPipe } from './PersonForm/person-list/searchlist.pipe';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ClientAdvtListComponent } from './client-dashboard/advt-list/advt-list.
     AddClientComponent,
     ClientListComponent,
     ClientDashboardComponent,
-    ClientAdvtListComponent
+    ClientAdvtListComponent,
+    SearchlistPipe
   ],
   imports: [
     ReactiveFormsModule,

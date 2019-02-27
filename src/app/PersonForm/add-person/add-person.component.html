@@ -138,7 +138,7 @@
 
 
     <label for="gender">Gender</label>
-    <select placeholder="Select Gender" name="gender" [(ngModel)]="person_record.gender" [ngClass]="{ 'is-invalid': personForm.submitted && gender.invalid }" required>
+    <select placeholder="Select Gender" name="gender" [(ngModel)]="person_record.gender" required>
       <option ngValue="Male">Male</option>
       <option ngValue="Female">Female</option>
       <option ngValue="Other">Other</option>
