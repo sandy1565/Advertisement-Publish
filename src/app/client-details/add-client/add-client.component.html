@@ -14,7 +14,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
 
     <!-- Phone Number -->
     <div class="form-group">
-      <label for="" class="label-control">Phone Number</label>
+      <label for="" class="label-control" >Phone Number</label>
       <input type="text" placeholder="Phone Number" name="phone_number" [(ngModel)]="client_record.phone_number" #phoneNumber="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && phoneNumber.invalid }" required />
       <div *ngIf="clientForm.submitted && phoneNumber.invalid" class="invalid-feedback">
@@ -25,7 +25,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Email Id-->
     <div class="form-group">
       <label for="" class="label-control">Email Id: </label>
-      <input type="email" placeholder="email ID" name="email_address"  [(ngModel)]="client_record.email_address" #emailId="ngModel"
+      <input [disabled]="editMode" type="email" placeholder="email ID" name="email_address"  [(ngModel)]="client_record.email_address" #emailId="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && emailId.invalid }" required />
       <div *ngIf="clientForm.submitted && emailId.invalid" class="invalid-feedback">
         <div *ngIf="emailId.errors.required">Email Id is required</div>

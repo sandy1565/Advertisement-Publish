@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonService } from "../../services/commonService";
 import { ClientService } from "../client-service/client.service";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, } from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: "app-add-client",
@@ -29,7 +30,8 @@ export class AddClientComponent implements OnInit {
     private commonService: CommonService,
     private clientService: ClientService,
     private activatedRoute:ActivatedRoute,
-    private router:Router
+    private router:Router,
+    private _location: Location
   ) {}
 
   typeOfFirm = [
@@ -40,6 +42,7 @@ export class AddClientComponent implements OnInit {
 
   ngOnInit() {
     if(this.activatedRoute.snapshot.params.id){
+
         let client_id = this.activatedRoute.snapshot.params.id;
         this.editMode = true;
         this.clientService.getClient(client_id).subscribe((resp:any)=>{
@@ -176,7 +179,7 @@ export class AddClientComponent implements OnInit {
         this.client_record.document_file  = null;
       }
       this.clientService.updateClient(this.client_record.client_id,this.client_record).subscribe((resp:any)=>{
-       this.router.navigateByUrl("/super-admin-dashboard/client-list")
+        this._location.back();
       },(err)=>{
         alert('failure')
       });

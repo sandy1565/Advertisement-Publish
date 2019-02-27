@@ -29,6 +29,15 @@
       </div>
     </div>
 
+    <div class="form-group">
+      <label class="label-control">Email Address:</label>
+      <input type="email" name="email_id" class="form-control"
+        required [(ngModel)]="person_record.email_id" #emailId="ngModel" />
+      <div *ngIf="emailId.errors && (emailId.dirty || emailId.touched)" class="text-danger">
+        <div [hidden]="!emailId.hasError('required')">Email Address is Required</div>
+      </div>
+    </div>
+
     <!-- Country Name -->
     <div class="form-group">
       <label class="control-label" for="Country">Country:</label>

@@ -43,9 +43,9 @@ export class AdvtDetailsService {
 
   public getClient(): Observable<ClientModel[]> {
     return this.http
-      .get(`${URN}getClient` ,{
+      .get(`${URN}client` ,{
         headers: authHeader()
       })
-      .pipe(map(data => < ClientModel[]>data ));
+      .pipe(map(data => < ClientModel[]>data['data'] ));
   }
 }

@@ -6,19 +6,20 @@
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container" *ngIf="role != 'client'">
-              <a href="#" routerLink="/super-admin-dashboard/add-person">Add Person Details</a>
-              <a href="#" routerLink="/super-admin-dashboard/person-list">View Person List</a>
+              <a href="#" appToggler routerLink="/super-admin-dashboard/add-person">Add Person Details</a>
+              <a href="#" appToggler routerLink="/super-admin-dashboard/person-list">View Person List</a>
               <!-- <a href="#">Link 3</a> -->
             </div>
 
-            <button class="dropdown-btn" *ngIf="role == 'client'" [routerLink]="['/client-dashboard/profile/client']">Profile</button>
+            <button  *ngIf="role == 'client'" appToggler style="display:block;width:100%;" [routerLink]="['/client-dashboard/profile/client']">Profile</button>
 
             <button class="dropdown-btn" (click)="openDropdown($event)">Advertisement Details 
                 <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-container">
-                <a routerLink="/super-admin-dashboard/advt-details" *ngIf="role != 'client'">Add Advertisement</a>
-                <a routerLink="/super-admin-dashboard/advt-details-list">View Advertisement List</a>
+                <a appToggler routerLink="/super-admin-dashboard/advt-details" *ngIf="role != 'client'">Add Advertisement</a>
+                <a appToggler routerLink="/super-admin-dashboard/advt-details-list" *ngIf="role != 'client'">View Advertisement List</a>
+                <a appToggler routerLink="/client-dashboard/advt-details-list" *ngIf="role == 'client'">View Advertisement List</a>
                 <!-- <a href="#">Link 3</a> -->
               </div>
 
@@ -26,7 +27,7 @@
                 <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-container" *ngIf="role != 'client'">
-                <a routerLink="/super-admin-dashboard/advertise-publish">Add Advertise</a>
+                <a appToggler routerLink="/super-admin-dashboard/advertise-publish">Add Advertise</a>
                 <!-- <a href="#" routerLink="/super-admin-dashboard/view-publish">View Advertise List</a> -->
               </div>
 
@@ -34,8 +35,8 @@
                   <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-container">
-                  <a routerLink="/super-admin-dashboard/add-client">Add Client</a>
-                  <a routerLink="/super-admin-dashboard/client-list">View Client List</a>
+                  <a appToggler routerLink="/super-admin-dashboard/add-client">Add Client</a>
+                  <a  appToggler routerLink="/super-admin-dashboard/client-list">View Client List</a>
                   <!-- <a href="#">Link 3</a> -->
                 </div>
 

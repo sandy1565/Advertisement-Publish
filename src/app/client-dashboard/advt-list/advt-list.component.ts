@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { AdvtModel } from "../../advertisment-details/services/advtDetails.model";
 import { AdvtDetailsService } from "../../advertisment-details/services/advt-details.service";
 
@@ -34,12 +34,23 @@ export class ClientAdvtListComponent implements OnInit {
 
   constructor(
     private advtService: AdvtDetailsService,
+    private cdRef:ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.filteredRegistration = this.users;
       this.advtService.getAdvts().subscribe(data => {
         this.users = data;
+        this.users.map(user=>{
+          if(user.status == 'published'){
+            user.editable = false;
+          }
+          else{
+            user.editable = true;
+          }
+          user.status = (user.status == 'approved');
+         
+        });
       });
 
       
@@ -103,7 +114,11 @@ export class ClientAdvtListComponent implements OnInit {
   }
 
   approveAdvrt(advt){
-    this.advtService.updateAdvtDetails(advt,advt.advt_id);
+    
+    this.advtService.updateAdvtDetails({...advt,status:(advt.status?'approved':'unapproved')},advt.advt_id).subscribe(data=>{
+      // advt.status = !advt.status;
+      this.cdRef.detectChanges();
+    });
   }
 
 }

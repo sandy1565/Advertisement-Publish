@@ -34,6 +34,7 @@ import { PasswordInputComponent } from '../app/login/password-input';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 import { ClientAdvtListComponent } from './client-dashboard/advt-list/advt-list.component';
 import { SearchlistPipe } from './PersonForm/person-list/searchlist.pipe';
+import { TogglerDirective } from './toggler.directive';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SearchlistPipe } from './PersonForm/person-list/searchlist.pipe';
     ClientListComponent,
     ClientDashboardComponent,
     ClientAdvtListComponent,
-    SearchlistPipe
+    SearchlistPipe,
+    TogglerDirective
   ],
   imports: [
     ReactiveFormsModule,

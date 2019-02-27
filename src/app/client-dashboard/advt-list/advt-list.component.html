@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th scope="col">CLIENT NAME</th>
-          <th scope="col">ADVERTISEMENT DETAILS</th>
+          <th scope="col">ADVERTISEMENT DETAILS</th>          
           <th scope="col">ACTIONS</th>
         </tr>
       </thead>
@@ -15,9 +15,13 @@
           " (click)="onItemClick(a)">
           <td>{{ advt.client_name }}</td>
           <td>{{ advt.advt_details }}</td>
-          <label class="container" (change)="approveAdvrt(advt)"> {{advt.status ? 'Approved':'UnApproved'}}
-            <input type="checkbox" #chkRef [(ngModel)]="advt.status">
+          <label class="container"  (change)="approveAdvrt(advt)" *ngIf="advt.editable"> {{advt.status ? 'Approved':'UnApproved'}}
+            <input type="checkbox" #chkRef name="status" [(ngModel)]="advt.status">
             <span class="checkmark"></span>
+          </label>
+          <button type="button" class="btn btn-primary" [routerLink]="['/client-dashboard','view-details',advt.advt_id]">View</button>
+          <label *ngIf="!advt.editable">
+            Published
           </label>
         </tr>
       </tbody>
