@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { AdvtDetailsService } from "../services/advt-details.service";
 import { CommonService } from '../../services/commonService';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AudioRecordingService } from '../../record-rtc/record-rtc.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-advt-details',
@@ -10,7 +12,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AdvtDetailsComponent implements OnInit {
   constructor(private advtService: AdvtDetailsService, private commonService: CommonService, 
-              private router: Router, private activatedRoute:ActivatedRoute) { }
+              private router: Router, private activatedRoute:ActivatedRoute, 
+              private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer) {
+                this.audioRecordingService.recordingFailed().subscribe(() => {
+                  this.isRecording = false;
+                });
+            
+                this.audioRecordingService.getRecordedTime().subscribe((time) => {
+                  this.recordedTime = time;
+                });
+            
+                this.audioRecordingService.getRecordedBlob().subscribe((data) => {
+                  this.blobUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data.blob));
+                });
+               }
 
   clients = [];
   blocks = [];
@@ -44,7 +59,23 @@ export class AdvtDetailsComponent implements OnInit {
   blockId;
   advt_record:any = {};
   editMode = false;
+  isRecording = false;
+  recordedTime;
+  blobUrl;
+  audioBase64;
+  types = [ 'message', 'email', 'voice' ];
+  selectedTypes = ['email'];
+
   ngOnInit() {
+   this.audioRecordingService.getRecordedBlob().subscribe(data=>{
+    console.log(data);
+    let fr = new FileReader();
+    fr.readAsDataURL(data.blob);
+    fr.onloadend = ()=> {
+      this.audioBase64 = fr.result;
+      console.log(this.audioBase64);
+    };
+   });
 
     if(this.activatedRoute.snapshot.params.id){
       let advt_id = this.activatedRoute.snapshot.params.id;
@@ -52,6 +83,7 @@ export class AdvtDetailsComponent implements OnInit {
       this.advtService.getAdvt(advt_id).subscribe((resp:any)=>{
       
         this.advt_record = resp.data;
+        this.selectedTypes = resp.data.type;
         this.onSelectCountry(+this.advt_record.country_id);
         this.onSelectState(+this.advt_record.state_id);
         this.onSelectCity(+this.advt_record.city_id);
@@ -83,6 +115,39 @@ export class AdvtDetailsComponent implements OnInit {
     });
   }
 
+  /*Audio Recording */
+  startRecording() {
+    if (!this.isRecording) {
+      this.isRecording = true;
+      this.audioRecordingService.startRecording();
+    }
+  }
+
+  abortRecording() {
+    if (this.isRecording) {
+      this.isRecording = false;
+      this.audioRecordingService.abortRecording();
+    }
+  }
+
+  stopRecording() {
+    if (this.isRecording) {
+      this.audioRecordingService.stopRecording();
+      this.isRecording = false;
+    }
+  }
+
+  clearRecordedData() {
+    this.blobUrl = null;
+  }
+
+  ngOnDestroy(): void {
+    this.abortRecording();
+  }
+
+  
+
+  /* Select Country */
   onSelectCountry(country_id: number) {
     this.selectedCountry = country_id;
     this.states = this.getStates().filter(item => {
@@ -155,7 +220,26 @@ export class AdvtDetailsComponent implements OnInit {
   }
 
   onSubmit(data) {
+    data.type = this.selectedTypes;
+    let fileName = null;
+    let fileExt = null;
+    let baseString = null;
+    if(this.audioBase64){
+        let tmp = this.audioBase64.split(",");
+        baseString = tmp[1];
+        fileExt = tmp[0].split(";")[0].split("/")[1];
+        let d = new Date();
+        fileName = 'Audio'+d.getTime();
+        data.voiceFileExt = fileExt;
+        data.voiceFileName = fileName;
+    }
+    data.voiceData = baseString;
+
      if(this.editMode) {
+      this.advt_record.voiceData = baseString;
+      this.advt_record.type = this.selectedTypes;
+      this.advt_record.voiceFileName = fileName;
+      this.advt_record.voiceFileExt = fileExt;
        this.advtService.updateAdvtDetails(this.advt_record, this.advt_record.advt_id).subscribe(data => {
         console.log("updated");
         this.router.navigateByUrl("/super-admin-dashboard/advt-details-list")
@@ -168,8 +252,7 @@ export class AdvtDetailsComponent implements OnInit {
 
     });
   }
-  
-  }
+}
 
   keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;

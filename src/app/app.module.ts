@@ -35,6 +35,9 @@ import { ClientDashboardComponent } from './client-dashboard/client-dashboard.co
 import { ClientAdvtListComponent } from './client-dashboard/advt-list/advt-list.component';
 import { SearchlistPipe } from './PersonForm/person-list/searchlist.pipe';
 import { TogglerDirective } from './toggler.directive';
+import { RecordRtcComponent } from './record-rtc/record-rtc.component';
+import { AudioRecordingService } from './record-rtc/record-rtc.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,8 @@ import { TogglerDirective } from './toggler.directive';
     ClientDashboardComponent,
     ClientAdvtListComponent,
     SearchlistPipe,
-    TogglerDirective
+    TogglerDirective,
+    RecordRtcComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -75,8 +79,9 @@ import { TogglerDirective } from './toggler.directive';
     ModalModule.forRoot(),
     NgxPaginationModule,
     NgxClickToEditModule,
+    NgSelectModule
   ],
-  providers: [ AuthGuard, DatePipe, BsModalRef ],
+  providers: [ AuthGuard, DatePipe, BsModalRef, AudioRecordingService ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
