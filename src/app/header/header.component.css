@@ -29,6 +29,10 @@
   z-index: 1000 !important;
 }
 
+#header a:hover{
+  color:#0056b3 !important;
+}
+
 @media screen and (max-height: 450px) {
   .sidenav {
     padding-top: 15px;

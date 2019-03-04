@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
           userDetailsJSON.typeOfUser !== 'undefined'
         ) {
           if (userDetailsJSON.typeOfUser === CommonConstant.SUPER_ADMIN) {
-            this.router.navigate(['/super-admin-dashboard']);
+            this.router.navigate(['/super-admin-dashboard/advt-details-list']);
           } else if (userDetailsJSON.typeOfUser === CommonConstant.ADMIN_USER) {
             this.router.navigate(['/admin-dashboard']);
           } else if (userDetailsJSON.typeOfUser === CommonConstant.NORMAL_USER) {

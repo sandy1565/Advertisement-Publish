@@ -23,13 +23,6 @@
                 <!-- <a href="#">Link 3</a> -->
               </div>
 
-              <button class="dropdown-btn" (click)="openDropdown($event)" *ngIf="role != 'client'">Publish Details 
-                <i class="fa fa-caret-down"></i>
-              </button>
-              <div class="dropdown-container" *ngIf="role != 'client'">
-                <a appToggler routerLink="/super-admin-dashboard/advertise-publish">Add Advertise</a>
-                <!-- <a href="#" routerLink="/super-admin-dashboard/view-publish">View Advertise List</a> -->
-              </div>
 
               <button class="dropdown-btn" (click)="openDropdown($event)" *ngIf="role != 'client'">Client Details 
                   <i class="fa fa-caret-down"></i>

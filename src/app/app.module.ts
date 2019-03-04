@@ -38,6 +38,7 @@ import { TogglerDirective } from './toggler.directive';
 import { RecordRtcComponent } from './record-rtc/record-rtc.component';
 import { AudioRecordingService } from './record-rtc/record-rtc.service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgHttpLoaderModule } from 'ng-http-loader'; 
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ModalModule.forRoot(),
     NgxPaginationModule,
     NgxClickToEditModule,
-    NgSelectModule
+    NgSelectModule,
+    NgHttpLoaderModule.forRoot()
   ],
   providers: [ AuthGuard, DatePipe, BsModalRef, AudioRecordingService ],
   bootstrap: [AppComponent],

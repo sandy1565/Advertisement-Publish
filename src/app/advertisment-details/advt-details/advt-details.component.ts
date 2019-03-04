@@ -1,9 +1,12 @@
 import { Component, OnInit } from "@angular/core";
+import {Location} from '@angular/common';
 import { AdvtDetailsService } from "../services/advt-details.service";
 import { CommonService } from '../../services/commonService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AudioRecordingService } from '../../record-rtc/record-rtc.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FILE_URN } from "../../CommonConst/constURN";
+
 
 @Component({
   selector: 'app-advt-details',
@@ -11,7 +14,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./advt-details.component.scss']
 })
 export class AdvtDetailsComponent implements OnInit {
+  FILE_URN = FILE_URN;
   constructor(private advtService: AdvtDetailsService, private commonService: CommonService, 
+    private location:Location,
               private router: Router, private activatedRoute:ActivatedRoute, 
               private audioRecordingService: AudioRecordingService, private sanitizer: DomSanitizer) {
                 this.audioRecordingService.recordingFailed().subscribe(() => {
@@ -242,13 +247,15 @@ export class AdvtDetailsComponent implements OnInit {
       this.advt_record.voiceFileExt = fileExt;
        this.advtService.updateAdvtDetails(this.advt_record, this.advt_record.advt_id).subscribe(data => {
         console.log("updated");
-        this.router.navigateByUrl("/super-admin-dashboard/advt-details-list")
+        this.location.back();
+        // this.router.navigateByUrl("/super-admin-dashboard/advt-details-list")
        })
      } 
      else {
       this.advtService.addAdvtDetails(data).subscribe(data => {
       console.log('added successfully');
-      this.router.navigateByUrl("/super-admin-dashboard/advt-details-list")
+      this.location.back();
+      // this.router.navigateByUrl("/super-admin-dashboard/advt-details-list")
 
     });
   }

@@ -20,7 +20,9 @@ const noop = () => {
     template: `
     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
         <input type="password" class="form-control" placeholder="{{placeholder}}" #input [(ngModel)]="value">
-        <div class="input-group-addon" #toggler><i class="fa fa-eye"></i></div>
+        <div class="input-group-addon" style="    position: absolute;
+        right: 8px;
+        top: 10px;" #toggler><i class="fa fa-eye"></i></div>
     </div>`,
     providers: [
         {provide: NG_VALUE_ACCESSOR, multi: true, useExisting: PasswordInputComponent}

@@ -48,4 +48,12 @@ export class AdvtDetailsService {
       })
       .pipe(map(data => < ClientModel[]>data['data'] ));
   }
+
+  public getReport(id): Observable<ClientModel[]> {
+    return this.http
+      .get(`${URN}log/pdf/${id}` ,{
+        headers: authHeader()
+      })
+      .pipe(map(data => < ClientModel[]>data ));
+  }
 }

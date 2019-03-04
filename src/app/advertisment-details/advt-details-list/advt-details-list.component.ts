@@ -3,6 +3,7 @@ import { AdvtModel } from "../services/advtDetails.model";
 import { AdvtDetailsService } from "../services/advt-details.service";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { FILE_URN } from "../../CommonConst/constURN";
 
 @Component({
   selector: "app-advt-details-list",
@@ -105,5 +106,15 @@ export class AdvtDetailsListComponent implements OnInit {
     if (this.getValue > this.ageToFrom) {
       alert("Please Enter the correct value.");
     }
+  }
+
+  openReport(id){
+    this.advtService.getReport(id).subscribe((resp:any)=>{
+      console.log(resp);
+      if(!resp.error){
+        console.log(FILE_URN+resp.fileName);
+        window.open(FILE_URN+resp.fileName);
+      }
+    });
   }
 }

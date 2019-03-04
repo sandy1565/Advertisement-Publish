@@ -99,10 +99,10 @@
     <div class="form-group" *ngIf = "selectedTypes.includes('email')">
       <label class="label-control">Advertisement Subject:</label>
       <input type="text" name="advt_subject" [disabled]="advt_record.status == 'published'" id="advt_subject"
-        (keypress)="keyPressed($event)" required [(ngModel)]="advt_record.advt_subject" #AdvtSubjects="ngModel"
+         required [(ngModel)]="advt_record.advt_subject" #AdvtSubjects="ngModel"
         class="form-control">
       <div *ngIf="AdvtSubjects.errors && (AdvtSubjects.dirty||  AdvtSubjects.touched)" class="text-danger">
-        <div [hidden]="!AdvtSubjects.hasError('required')"> Advertisement details required</div>
+        <div [hidden]="!AdvtSubjects.hasError('required')"> Advertisement subject required</div>
       </div>
     </div>
 
@@ -110,7 +110,7 @@
     <div class="form-group" *ngIf="selectedTypes.includes('message') || selectedTypes.includes('email')">
       <label class="label-control">Advertisement Details:</label>
       <textarea type="text" name="advt_details" [disabled]="advt_record.status == 'published'" id="advt_details"
-        (keypress)="keyPressed($event)" required [(ngModel)]="advt_record.advt_details" #AdvtDetails="ngModel"
+         required [(ngModel)]="advt_record.advt_details" #AdvtDetails="ngModel"
         class="form-control"></textarea>
       <div *ngIf="AdvtDetails.errors && (AdvtDetails.dirty||  AdvtDetails.touched)" class="text-danger">
         <div [hidden]="!AdvtDetails.hasError('required')"> Advertisement details required</div>
@@ -121,14 +121,19 @@
     <div class="form-group" *ngIf = "selectedTypes.includes('voice')">
       <label for="" class="label-control">Record Your Message :</label>
       <div>
-        <button class="start-button" *ngIf="!isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
-        <button class="stop-button" *ngIf="isRecording && !blobUrl" (click)="stopRecording()">Stop Recording</button>
-        <button class="cancel-button" *ngIf="!isRecording && blobUrl" (click)="clearRecordedData()">Clear
+        <button class="start-button" *ngIf="advt_record.status != 'published' && !isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
+        <button class="stop-button" *ngIf="advt_record.status != 'published' && isRecording && !blobUrl" (click)="stopRecording()">Stop Recording</button>
+        <button class="cancel-button" *ngIf="advt_record.status != 'published' && !isRecording && blobUrl" (click)="clearRecordedData()">Clear
           Recording</button>
         <div *ngIf="isRecording && !blobUrl"> {{recordedTime}} </div>
         <div>
           <audio *ngIf="!isRecording && blobUrl" controls>
             <source [src]="blobUrl" type="audio/webm">
+          </audio>
+          <audio controls *ngIf="!blobUrl && advt_record.voiceFile">
+            <source [src]="FILE_URN+advt_record.voiceFile" type="audio/ogg">
+            <!-- <source src="horse.mp3" type="audio/mpeg"> -->
+          Your browser does not support the audio element.
           </audio>
         </div>
       </div>

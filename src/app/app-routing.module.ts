@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'super-admin-dashboard', component: SuperAdminDashboardComponent, canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'super-admin-dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'super-admin-dashboard/advt-details-list', pathMatch: 'full' },
       { path: 'add-person', component: PersonFormComponent },
       { path: 'edit-person-details/:id', component: PersonFormComponent },
       { path: 'person-list', component: PersonListComponent },
