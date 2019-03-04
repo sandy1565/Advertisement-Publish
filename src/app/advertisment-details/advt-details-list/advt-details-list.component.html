@@ -23,7 +23,7 @@
           <button type="button" *ngIf="advt.status == 'published'" class="btn btn-primary" [routerLink]="['/super-admin-dashboard','view-details',advt.advt_id]">
             View
           </button>
-          <button (click)="openReport(advt.advt_id)" *ngIf="advt.status == 'published'" >
+          <button  type="button" (click)="openReport(advt.advt_id)" class="btn btn-info"  *ngIf="advt.status == 'published'" >
             View Report
           </button>
           <button type="button" class="btn btn-danger" *ngIf="advt.status != 'published'">Delete</button>
