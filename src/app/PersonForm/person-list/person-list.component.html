@@ -20,7 +20,7 @@
         <button type="button" class="btn btn-primary" [routerLink]="['/super-admin-dashboard','edit-person-details',person.person_id]">
           Edit
         </button>
-        <button type="button" class="btn btn-danger" >Delete</button>
+        <button type="button" class="btn btn-danger" (click)="onClickDelete(person.person_id)" >Delete</button>
       </tr>
     </tbody>
   </table>

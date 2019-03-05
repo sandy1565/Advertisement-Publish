@@ -205,4 +205,14 @@ export class PersonListComponent implements OnInit {
       event.preventDefault();
     }
   }
+
+  onClickDelete(person_id) {
+    console.log(person_id);
+    this.service.deletePersonDetails(person_id).subscribe((res:any) => {
+      console.log("successful");
+      this.ngOnInit();
+    });
+    this.router.navigateByUrl("/super-admin-dashboard/person-list")  }
+ 
+
 }
