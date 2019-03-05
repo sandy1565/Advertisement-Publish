@@ -37,12 +37,5 @@ export class PersonListComponent implements OnInit {
       console.log("successful");
       this.ngOnInit();
     });
-<<<<<<< HEAD
-    
   }
- 
-
-=======
-    this.router.navigateByUrl("/super-admin-dashboard/person-list")  }
->>>>>>> 158941b83eb8f8a925fab1df1054e8605cd22f7c
 }
