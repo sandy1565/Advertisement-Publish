@@ -7,9 +7,10 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
-    overflow-x: hidden;
+    background-color: #fafafa;
+    box-shadow: 6px 0 6px rgba(0,0,0,.1);
     padding-top: 20px;
+    
   }
   
   /* Style the sidenav links and the dropdown button */
@@ -17,7 +18,7 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 20px;
-    color: #818181;
+    color: black !important;
     display: block;
     border: none;
     background: none;
@@ -25,6 +26,7 @@
     text-align: left;
     cursor: pointer;
     outline: none;
+    font-weight: unset;
   }
   
   /* On mouse-over */
@@ -41,14 +43,14 @@
   
   /* Add an active class to the active dropdown button */
   .active {
-    background-color: cadetblue;
+    background-color: #cad0d6;
     color: white;
   }
   
   /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
   .dropdown-container {
     display: none;
-    background-color: #262626;
+    background-color: #ece8e8;
     padding-left: 8px;
   }
   

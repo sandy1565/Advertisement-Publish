@@ -8,8 +8,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth-guard.service';
 import { PersonFormComponent } from './PersonForm/add-person/add-person.component';
 import { PersonListComponent } from './PersonForm/person-list/person-list.component';
-import { AdvertisePublishComponent } from './advertisement-publish/advertise-publish/advertise-publish.component';
-import { ViewPublishComponent } from './advertisement-publish/view-publish/view-publish.component';
 import { AdvtDetailsComponent } from './advertisment-details/advt-details/advt-details.component';
 import { AdvtDetailsListComponent } from './advertisment-details/advt-details-list/advt-details-list.component';
 import { AddClientComponent } from './client-details/add-client/add-client.component';
@@ -27,8 +25,6 @@ const routes: Routes = [
       { path: 'add-person', component: PersonFormComponent },
       { path: 'edit-person-details/:id', component: PersonFormComponent },
       { path: 'person-list', component: PersonListComponent },
-      { path: 'advertise-publish', component: AdvertisePublishComponent },
-      { path: 'view-publish', component: ViewPublishComponent },
       { path: 'advt-details', component: AdvtDetailsComponent },
       { path: 'edit-details/:id', component: AdvtDetailsComponent },
       { path: 'view-details/:id', component: AdvtDetailsComponent },
@@ -43,8 +39,6 @@ const routes: Routes = [
     { path: '', redirectTo: 'admin-dashboard', pathMatch: 'full' },
     { path: 'add-person', component: PersonFormComponent },
     { path: 'person-list', component: PersonListComponent },
-    { path: 'advertise-publish', component: AdvertisePublishComponent },
-    { path: 'view-publish', component: ViewPublishComponent },
     { path: 'advt-details', component: AdvtDetailsComponent },
     { path: 'advt-details-list', component: AdvtDetailsListComponent }
   ]
@@ -54,8 +48,6 @@ const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'add-person', component: PersonFormComponent },
     { path: 'person-list', component: PersonListComponent },
-    { path: 'advertise-publish', component: AdvertisePublishComponent},
-    { path: 'view-publish', component: ViewPublishComponent},
     { path: 'advt-details', component: AdvtDetailsComponent},
     { path: 'advt-details-list', component: AdvtDetailsListComponent}
   ] },

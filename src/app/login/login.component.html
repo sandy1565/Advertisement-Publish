@@ -1,69 +1,50 @@
-    <!-- Header -->
-    <header id="header">
-      <div class="inner">
-        <a class="logo">Magic Deals</a>
-        <nav id="nav">
-          <a href="#" class="link">Home</a>
-          <a href="#" class="link">Contact Us</a>
-          <a href="#" class="link">About Us</a>
-          <a routerLink="/login" class="button special">Login</a>
-        </nav>
-      </div>
-    </header>
-    <!-- <a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a> -->
-  
-<router-outlet></router-outlet>
-    <div class="login-page">
-      <div class="row">
-        <div class="col-sm-12">
-          <img width="150px" />
-          <h1>Advertisment Publish</h1>
+<!-- Header -->
+<header id="header">
+  <div class="inner">
+    <a class="logo">Magic Deals</a>
+    <nav id="nav">
+      <a href="#" class="link">Contact Us</a>
+      <a href="#" class="link">About Us</a>
+      <a routerLink="/login" class="button special">Login</a>
+    </nav>
+  </div>
+</header>
 
-          <form #Form="ngForm" (ngSubmit)="onSubmit(Form)" >
-            <hr />
-              <div class="row">
-                <div class="form-group col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                  <label for="username" >Username</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    required
-                    name="username"
-                    [(ngModel)]="formData.username"
-                    #username="ngModel"
-                    maxlength="50"
-                  />
-                </div>
-                 <!-- password-->
-            <div class="form-group col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-              <label for="password">Password</label>
-              <password-input
-                type="password"
-                required
-                name="password"
-                [(ngModel)]="formData.password"
-                #password="ngModel"
-                maxlength="25" 
-              >
+<router-outlet></router-outlet>
+<div class="login-page">
+  <div class="row">
+    <div class="col-sm-12">
+      <img width="150px" />
+      <h1>Advertisment Publish</h1>
+
+      <form #Form="ngForm" (ngSubmit)="onSubmit(Form)">
+        <hr />
+        <div class="row">
+          <div class="form-group col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" required name="username" [(ngModel)]="formData.username"
+              #username="ngModel" maxlength="50" />
+          </div>
+          <!-- password-->
+          <div class="form-group col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+            <label for="password">Password</label>
+            <password-input type="password" required name="password" [(ngModel)]="formData.password" #password="ngModel"
+              maxlength="25">
             </password-input>
-            </div>
-            <div class="row col-md-8 offset-md-2 col-lg-6 offset-lg-3" *ngIf="errorMessage">
-                <label for="" style="color: red; font-weight: 800;">{{errorMessage}}</label>
-            </div>
-              </div>
-              <div class="form-group col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-        
-                  <button
-                  type="submit"
-                  class="btn btn-primary"
-                  [disabled]="!Form.valid"
-                >
-                  Submit
-                </button>
-              </div>
-        
-          </form>
+          </div>
+          <div class="row col-md-8 offset-md-2 col-lg-6 offset-lg-3" *ngIf="errorMessage">
+            <label for="" style="color: red; font-weight: 800;">{{errorMessage}}</label>
+          </div>
         </div>
-      </div>
+        <div class="form-group col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+
+          <button type="submit" class="btn btn-primary" [disabled]="!Form.valid">
+            Submit
+          </button>
+        </div>
+
+      </form>
     </div>
- <router-outlet></router-outlet>
+  </div>
+</div>
+<router-outlet></router-outlet>

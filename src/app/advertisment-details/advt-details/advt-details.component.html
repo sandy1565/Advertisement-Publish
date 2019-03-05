@@ -61,17 +61,11 @@
     <!--Location-->
     <div class="form-group">
       <label class="control-label" for="City">Location:</label>
-      <select class="form-control input-lg" [disabled]="advt_record.status == 'published'"
+      <ng-select class="input-lg" [disabled]="advt_record.status == 'published'"
         [(ngModel)]="advt_record.location_id" #location_id="ngModel" id="location" name="location_id"
-        (change)="selectLocation()" #locationName="ngModel"
-        [ngClass]="{ 'is-invalid': publishDetails.submitted && locationName.invalid }" required>
-        <option>Select Location</option>
-        <option *ngFor="let location of locations" [ngValue]="location.location_id">{{ location.location_name }}
-        </option>
-        <div *ngIf="publishDetails.submitted && locationName.invalid" class="invalid-feedback">
-          <div *ngIf="locationName.errors.required">Location Name is required</div>
-        </div>
-      </select>
+        (change)="selectLocation()" #locationName="ngModel" [items]="locations" [multiple]="true" bindLabel="location_name" bindValue="location_id"
+        required >
+      </ng-select>
     </div>
 
     <!--Block ID-->
@@ -95,6 +89,7 @@
         <ng-select class="custom" name="type" [items]="types" [multiple]="true" [(ngModel)]="selectedTypes"></ng-select>
       </div>
 
+
     <!-- Advertisement Subject -->
     <div class="form-group" *ngIf = "selectedTypes.includes('email')">
       <label class="label-control">Advertisement Subject:</label>
@@ -116,9 +111,25 @@
         <div [hidden]="!AdvtDetails.hasError('required')"> Advertisement details required</div>
       </div>
     </div>
+
+     <!-- Select what you want to upload a file or recorded one -->
+     <div class="form-group" *ngIf= "selectedTypes.includes('voice')"> 
+        <label for="" class="label-control">Select your choice: </label>
+        <select name="voiceType" [(ngModel)]="voiceType">
+          <option value="1" selected>Voice file upload</option>
+          <option value="2">Record Your Voice</option>
+        </select>
+      </div>
+
+    <!-- File Upload -->
+    <div class="form-group" *ngIf="selectedTypes.includes('voice') && voiceType==1">
+      <label for="" class="label-control" >Select Mp3 voice file :</label>
+      <br>
+      <input type="file" accept=".mp3,audio/*" placeholder="Select your audio file" />
+    </div>
     
     <!-- audio recording -->
-    <div class="form-group" *ngIf = "selectedTypes.includes('voice')">
+    <div class="form-group" *ngIf = "selectedTypes.includes('voice') && voiceType==2">
       <label for="" class="label-control">Record Your Message :</label>
       <div>
         <button class="start-button" *ngIf="advt_record.status != 'published' && !isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
@@ -153,9 +164,6 @@
       <input type="text" name="age_from" [disabled]="advt_record.status == 'published'" class="form-control"
         value="age_from" id="age_from" [(ngModel)]="advt_record.age_from" (change)="fromDate(age_from.value)"
         minlength="2" maxlength="3" (keypress)="keyPress($event)" #ageFrom="ngModel" required>
-      <div *ngIf="ageFrom.errors && (ageFrom.dirty|| ageFrom.touched)" class="text-danger">
-        <div [hidden]="!ageFrom.hasError('required')"> Age is Required</div>
-      </div>
     </div>
 
     <!-- To age-->
@@ -164,9 +172,6 @@
       <input type="text" name="age_to" [disabled]="advt_record.status == 'published'" id="age_to" value="age_to"
         class="form-control" (change)="checkPrice()" [(ngModel)]="advt_record.age_to" minlength="2" maxlength="3"
         (keypress)="keyPress($event)" #ageTo="ngModel" required>
-      <div *ngIf="ageTo.errors && (ageTo.dirty || ageTo.touched)" class="text-danger">
-        <div [hidden]="!ageTo.hasError('required')"> Age is Required</div>
-      </div>
     </div>
 
 

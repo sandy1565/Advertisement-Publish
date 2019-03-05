@@ -23,8 +23,6 @@ import { ModalModule, BsModalRef } from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxClickToEditModule } from 'ngx-click-to-edit';
-import { ViewPublishComponent } from './advertisement-publish/view-publish/view-publish.component';
-import { AdvertisePublishComponent } from './advertisement-publish/advertise-publish/advertise-publish.component';
 import { AdvtDetailsComponent } from './advertisment-details/advt-details/advt-details.component';
 import { AdvtDetailsListComponent } from './advertisment-details/advt-details-list/advt-details-list.component';
 import { SearchAdvtDetailsPipe } from './advertisment-details/advt-details-list/search-advt-details.pipe';
@@ -54,8 +52,6 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     SpinnerComponent,
     PersonFormComponent,
     PersonListComponent,
-    ViewPublishComponent,
-    AdvertisePublishComponent,
     AdvtDetailsListComponent,
     AdvtDetailsComponent,
     SearchAdvtDetailsPipe,

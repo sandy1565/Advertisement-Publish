@@ -70,6 +70,7 @@ export class AdvtDetailsComponent implements OnInit {
   audioBase64;
   types = [ 'message', 'email', 'voice' ];
   selectedTypes = ['email'];
+  voiceType = 1;
 
   ngOnInit() {
    this.audioRecordingService.getRecordedBlob().subscribe(data=>{
