@@ -37,8 +37,5 @@ export class PersonListComponent implements OnInit {
       console.log("successful");
       this.ngOnInit();
     });
-    
   }
- 
-
 }
