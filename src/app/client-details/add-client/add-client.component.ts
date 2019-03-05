@@ -189,6 +189,9 @@ export class AddClientComponent implements OnInit {
     data.document_file = this.document_file;
     this.clientService
       .addClient(data)
-      .subscribe((resp: any) => {}, (err: any) => {});
+      .subscribe((resp: any) => {
+        this.router.navigateByUrl('super-admin-dashboard/client-list');
+      }, (err: any) => {});
+      
   }
 }
