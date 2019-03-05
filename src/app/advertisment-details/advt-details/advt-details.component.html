@@ -62,25 +62,25 @@
     <div class="form-group">
       <label class="control-label" for="City">Location:</label>
       <ng-select class="input-lg" [disabled]="advt_record.status == 'published'"
-        [(ngModel)]="advt_record.location_id" #location_id="ngModel" id="location" name="location_id"
-        (change)="selectLocation()" #locationName="ngModel" [items]="locations" [multiple]="true" bindLabel="location_name" bindValue="location_id"
-        required >
+        [(ngModel)]="advt_record.location_id" #location_id="ngModel" id="location" name="location_ids"
+        (change)="selectLocation()" #locationName="ngModel" [items]="locations" [multiple]="true" bindLabel="location_name" 
+        bindValue="location_id" required >
       </ng-select>
     </div>
 
     <!--Block ID-->
     <div class="form-group">
       <label>Block</label>
-      <select id="block_id" [disabled]="advt_record.status == 'published'" [(ngModel)]="advt_record.block_id"
-        name="block_id" class=" form-control" #blockName="ngModel"
-        [ngClass]="{ 'is-invalid': publishDetails.submitted && blockName.invalid }" required>
-        <option [ngValue]="block.block_id" *ngFor="let block of blocks">
+      <ng-select id="block_id" [disabled]="advt_record.status == 'published'" [(ngModel)]="advt_record.block_id"
+        name="block_ids" #blockName="ngModel" [items]="blocks" [multiple]="true" 
+        bindLabel="blockname" bindValue="block_id" required>
+        <!-- <option [ngValue]="block.block_id" *ngFor="let block of blocks">
           {{ block.blockname }}
         </option>
         <div *ngIf="publishDetails.submitted && blockName.invalid" class="invalid-feedback">
           <div *ngIf="blockName.errors.required">Block Name is required</div>
-        </div>
-      </select>
+        </div> -->
+      </ng-select>
     </div>
 
      <!-- Message Type Selection --> 
@@ -150,13 +150,20 @@
       </div>
     </div>
 
-    <!-- publish date -->
-    <div class="form-group">
+    <!-- publish date from to -->
+    <div class="form-group" *ngFor="let publish_date of publish_dates;let i = index;">
       <label class="label-control">Publish Date:</label>
-      <input class="form-control" [disabled]="advt_record.status == 'published'" type="date" name="publish_date"
-        [(ngModel)]="advt_record.publish_date" #publishDate="ngModel">
+      <input class="form-control" [disabled]="advt_record.status == 'published'" type="date" 
+      name="{{'publish_date'+i}}"
+        [(ngModel)]="publish_date.publish_date" #publishDate="ngModel">
+        <label class="label-control">From Time:</label>
+        <input type="time" name="{{'ftime'+i}}" [(ngModel)]="publish_date.from_publish_time"/>
+        <label class="label-control">To Time:</label>
+        <input type="time" name="{{'ttime'+i}}" [(ngModel)]="publish_date.to_publish_time"/>
+        <button type="button" class="btn btn-danger" (click)="removePubDate(i)">Remove</button>
     </div>
 
+   <button type="button" (click)="addPubDate()">Add Publish Date</button>
 
     <!--Age From-->
     <div class="form-group">

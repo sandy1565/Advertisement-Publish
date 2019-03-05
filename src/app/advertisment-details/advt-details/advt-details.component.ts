@@ -71,6 +71,10 @@ export class AdvtDetailsComponent implements OnInit {
   types = [ 'message', 'email', 'voice' ];
   selectedTypes = ['email'];
   voiceType = 1;
+  publish_dates:any[] = [
+    {
+    }
+  ];
 
   ngOnInit() {
    this.audioRecordingService.getRecordedBlob().subscribe(data=>{
@@ -226,7 +230,15 @@ export class AdvtDetailsComponent implements OnInit {
   }
 
   onSubmit(data) {
+    let publish_dates = [];
+    publish_dates = this.publish_dates.map((publish_date) =>{
+    return ({
+      from_publish_date:new Date(publish_date.publish_date+" "+publish_date.from_publish_time+":00"),
+      to_publish_date:new Date(publish_date.publish_date+" "+publish_date.to_publish_time+":00")
+    });
+    });
     data.type = this.selectedTypes;
+    data.publish_dates = publish_dates;
     let fileName = null;
     let fileExt = null;
     let baseString = null;
@@ -262,23 +274,6 @@ export class AdvtDetailsComponent implements OnInit {
   }
 }
 
-  keyPress(event: any) {
-    const pattern = /[0-9\+\-\ ]/;
-
-    let inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
-
-  keyPressed(event: any) {
-    const pattern = /^[a-zA-Z]+$/;
-    let inputChar = String.fromCharCode(event.charCode);
-    if (event.keyCode != 8 && !pattern.test(inputChar)) {
-      event.preventDefault();
-    }
-  }
-
   fromDate(age_from) {
     this.getValue = this.age_from;
     console.log(this.getValue);
@@ -290,5 +285,19 @@ export class AdvtDetailsComponent implements OnInit {
     if (this.getValue > this.ageToFrom) {
       alert('Please Enter the correct value.');
     }
+  }
+
+  removePubDate(index){
+    if(this.publish_dates.length == 1){
+      return;
+    }
+    this.publish_dates = this.publish_dates.splice(index,1);
+  }
+
+  addPubDate(){
+    this.publish_dates.push({
+      from_publish_date:new Date(),
+      to_publish_date:new Date()
+    });
   }
 }
