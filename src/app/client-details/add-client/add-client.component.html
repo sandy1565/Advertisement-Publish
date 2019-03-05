@@ -143,7 +143,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Type of Firm -->
     <div class="form-group">
       <label for="" class="control-label">Type of firm: </label>
-      <select name="firm_type" [(ngModel)]="client_record.firm_type" >
+      <select aria-placeholder="Select your firm type:" name="firm_type" [(ngModel)]="client_record.firm_type" class="form-control" >
         <option [value]="firmName" *ngFor="let firmName of typeOfFirm">
           {{ firmName }}</option>
       </select>
