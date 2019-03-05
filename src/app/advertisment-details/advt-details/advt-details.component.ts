@@ -274,6 +274,17 @@ export class AdvtDetailsComponent implements OnInit {
   }
 }
 
+handleFileSelect(evt) {
+  const files = evt.target.files;
+  const file = files[0];
+  if (files && file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload =  () =>{
+      this.audioBase64 =  reader.result;
+    };
+  }
+}
   fromDate(age_from) {
     this.getValue = this.age_from;
     console.log(this.getValue);

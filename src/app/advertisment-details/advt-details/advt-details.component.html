@@ -125,7 +125,7 @@
     <div class="form-group" *ngIf="selectedTypes.includes('voice') && voiceType==1">
       <label for="" class="label-control" >Select Mp3 voice file :</label>
       <br>
-      <input type="file" accept=".mp3,audio/*" placeholder="Select your audio file" />
+      <input type="file" accept=".mp3,audio/*" placeholder="Select your audio file" (change)="handleFileSelect($event)" />
     </div>
     
     <!-- audio recording -->
