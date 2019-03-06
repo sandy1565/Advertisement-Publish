@@ -125,7 +125,7 @@
     <div class="form-group" *ngIf="selectedTypes.includes('voice') && voiceType==1">
       <label for="" class="label-control" >Select Mp3 voice file :</label>
       <br>
-      <input type="file" accept=".mp3,audio/*" placeholder="Select your audio file" (change)="handleFileSelect($event)" />
+      <input type="file" accept=".mp3,audio/*" placeholder="Select your audio file" (change)="handleFileSelect($event)"/>
     </div>
     
     <!-- audio recording -->
@@ -170,7 +170,7 @@
       <label class="label-control">Age From:</label>
       <input type="text" name="age_from" [disabled]="advt_record.status == 'published'" class="form-control"
         value="age_from" id="age_from" [(ngModel)]="advt_record.age_from" (change)="fromDate(age_from.value)"
-        minlength="2" maxlength="3" (keypress)="keyPress($event)" #ageFrom="ngModel" required>
+        minlength="2" maxlength="3" #ageFrom="ngModel" required>
     </div>
 
     <!-- To age-->
@@ -178,7 +178,7 @@
       <label class="label-control">Age To:</label>
       <input type="text" name="age_to" [disabled]="advt_record.status == 'published'" id="age_to" value="age_to"
         class="form-control" (change)="checkPrice()" [(ngModel)]="advt_record.age_to" minlength="2" maxlength="3"
-        (keypress)="keyPress($event)" #ageTo="ngModel" required>
+         #ageTo="ngModel" required>
     </div>
 
 
