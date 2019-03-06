@@ -229,7 +229,8 @@ export class AdvtDetailsComponent implements OnInit {
     console.log(this.selectedClientName);
   }
 
-  onSubmit(data) {
+  onSubmit(data1) {
+    let data = {...data1};
     let publish_dates = [];
     publish_dates = this.publish_dates.map((publish_date) =>{
     return ({
@@ -258,6 +259,7 @@ export class AdvtDetailsComponent implements OnInit {
       this.advt_record.type = this.selectedTypes;
       this.advt_record.voiceFileName = fileName;
       this.advt_record.voiceFileExt = fileExt;
+      this.advt_record.publish_dates = publish_dates;
        this.advtService.updateAdvtDetails(this.advt_record, this.advt_record.advt_id).subscribe(data => {
         console.log("updated");
         this.location.back();
