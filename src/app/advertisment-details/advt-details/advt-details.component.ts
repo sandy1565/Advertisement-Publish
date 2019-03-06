@@ -94,6 +94,13 @@ export class AdvtDetailsComponent implements OnInit {
       
         this.advt_record = resp.data;
         this.selectedTypes = resp.data.type;
+        this.publish_dates = this.advt_record.publish_dates.map(d=>{
+          let df = new Date(d.from_publish_date);
+          let dt = new Date(d.to_publish_date);
+          return {publish_date:df.toISOString().split("T")[0],
+          from_publish_time:df.toISOString().split("T")[1].split(".")[0],
+          to_publish_time:dt.toISOString().split("T")[1].split(".")[0]
+        }});
         this.onSelectCountry(+this.advt_record.country_id);
         this.onSelectState(+this.advt_record.state_id);
         this.onSelectCity(+this.advt_record.city_id);
@@ -238,6 +245,23 @@ export class AdvtDetailsComponent implements OnInit {
       to_publish_date:new Date(publish_date.publish_date+" "+publish_date.to_publish_time+":00")
     });
     });
+
+    if(!publish_dates.every(publish_date=>{
+      let d1 = new Date(publish_date.from_publish_date);
+      let d2 = new Date(publish_date.to_publish_date);
+      if(d1.toString() == "Invalid Date" || d1.getFullYear() <= 2018){
+        alert('Invalid Date');
+        return false;
+      }
+      if(d2.toString() == "Invalid Date" ||  d1.getFullYear() <= 2018){
+        alert('Invalid Date');
+        return false;
+      }
+     
+      return true;
+    })){
+      return;
+    }
     data.type = this.selectedTypes;
     data.publish_dates = publish_dates;
     let fileName = null;
