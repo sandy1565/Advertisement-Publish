@@ -117,4 +117,10 @@ export class AdvtDetailsListComponent implements OnInit {
       }
     });
   }
+
+  deleteAdvt(advt_id){
+    this.advtService.deleteAdvt(advt_id).subscribe(res=>{
+      this.ngOnInit();
+    })
+  }
 }
