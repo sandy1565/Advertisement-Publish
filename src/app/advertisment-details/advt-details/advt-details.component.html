@@ -80,7 +80,7 @@
      <!-- Message Type Selection --> 
      <div class="form-group">
         <label for="" class="label-control">Select Your choice:</label>
-        <ng-select class="custom" name="type" [items]="types" [multiple]="true" [(ngModel)]="selectedTypes"></ng-select>
+        <ng-select [disabled]="advt_record.status == 'published'" class="custom" name="type" [items]="types" [multiple]="true" [(ngModel)]="selectedTypes"></ng-select>
       </div>
 
 
@@ -107,7 +107,7 @@
     </div>
 
      <!-- Select what you want to upload a file or recorded one -->
-     <div class="form-group" *ngIf= "selectedTypes.includes('voice')"> 
+     <div class="form-group" *ngIf= "advt_record.status != 'published' && selectedTypes.includes('voice')"> 
         <label for="" class="label-control">Select your choice: </label>
         <select name="voiceType" [(ngModel)]="voiceType">
           <option value="1" selected>Voice file upload</option>
@@ -155,13 +155,13 @@
       name="{{'publish_date'+i}}"
         [(ngModel)]="publish_date.publish_date" #publishDate="ngModel">
         <label class="label-control">From Time:</label>
-        <input type="time" name="{{'ftime'+i}}" [(ngModel)]="publish_date.from_publish_time"/>
+        <input type="time" [disabled]="advt_record.status == 'published'"  name="{{'ftime'+i}}" [(ngModel)]="publish_date.from_publish_time"/>
         <label class="label-control">To Time:</label>
-        <input type="time" name="{{'ttime'+i}}" [(ngModel)]="publish_date.to_publish_time"/>
+        <input type="time" [disabled]="advt_record.status == 'published'"  name="{{'ttime'+i}}" [(ngModel)]="publish_date.to_publish_time"/>
         <button type="button" class="btn btn-danger" (click)="removePubDate(i)">Remove</button>
     </div>
 
-   <button type="button" (click)="addPubDate()">Add Publish Date</button>
+   <button type="button" (click)="addPubDate()" *ngIf="advt_record.status != 'published'">Add Publish Date</button>
 
     <!--Age From-->
     <div class="form-group">

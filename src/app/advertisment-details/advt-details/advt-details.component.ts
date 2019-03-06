@@ -97,14 +97,17 @@ export class AdvtDetailsComponent implements OnInit {
         this.publish_dates = this.advt_record.publish_dates.map(d=>{
           let df = new Date(d.from_publish_date);
           let dt = new Date(d.to_publish_date);
-          return {publish_date:df.toISOString().split("T")[0],
-          from_publish_time:df.toISOString().split("T")[1].split(".")[0],
-          to_publish_time:dt.toISOString().split("T")[1].split(".")[0]
+          let month = df.getMonth()+1;
+          return {
+            // publish_date:df.toLocaleDateString(),
+            publish_date:df.getFullYear()+"-"+(month<=9?'0'+month:month)+"-"+(df.getDate()<=9?'0'+df.getDate():df.getDate()),
+          from_publish_time:(df.getHours()<=9?"0"+df.getHours():df.getHours())+":"+(df.getMinutes()<=9?"0"+df.getMinutes():df.getMinutes()),
+          to_publish_time:(dt.getHours()<=9?"0"+dt.getHours():dt.getHours())+":"+(dt.getMinutes()<=9?"0"+dt.getMinutes():dt.getMinutes())
         }});
         this.onSelectCountry(+this.advt_record.country_id);
         this.onSelectState(+this.advt_record.state_id);
         this.onSelectCity(+this.advt_record.city_id);
-        
+        console.log(this.publish_dates );
       },(err)=>{
 
       });
@@ -240,9 +243,11 @@ export class AdvtDetailsComponent implements OnInit {
     let data = {...data1};
     let publish_dates = [];
     publish_dates = this.publish_dates.map((publish_date) =>{
+      let d1 = new Date(publish_date.publish_date+" "+publish_date.from_publish_time+":00");
+      let d2 = new Date(publish_date.publish_date+" "+publish_date.to_publish_time+":00");
     return ({
-      from_publish_date:new Date(publish_date.publish_date+" "+publish_date.from_publish_time+":00"),
-      to_publish_date:new Date(publish_date.publish_date+" "+publish_date.to_publish_time+":00")
+      from_publish_date:d1.toISOString(),
+      to_publish_date:d2.toISOString()
     });
     });
 
