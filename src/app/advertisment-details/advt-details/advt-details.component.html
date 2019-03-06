@@ -62,7 +62,7 @@
     <div class="form-group">
       <label class="control-label" for="City">Location:</label>
       <ng-select class="input-lg" [disabled]="advt_record.status == 'published'"
-        [(ngModel)]="advt_record.location_id" #location_id="ngModel" id="location" name="location_ids"
+        [(ngModel)]="advt_record.location_ids" #location_id="ngModel" id="location" name="location_ids"
         (change)="selectLocation()" #locationName="ngModel" [items]="locations" [multiple]="true" bindLabel="location_name" 
         bindValue="location_id" required >
       </ng-select>
@@ -71,15 +71,9 @@
     <!--Block ID-->
     <div class="form-group">
       <label>Block</label>
-      <ng-select id="block_id" [disabled]="advt_record.status == 'published'" [(ngModel)]="advt_record.block_id"
+      <ng-select id="block_id" [disabled]="advt_record.status == 'published'" [(ngModel)]="advt_record.block_ids"
         name="block_ids" #blockName="ngModel" [items]="blocks" [multiple]="true" 
         bindLabel="blockname" bindValue="block_id" required>
-        <!-- <option [ngValue]="block.block_id" *ngFor="let block of blocks">
-          {{ block.blockname }}
-        </option>
-        <div *ngIf="publishDetails.submitted && blockName.invalid" class="invalid-feedback">
-          <div *ngIf="blockName.errors.required">Block Name is required</div>
-        </div> -->
       </ng-select>
     </div>
 
