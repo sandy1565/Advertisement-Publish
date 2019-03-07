@@ -2,6 +2,11 @@
    <div id="wrapper" >
         <!-- Sidebar -->
         <div class="sidenav" style="padding-top: 110px;">
+          <button style="display:block;width:100%;"
+          appToggler
+          routerLink="/super-admin-dashboard/master-details"
+          *ngIf="role != 'client'">Master Details            
+          </button>          
             <button class="dropdown-btn" (click)="openDropdown($event)" *ngIf="role != 'client'">Person Details 
               <i class="fa fa-caret-down"></i>
             </button>

@@ -36,7 +36,8 @@ import { TogglerDirective } from './toggler.directive';
 import { RecordRtcComponent } from './record-rtc/record-rtc.component';
 import { AudioRecordingService } from './record-rtc/record-rtc.service';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { NgHttpLoaderModule } from 'ng-http-loader'; 
+import { NgHttpLoaderModule } from 'ng-http-loader';
+import { MasterDetailsComponent } from './super-admin-dashboard/master-details/master-details.component'; 
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     SearchlistPipe,
     TogglerDirective,
     RecordRtcComponent,
+    MasterDetailsComponent,
   ],
   imports: [
     ReactiveFormsModule,

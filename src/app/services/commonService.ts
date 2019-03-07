@@ -18,14 +18,45 @@ export class CommonService {
     }).pipe(map(data => < Country[]>data ));
   }
 
+  public addCountry(country) {
+    return this.http.post(`${URN}country`,country, {
+      headers: authHeader()
+    });
+  }
+  
+  public updateCountry(id,country) {
+    return this.http.put(`${URN}country/${id}`,country, {
+      headers: authHeader()
+    });
+  }
+
+  public deleteCountry(id){
+    return this.http.delete(`${URN}country/${id}`, {
+      headers: authHeader()
+    });
+  }
+
   public getStateDetails(): Observable<State[]> {
     return this.http.get(`${URN}getState`, {
       headers: authHeader()
     }).pipe(map(data => <State[]>data));
   }
 
+  public getSpecificStateDetails(country_id): Observable<State[]> {
+    return this.http.get(`${URN}getState/${country_id}`, {
+      headers: authHeader()
+    }).pipe(map(data => <State[]>data));
+  }
+
   public getCitiesDetails(): Observable<Cities[]> {
     return this.http.get(`${URN}getCities`, {
+      headers: authHeader()
+    }).pipe(map(data => <Cities[]>data));
+  }
+
+
+  public getSpecificCitiesDetails(state_id): Observable<Cities[]> {
+    return this.http.get(`${URN}getCities/${state_id}`, {
       headers: authHeader()
     }).pipe(map(data => <Cities[]>data));
   }

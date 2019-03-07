@@ -14,6 +14,7 @@ import { AddClientComponent } from './client-details/add-client/add-client.compo
 import { ClientListComponent } from './client-details/client-list/client-list.component';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 import { ClientAdvtListComponent } from './client-dashboard/advt-list/advt-list.component';
+import { MasterDetailsComponent } from './super-admin-dashboard/master-details/master-details.component';
  
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'advt-details-list', component: AdvtDetailsListComponent },
       { path: 'add-client', component: AddClientComponent },
       { path: 'edit-client/:id', component: AddClientComponent },
-      { path: 'client-list', component: ClientListComponent }
+      { path: 'client-list', component: ClientListComponent },
+      { path: 'master-details', component:MasterDetailsComponent}
     ]
   },
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard],

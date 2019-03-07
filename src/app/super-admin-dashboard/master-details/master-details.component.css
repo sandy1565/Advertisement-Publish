@@ -1,0 +1,84 @@
+ul{
+    list-style-type: none;
+    margin:0px;
+    padding:0px;
+}
+.box-shadow{
+    background: #d8d8d8;  
+    cursor: pointer;  
+}
+.box-shadow:hover{
+    background: #fbd4d4;
+}
+input:active{
+    background-color:transparent;
+}
+.scroll-wrapper{
+    min-height:300px;
+    max-height:50vh;
+    overflow-x: hidden;
+    overflow-y:auto;
+}
+.relative{
+    position: relative;
+}
+.fa-window-close{
+    top:4px;
+    color:red;
+    cursor:pointer;
+    position: absolute;
+    right:10px;
+}
+.fa-edit{
+    top:4px;
+    color:red;
+    cursor:pointer;
+    position: absolute;
+    right:35px;
+}
+li{
+    padding:0px;
+}
+input{
+    height:1.75em;
+    padding:0 3px;
+}
+.genderList {
+    list-style: none;
+  }
+  
+  .form-group {
+    font-size: 80%;
+  }
+  
+  .h2 {
+    font-size: 170%;
+  }
+  
+  .header {
+    text-align: center;
+  }
+  .container-fluid {     
+      padding-top: 100px;
+      
+  }
+  
+  .modal {
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 768px) { 
+    .modal:before {
+      display: inline-block;
+      vertical-align: middle;
+      content: " ";
+      height: 100%;
+    }
+  }
+  
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+  
