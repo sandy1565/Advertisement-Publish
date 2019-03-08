@@ -11,8 +11,10 @@ export class MasterDetailsComponent implements OnInit {
   @ViewChild('stateClose') stateClose: ElementRef;
   @ViewChild('cityClose') cityClose: ElementRef;
   @ViewChild('locationClose') locationClose: ElementRef;
+  @ViewChild('blockClose') blockClose: ElementRef;
+  @ViewChild('floorClose') floorClose: ElementRef;
 
-  constructor(private commonService: CommonService, private cdRef:ChangeDetectorRef) { }
+  constructor(private commonService: CommonService, private cdRef: ChangeDetectorRef) { }
   countryList = [];
   countrySearch = '';
   selectedCountry: any = {};
@@ -30,19 +32,23 @@ export class MasterDetailsComponent implements OnInit {
 
   locationList = [];
   locationSearch = '';
-  selectedLocation: any = {};
   selectedLocationEdit: any = {};
 
-  floorList = [];
   blockList = [];
+  blockSearch = '';
+  selectedBlockEdit: any = {};
+
+  floorList = [];
+  floorSearch = '';
+  selectedFloorEdit: any = {};
 
   ngOnInit() {
     this.fetchCountries();
   }
 
   /************COUNTRY EVENTS START *****************/
-  onCountrySelected(country,event) {
-    if(event && event.target.classList.value.includes("fa")){
+  onCountrySelected(country, event) {
+    if (event && event.target.classList.value.includes("fa")) {
       return;
     }
     this.selectedCountry = { ...country };
@@ -53,28 +59,32 @@ export class MasterDetailsComponent implements OnInit {
     this.selectedCountryEdit = { ...country };
   }
 
-  onDeleteCountry(country_id,index){
-    if(confirm("Are you sure?")){
-      this.commonService.deleteCountry(country_id).subscribe((res)=>{
-        if(this.selectedCountry && this.selectedCountry.country_id == country_id){
+  onDeleteCountry(country_id, index) {
+    if (confirm("Are you sure?")) {
+      this.commonService.deleteCountry(country_id).subscribe((res) => {
+        if (this.selectedCountry && this.selectedCountry.country_id == country_id) {
           this.selectedCountry = null;
           this.fetchStates();
         }
-        this.countryList.splice(index,1);        
-      },err=>{
+        this.countryList.splice(index, 1);
+      }, err => {
         alert("Can't delete country.")
       });
     }
   }
 
   addCountry() {
-    if(this.countryList.some(country=>(country.country_id == this.selectedCountryEdit.country_id?false:country.country_name.toLowerCase().replace(/ /g,'')==this.selectedCountryEdit.country_name.toLowerCase().replace(/ /g,' ')))){
+    if(this.selectedCountryEdit.country_name.trim().length == 0){
+      alert("Empty Entry!");
+      return;
+    }
+    if (this.countryList.some(country => (country.country_id == this.selectedCountryEdit.country_id ? false : country.country_name.toLowerCase().replace(/ /g, '') == this.selectedCountryEdit.country_name.toLowerCase().replace(/ /g, ' ')))) {
       alert("Invalid Country Name");
       return;
     }
     if (this.selectedCountryEdit.country_id) {
       let countryToEdit = this.countryList.find(country => country.country_id == this.selectedCountryEdit.country_id);
-      if (countryToEdit) {       
+      if (countryToEdit) {
         //api Edit
         this.commonService.updateCountry(this.selectedCountryEdit.country_id, this.selectedCountryEdit).
           subscribe((res: any) => {
@@ -89,7 +99,7 @@ export class MasterDetailsComponent implements OnInit {
     else {
       //api Add
       this.commonService.addCountry(this.selectedCountryEdit).subscribe((res: any) => {
-        this.selectedCountryEdit.country_id = res.country_id; 
+        this.selectedCountryEdit.country_id = res.country_id;
         this.countryList.push(this.selectedCountryEdit);
         this.cdRef.detectChanges();
         this.countryClose.nativeElement.click();
@@ -103,49 +113,54 @@ export class MasterDetailsComponent implements OnInit {
 
 
   /************** STATE EVENTS START ********************/
-  onStateSelected(state,event) {
-    if(event && event.target.classList.value.includes("fa")){
+  onStateSelected(state, event) {
+    if (event && event.target.classList.value.includes("fa")) {
       return;
     }
-    this.selectedState = { ...state };    
+    this.selectedState = { ...state };
     this.fetchCities();
   }
 
- 
+
   onStateEdited(state) {
-    if(state != null){
+    if (state != null) {
       this.selectedStateEdit = { ...state };
     }
-    else{
-      this.selectedStateEdit = { ...state,country_id:this.selectedCountry.country_id };
+    else {
+      this.selectedStateEdit = { ...state, country_id: this.selectedCountry.country_id };
     }
   }
 
-  onDeleteState(state_id,index){
-    if(confirm("Are you sure?")){
-      this.commonService.deleteState(state_id).subscribe((res)=>{
-        if(this.selectedState && this.selectedState.state_id == state_id){
+  onDeleteState(state_id, index) {
+    if (confirm("Are you sure?")) {
+      this.commonService.deleteState(state_id).subscribe((res) => {
+        if (this.selectedState && this.selectedState.state_id == state_id) {
           this.selectedState = null;
           this.fetchCities();
         }
-        this.stateList.splice(index,1);        
-      },err=>{
+        this.stateList.splice(index, 1);
+      }, err => {
         alert("Can't delete State.")
       });
     }
   }
 
   addState() {
-    if(this.stateList.some(state=>(state.state_id == this.selectedStateEdit.state_id ? false:state.statename.toLowerCase().replace(/ /g,'')==this.selectedStateEdit.statename.toLowerCase().replace(/ /g,' ')))){
+    if(this.selectedStateEdit.statename.trim().length == 0){
+      alert("State Name Empty");
+      return;
+    }
+    if (this.stateList.some(state => (state.state_id == this.selectedStateEdit.state_id ? false : state.statename.toLowerCase().replace(/ /g, '') == this.selectedStateEdit.statename.toLowerCase().replace(/ /g, ' ')))) {
       alert("State Name Already Exists.");
       return;
     }
+    
     if (this.selectedStateEdit.state_id) {
       let stateToEdit = this.stateList.find(state => state.state_id == this.selectedStateEdit.state_id);
       if (stateToEdit) {
         //api Edit
         this.commonService.updateState(this.selectedStateEdit.state_id, this.selectedStateEdit).
-          subscribe((res: any) => {            
+          subscribe((res: any) => {
             stateToEdit.statename = this.selectedStateEdit.statename;
             this.stateClose.nativeElement.click();
           }, err => {
@@ -170,42 +185,48 @@ export class MasterDetailsComponent implements OnInit {
 
 
   /************** CITY EVENTS START ********************/
-  onCitySelected(city,event) {
-    if(event && event.target.classList.value.includes("fa")){
+  onCitySelected(city, event) {
+    if (event && event.target.classList.value.includes("fa")) {
       return;
     }
     this.selectedCity = { ...city };
     // this.fetchLocations();
   }
 
- 
+
   onCityEdited(city) {
-    if(city != null){
+    if (city != null) {
       this.selectedCityEdit = { ...city };
     }
-    else{
-      this.selectedCityEdit = { ...city, 
-        country_id:this.selectedCountryEdit.country_id,
-        state_id:this.selectedCountryEdit.state_id };
+    else {
+      this.selectedCityEdit = {
+        ...city,
+        country_id: this.selectedState.country_id,
+        state_id: this.selectedState.state_id
+      };
     }
   }
 
-  onDeleteCity(city_id,index){
-    if(confirm("Are you sure?")){
-      this.commonService.deleteCity(city_id).subscribe((res)=>{
-        if(this.selectedCity && this.selectedCity.city_id == city_id){
+  onDeleteCity(city_id, index) {
+    if (confirm("Are you sure?")) {
+      this.commonService.deleteCity(city_id).subscribe((res) => {
+        if (this.selectedCity && this.selectedCity.city_id == city_id) {
           this.selectedCity = null;
           this.fetchLocations();
         }
-        this.cityList.splice(index,1);        
-      },err=>{
+        this.cityList.splice(index, 1);
+      }, err => {
         alert("Can't delete City.")
       });
     }
   }
 
   addCity() {
-    if(this.cityList.some(city=>(city.city_id == this.selectedCityEdit.city_id ? false:city.cityname.toLowerCase().replace(/ /g,'')==this.selectedCityEdit.cityname.toLowerCase().replace(/ /g,' ')))){
+    if(this.selectedCityEdit.cityname.trim().length == 0){
+      alert("Empty City Name");
+      return;
+    }
+    if (this.cityList.some(city => (city.city_id == this.selectedCityEdit.city_id ? false : city.cityname.toLowerCase().replace(/ /g, '') == this.selectedCityEdit.cityname.toLowerCase().replace(/ /g, ' ')))) {
       alert("City Name Already Exists.");
       return;
     }
@@ -214,7 +235,7 @@ export class MasterDetailsComponent implements OnInit {
       if (cityToEdit) {
         //api Edit
         this.commonService.updateCity(this.selectedCityEdit.city_id, this.selectedCityEdit).
-          subscribe((res: any) => {            
+          subscribe((res: any) => {
             cityToEdit.cityname = this.selectedCityEdit.cityname;
             this.cityClose.nativeElement.click();
           }, err => {
@@ -237,44 +258,40 @@ export class MasterDetailsComponent implements OnInit {
   /************** city EVENTS END ********************/
 
 
-  
-  /************** CITY LOCATION START ********************/
-  onLocationSelected(location,event) {
-    if(event && event.target.classList.value.includes("fa")){
-      return;
-    }
-    this.selectedLocation = { ...location };
-  }
 
- 
+  /**************  LOCATION EVENTS START ********************/
+
+
   onLocationEdited(location) {
-    if(location != null){
+    if (location != null) {
       this.selectedLocationEdit = { ...location };
     }
-    else{
-      this.selectedLocationEdit = { ...location,
-        country_id:this.selectedStateEdit.country_id,
-        state_id:this.selectedStateEdit.state_id,
-        city_id:this.selectedStateEdit.city_id
+    else {
+      this.selectedLocationEdit = {
+        ...location,
+        country_id: this.selectedCountry.country_id,
+        state_id: this.selectedCity.state_id,
+        city_id: this.selectedCity.city_id
       };
     }
   }
 
-  onDeleteLocation(location_id,index){
-    if(confirm("Are you sure?")){
-      this.commonService.deleteLocation(location_id).subscribe((res)=>{
-        if(this.selectedLocation && this.selectedLocation.location_id == location_id){
-          this.selectedLocation = null;          
-        }
-        this.locationList.splice(index,1);        
-      },err=>{
+  onDeleteLocation(location_id, index) {
+    if (confirm("Are you sure?")) {
+      this.commonService.deleteLocation(location_id).subscribe((res) => {
+        this.locationList.splice(index, 1);
+      }, err => {
         alert("Can't delete City.")
       });
     }
   }
 
   addLocation() {
-    if(this.locationList.some(location=>(location.location_id == this.selectedLocationEdit.city_id ? false:location.location_name.toLowerCase().replace(/ /g,'')==this.selectedLocationEdit.location_name.toLowerCase().replace(/ /g,' ')))){
+    if(this.selectedLocationEdit.location_name.trim().length == 0){
+      alert("Location Name empty")
+      return;
+    }
+    if (this.locationList.some(location => (location.location_id == this.selectedLocationEdit.location_id ? false : location.location_name.toLowerCase().replace(/ /g, '') == this.selectedLocationEdit.location_name.toLowerCase().replace(/ /g, ' ')))) {
       alert("City Name Already Exists.");
       return;
     }
@@ -283,7 +300,7 @@ export class MasterDetailsComponent implements OnInit {
       if (locationToEdit) {
         //api Edit
         this.commonService.updateLocation(this.selectedLocationEdit.location_id, this.selectedLocationEdit).
-          subscribe((res: any) => {            
+          subscribe((res: any) => {
             locationToEdit.location_name = this.selectedLocationEdit.location_name;
             this.locationClose.nativeElement.click();
           }, err => {
@@ -306,7 +323,114 @@ export class MasterDetailsComponent implements OnInit {
   /************** LOCATIONS EVENTS END ********************/
 
 
- /***************** FETCH CHAINING START**************/
+
+  /**************  BLOCK EVENTS START ********************/
+
+  onBlockEdited(block) {
+    this.selectedBlockEdit = { ...block };
+  }
+
+  onDeleteBlock(block_id, index) {
+    if (confirm("Are you sure?")) {
+      this.commonService.deleteBlock(block_id).subscribe((res) => {
+        this.blockList.splice(index, 1);
+      }, err => {
+        alert("Can't delete Block.")
+      });
+    }
+  }
+
+  addBlock() {
+    if(this.selectedBlockEdit.blockname.trim().length == 0){
+      alert("Empty Block Name")
+      return ;
+    }
+    if (this.blockList.some(block => (block.block_id == this.selectedBlockEdit.block_id ? false : block.blockname.toLowerCase().replace(/ /g, '') == this.selectedBlockEdit.blockname.toLowerCase().replace(/ /g, ' ')))) {
+      alert("Block Name Already Exists.");
+      return;
+    }
+    if (this.selectedBlockEdit.block_id) {
+      let blockToEdit = this.blockList.find(block => block.block_id == this.selectedBlockEdit.block_id);
+      if (blockToEdit) {
+        //api Edit
+        this.commonService.updateBlock(this.selectedBlockEdit.block_id, this.selectedBlockEdit).
+          subscribe((res: any) => {
+            blockToEdit.blockname = this.selectedBlockEdit.blockname;
+            this.blockClose.nativeElement.click();
+          }, err => {
+            alert('Failed To update block');
+          });
+      }
+    }
+    else {
+      //api Add
+      this.commonService.addBlock(this.selectedBlockEdit).subscribe((res: any) => {
+        this.selectedBlockEdit.block_id = res.block_id;
+        this.blockList.push(this.selectedBlockEdit);
+        this.cdRef.detectChanges();
+        this.blockClose.nativeElement.click();
+      }, err => {
+        alert("Failed To add block");
+      });
+    }
+  }
+  /************** BLOCK EVENTS END ********************/
+
+
+  /**************  FLOOR EVENTS START ********************/
+
+  onFloorEdited(floor) {
+    this.selectedFloorEdit = { ...floor };
+  }
+
+  onDeletefloor(floor_id, index) {
+    if (confirm("Are you sure?")) {
+      this.commonService.deleteFloor(floor_id).subscribe((res) => {
+        this.floorList.splice(index, 1);
+      }, err => {
+        alert("Can't delete Floor.")
+      });
+    }
+  }
+
+  addFloor() {
+    if(this.selectedFloorEdit.floor_type){
+      alert("Empty floor name");
+      return;
+    }
+    if (this.floorList.some(floor => (floor.floor_id == this.selectedFloorEdit.floor_id ? false : floor.floor_type.toLowerCase().replace(/ /g, '') == this.selectedFloorEdit.floor_type.toLowerCase().replace(/ /g, ' ')))) {
+      alert("floor Name Already Exists.");
+      return;
+    }
+    if (this.selectedFloorEdit.floor_id) {
+      let floorToEdit = this.floorList.find(floor => floor.floor_id == this.selectedFloorEdit.floor_id);
+      if (floorToEdit) {
+        //api Edit
+        this.commonService.updateFloor(this.selectedFloorEdit.floor_id, this.selectedFloorEdit).
+          subscribe((res: any) => {
+            floorToEdit.floor_type = this.selectedFloorEdit.floor_type;
+            this.floorClose.nativeElement.click();
+          }, err => {
+            alert('Failed To update floor');
+          });
+      }
+    }
+    else {
+      //api Add
+      this.commonService.addFloor(this.selectedFloorEdit).subscribe((res: any) => {
+        this.selectedFloorEdit.floor_id = res.floor_id;
+        this.floorList.push(this.selectedFloorEdit);
+        this.cdRef.detectChanges();
+        this.floorClose.nativeElement.click();
+      }, err => {
+        alert("Failed To add floor");
+      });
+    }
+  }
+  /************** FLOOR EVENTS END ********************/
+
+
+  /***************** FETCH CHAINING START**************/
   fetchCountries() {
     this.commonService.getCountryDetails().subscribe(countryList => {
       this.countryList = countryList;
@@ -370,21 +494,14 @@ export class MasterDetailsComponent implements OnInit {
 
   fetchLocations() {
     if (this.selectedCity) {
-      this.commonService.getSpecificLocationsDetails(this.selectedCity.city_id).subscribe((locationList:any) => {
+      this.commonService.getSpecificLocationsDetails(this.selectedCity.city_id).subscribe((locationList: any) => {
         this.locationList = locationList;
-        if (this.locationList.length) {
-          this.selectedLocation = this.locationList[0];
-        }
-        else {
-          this.selectedLocation = null;
-        }
       });
     } else {
       this.locationList = [];
-      this.selectedLocation = null;
     }
   }
-/***************** FETCH CHAINING END **************/
+  /***************** FETCH CHAINING END **************/
 
 
 }

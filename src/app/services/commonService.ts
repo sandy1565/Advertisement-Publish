@@ -90,6 +90,43 @@ export class CommonService {
       headers: authHeader()
     });
   }
+
+  public addBlock(block) {
+    return this.http.post(`${URN}block`,block, {
+      headers: authHeader()
+    });
+  }
+  
+  public updateBlock(id,block) {
+    return this.http.put(`${URN}block/${id}`,block, {
+      headers: authHeader()
+    });
+  }
+
+  public deleteBlock(id){
+    return this.http.delete(`${URN}block/${id}`, {
+      headers: authHeader()
+    });
+  }
+
+  public addFloor(floor) {
+    return this.http.post(`${URN}floor`,floor, {
+      headers: authHeader()
+    });
+  }
+  
+  public updateFloor(id,floor) {
+    return this.http.put(`${URN}floor/${id}`,floor, {
+      headers: authHeader()
+    });
+  }
+
+  public deleteFloor(id){
+    return this.http.delete(`${URN}floor/${id}`, {
+      headers: authHeader()
+    });
+  }
+
   public getStateDetails(): Observable<State[]> {
     return this.http.get(`${URN}getState`, {
       headers: authHeader()

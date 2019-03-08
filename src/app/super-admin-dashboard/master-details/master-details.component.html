@@ -121,7 +121,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" #cityClose>Close</button>
-                <button type="button" class="btn btn-primary" (click)="addCity()">{{selectedCityEdit.city_id?'Save':'Add State'}}</button>
+                <button type="button" class="btn btn-primary" (click)="addCity()">{{selectedCityEdit.city_id?'Save':'Add City'}}</button>
               </div>
             </div>
           </div>
@@ -132,9 +132,8 @@
           <h4>Locations</h4>
           <input type="text" [(ngModel)]="locationSearch" placeholder="search location" style="margin-bottom:10px;">        
           <ul class="scroll-wrapper">
-            <li *ngFor="let location of locationList | search:'locationname':locationSearch as listLocation;let locationIndex = index;" title="select" class="box-shadow"
-            [class.selected-list]="selectedLocation?.location_id == location.location_id"
-            (click)="onLocationSelected(location,$event)">
+            <li *ngFor="let location of locationList | search:'locationname':locationSearch as listLocation;let locationIndex = index;" title="select" class="box-shadow"           
+            >
               <div class="relative">{{location.location_name}}
                 <i class="fa fa-edit" title="edit"
                 (click)="onLocationEdited(location)" data-toggle="modal" data-target="#exampleModal3"></i>
@@ -168,9 +167,84 @@
           </div>
           <button (click)="onLocationEdited(null)" data-toggle="modal" data-target="#exampleModal3">Add New Location</button>
         </div>
-      <div class="col-lg-12 col-md-6 col-lg-3">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <h4>Blocks</h4>
+            <input type="text" [(ngModel)]="blockSearch" placeholder="search Block" style="margin-bottom:10px;">        
+            <ul class="scroll-wrapper">
+              <li *ngFor="let block of blockList | search:'blockname':blockSearch as listBlock;let blockIndex = index;" title="select" class="box-shadow">
+                <div class="relative">{{block.blockname}}
+                  <i class="fa fa-edit" title="edit"
+                  (click)="onBlockEdited(block)" data-toggle="modal" data-target="#exampleModal4"></i>
+                  <i class="fa fa-window-close" aria-hidden="true"
+                   (click)="onDeleteBlock(block.block_id,blockIndex)"></i>
+                </div>
+              </li>
+            </ul>
+            <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Block Master</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div>
+                      <label>Block</label>
+                      <input type="text" [(ngModel)]="selectedBlockEdit.blockname"/>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" #blockClose>Close</button>
+                    <button type="button" class="btn btn-primary" (click)="addBlock()">{{selectedBlockEdit.block_id?'Save':'Add Block'}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button (click)="onBlockEdited(null)" data-toggle="modal" data-target="#exampleModal4">Add New Block</button>
+          </div>
 
-      </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-12">
+              <h4>Floors</h4>
+              <input type="text" [(ngModel)]="floorSearch" placeholder="search Floor" style="margin-bottom:10px;">        
+              <ul class="scroll-wrapper">
+                <li *ngFor="let floor of floorList | search:'floor_type':floorSearch as listFloor;let floorIndex = index;" title="select" class="box-shadow">
+                  <div class="relative">{{floor.floor_type}}
+                    <i class="fa fa-edit" title="edit"
+                    (click)="onFloorEdited(floor)" data-toggle="modal" data-target="#exampleModal5"></i>
+                    <i class="fa fa-window-close" aria-hidden="true"
+                     (click)="onDeletefloor(floor.floor_id,floorIndex)"></i>
+                  </div>
+                </li>
+              </ul>
+              <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel5"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Floor Master</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div>
+                        <label>Floor</label>
+                        <input type="text" [(ngModel)]="selectedFloorEdit.floor_type"/>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" #floorClose>Close</button>
+                      <button type="button" class="btn btn-primary" (click)="addFloor()">{{selectedFloorEdit.floor_id?'Save':'Add Floor'}}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button (click)="onFloorEdited(null)" data-toggle="modal" data-target="#exampleModal5">Add New Floor</button>
+            </div>
     </div>
   </div>
 </div>
