@@ -4,21 +4,27 @@
     <div class="row">
       <div class="col-lg-3 col-md-6 col-sm-12">
         <h4>Countries</h4>
+        <input type="text" [(ngModel)]="countrySearch" placeholder="search country" style="margin-bottom:10px;">
         <ul class="scroll-wrapper">
-          <li *ngFor="let country of countryList;let countryIndex = index;" (click)="onCountrySelected(country,$event)"
+          <li *ngFor="let country of countryList | search:'country_name':countrySearch as listCountries;let countryIndex = index;" 
+          [class.selected-list]="selectedCountry?.country_id == country.country_id"
+          (click)="onCountrySelected(country,$event)"
             title="select" class="box-shadow">
             <div class="relative">{{country.country_name}}
-              <i class="fa fa-edit" title="edit"  data-toggle="modal" data-target="#exampleModal" (click)="onCountryEdited(country)"></i>
-              <i class="fa fa-window-close" aria-hidden="true" (click)="onDeleteCountry(country.country_id,countryIndex)"></i>
+              <i class="fa fa-edit" title="edit"  data-toggle="modal" data-target="#exampleModal" 
+              (click)="onCountryEdited(country)"></i>
+              <i class="fa fa-window-close" aria-hidden="true" 
+              (click)="onDeleteCountry(country.country_id,countryIndex)"></i>
             </div>
           </li>
         </ul>
+        <!-- <span *ngIf="listCountries.length == 0">No Search Found</span> -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Country Master</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="$event.stopPropogation()">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -44,8 +50,11 @@
       </div>
       <div class="col-lg-3 col-md-6 col-sm-12">
         <h4>States</h4>
+        <input type="text" [(ngModel)]="stateSearch" placeholder="search country" style="margin-bottom:10px;">        
         <ul class="scroll-wrapper">
-          <li *ngFor="let state of stateList;let stateIndex = index;" title="select" class="box-shadow">
+          <li *ngFor="let state of stateList | search:'statename':stateSearch as listState;let stateIndex = index;" title="select" class="box-shadow"
+          [class.selected-list]="selectedState?.state_id == state.state_id"
+          (click)="onStateSelected(state,$event)">
             <div class="relative">{{state.statename}}
               <i class="fa fa-edit" title="edit"
               (click)="onStateEdited(state)" data-toggle="modal" data-target="#exampleModal1"></i>
@@ -59,7 +68,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">State Master</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -77,14 +86,88 @@
             </div>
           </div>
         </div>
-        <button (click)="onStateEdited({})" data-toggle="modal" data-target="#exampleModal1">Add New State</button>
+        <button (click)="onStateEdited(null)" data-toggle="modal" data-target="#exampleModal1">Add New State</button>
       </div>
       <div class="col-lg-3 col-md-6 col-sm-12">
-
+        <h4>Cities</h4>
+        <input type="text" [(ngModel)]="citySearch" placeholder="search cities" style="margin-bottom:10px;">        
+        <ul class="scroll-wrapper">
+          <li *ngFor="let city of cityList | search:'cityname':citySearch as listCity;let cityIndex = index;" title="select" class="box-shadow"
+          [class.selected-list]="selectedCity?.city_id == city.city_id"
+          (click)="onCitySelected(city,$event)">
+            <div class="relative">{{city.cityname}}
+              <i class="fa fa-edit" title="edit"
+              (click)="onCityEdited(city)" data-toggle="modal" data-target="#exampleModal2"></i>
+              <i class="fa fa-window-close" aria-hidden="true"
+               (click)="onDeleteCity(city.city_id,cityIndex)"></i>
+            </div>
+          </li>
+        </ul>
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">City Master</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <label>Name</label>
+                  <input type="text" [(ngModel)]="selectedCityEdit.cityname"/>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" #cityClose>Close</button>
+                <button type="button" class="btn btn-primary" (click)="addCity()">{{selectedCityEdit.city_id?'Save':'Add State'}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button (click)="onCityEdited(null)" data-toggle="modal" data-target="#exampleModal2">Add New City</button>
       </div>
       <div class="col-lg-3 col-md-6 col-sm-12">
-
-      </div>
+          <h4>Locations</h4>
+          <input type="text" [(ngModel)]="locationSearch" placeholder="search location" style="margin-bottom:10px;">        
+          <ul class="scroll-wrapper">
+            <li *ngFor="let location of locationList | search:'locationname':locationSearch as listLocation;let locationIndex = index;" title="select" class="box-shadow"
+            [class.selected-list]="selectedLocation?.location_id == location.location_id"
+            (click)="onLocationSelected(location,$event)">
+              <div class="relative">{{location.location_name}}
+                <i class="fa fa-edit" title="edit"
+                (click)="onLocationEdited(location)" data-toggle="modal" data-target="#exampleModal3"></i>
+                <i class="fa fa-window-close" aria-hidden="true"
+                 (click)="onDeleteLocation(location.location_id,locationIndex)"></i>
+              </div>
+            </li>
+          </ul>
+          <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Location Master</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div>
+                    <label>Location</label>
+                    <input type="text" [(ngModel)]="selectedLocationEdit.location_name"/>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" #locationClose>Close</button>
+                  <button type="button" class="btn btn-primary" (click)="addLocation()">{{selectedLocationEdit.location_id?'Save':'Add Location'}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button (click)="onLocationEdited(null)" data-toggle="modal" data-target="#exampleModal3">Add New Location</button>
+        </div>
       <div class="col-lg-12 col-md-6 col-lg-3">
 
       </div>

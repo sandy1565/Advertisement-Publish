@@ -36,6 +36,60 @@ export class CommonService {
     });
   }
 
+  public addState(state) {
+    return this.http.post(`${URN}state`,state, {
+      headers: authHeader()
+    });
+  }
+  
+  public updateState(id,state) {
+    return this.http.put(`${URN}state/${id}`,state, {
+      headers: authHeader()
+    });
+  }
+
+  public deleteState(id){
+    return this.http.delete(`${URN}state/${id}`, {
+      headers: authHeader()
+    });
+  }
+
+  public addCity(city) {
+    return this.http.post(`${URN}city`,city, {
+      headers: authHeader()
+    });
+  }
+  
+  public updateCity(id,city) {
+    return this.http.put(`${URN}city/${id}`,city, {
+      headers: authHeader()
+    });
+  }
+
+  public deleteCity(id){
+    return this.http.delete(`${URN}city/${id}`, {
+      headers: authHeader()
+    });
+  }
+
+
+  public addLocation(location) {
+    return this.http.post(`${URN}location`,location, {
+      headers: authHeader()
+    });
+  }
+  
+  public updateLocation(id,location) {
+    return this.http.put(`${URN}location/${id}`,location, {
+      headers: authHeader()
+    });
+  }
+
+  public deleteLocation(id){
+    return this.http.delete(`${URN}location/${id}`, {
+      headers: authHeader()
+    });
+  }
   public getStateDetails(): Observable<State[]> {
     return this.http.get(`${URN}getState`, {
       headers: authHeader()
@@ -60,6 +114,7 @@ export class CommonService {
       headers: authHeader()
     }).pipe(map(data => <Cities[]>data));
   }
+  
 
   public getFloor(): Observable<Floor[]> {
     return this.http.get(`${URN}getFloor`, {
@@ -78,5 +133,12 @@ export class CommonService {
       headers: authHeader()
     });
   }
+
+  public getSpecificLocationsDetails(location_id) {
+    return this.http.get(`${URN}getLocation/${location_id}`, {
+      headers: authHeader()
+    });
+  }
+
 
 }
