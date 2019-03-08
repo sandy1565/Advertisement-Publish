@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <h2>ADDRESS MASTER</h2>
     <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-12">
+      <div class="col-lg-4 col-md-4 col-sm-12">
         <h4>Countries</h4>
         <input type="text" [(ngModel)]="countrySearch" placeholder="search country" style="margin-bottom:10px;">
         <ul class="scroll-wrapper">
@@ -48,8 +48,8 @@
         </div>
         <button  (click)="onCountryEdited(null)" data-toggle="modal" data-target="#exampleModal">Add New Country</button>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-12">
-        <h4>States</h4>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <h4>States In ({{selectedCountry?.country_name}})</h4>
         <input type="text" [(ngModel)]="stateSearch" placeholder="search country" style="margin-bottom:10px;">        
         <ul class="scroll-wrapper">
           <li *ngFor="let state of stateList | search:'statename':stateSearch as listState;let stateIndex = index;" title="select" class="box-shadow"
@@ -86,10 +86,10 @@
             </div>
           </div>
         </div>
-        <button (click)="onStateEdited(null)" data-toggle="modal" data-target="#exampleModal1">Add New State</button>
+        <button *ngIf="selectedCountry" (click)="onStateEdited(null)" data-toggle="modal" data-target="#exampleModal1">Add New State</button>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-12">
-        <h4>Cities</h4>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <h4>Cities IN ({{selectedState?.statename}})</h4>
         <input type="text" [(ngModel)]="citySearch" placeholder="search cities" style="margin-bottom:10px;">        
         <ul class="scroll-wrapper">
           <li *ngFor="let city of cityList | search:'cityname':citySearch as listCity;let cityIndex = index;" title="select" class="box-shadow"
@@ -126,10 +126,10 @@
             </div>
           </div>
         </div>
-        <button (click)="onCityEdited(null)" data-toggle="modal" data-target="#exampleModal2">Add New City</button>
+        <button *ngIf="selectedState" (click)="onCityEdited(null)" data-toggle="modal" data-target="#exampleModal2">Add New City</button>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-12">
-          <h4>Locations</h4>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+          <h4>Locations IN ({{selectedCity?.cityname}})</h4>
           <input type="text" [(ngModel)]="locationSearch" placeholder="search location" style="margin-bottom:10px;">        
           <ul class="scroll-wrapper">
             <li *ngFor="let location of locationList | search:'locationname':locationSearch as listLocation;let locationIndex = index;" title="select" class="box-shadow"           
@@ -165,9 +165,11 @@
               </div>
             </div>
           </div>
-          <button (click)="onLocationEdited(null)" data-toggle="modal" data-target="#exampleModal3">Add New Location</button>
+          <button *ngIf="selectedCity" (click)="onLocationEdited(null)" data-toggle="modal" data-target="#exampleModal3">Add New Location</button>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
             <h4>Blocks</h4>
             <input type="text" [(ngModel)]="blockSearch" placeholder="search Block" style="margin-bottom:10px;">        
             <ul class="scroll-wrapper">
@@ -207,7 +209,7 @@
           </div>
 
 
-          <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="col-lg-4 col-md-4 col-sm-12">
               <h4>Floors</h4>
               <input type="text" [(ngModel)]="floorSearch" placeholder="search Floor" style="margin-bottom:10px;">        
               <ul class="scroll-wrapper">

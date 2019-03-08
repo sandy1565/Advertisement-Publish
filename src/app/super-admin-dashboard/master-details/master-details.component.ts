@@ -190,7 +190,7 @@ export class MasterDetailsComponent implements OnInit {
       return;
     }
     this.selectedCity = { ...city };
-    // this.fetchLocations();
+    this.fetchLocations();
   }
 
 
@@ -394,7 +394,7 @@ export class MasterDetailsComponent implements OnInit {
   }
 
   addFloor() {
-    if(this.selectedFloorEdit.floor_type){
+    if(this.selectedFloorEdit.floor_type.trim().length == 0){
       alert("Empty floor name");
       return;
     }
