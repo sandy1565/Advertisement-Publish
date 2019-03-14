@@ -10,6 +10,7 @@ export class MasterDetailsComponent implements OnInit {
   @ViewChild('countryClose') countryClose: ElementRef;
   @ViewChild('stateClose') stateClose: ElementRef;
   @ViewChild('cityClose') cityClose: ElementRef;
+  @ViewChild('districtClose') districtClose: ElementRef;
   @ViewChild('locationClose') locationClose: ElementRef;
   @ViewChild('blockClose') blockClose: ElementRef;
   @ViewChild('floorClose') floorClose: ElementRef;
@@ -29,6 +30,11 @@ export class MasterDetailsComponent implements OnInit {
   citySearch = '';
   selectedCity: any = {};
   selectedCityEdit: any = {};
+
+  districtList:any = [];
+  districtSearch = '';
+  selectedDistrict: any = {};
+  selectedDistrictEdit: any = {};
 
   locationList = [];
   locationSearch = '';
@@ -118,7 +124,7 @@ export class MasterDetailsComponent implements OnInit {
       return;
     }
     this.selectedState = { ...state };
-    this.fetchCities();
+    this.fetchDistricts();
   }
 
 
@@ -136,7 +142,7 @@ export class MasterDetailsComponent implements OnInit {
       this.commonService.deleteState(state_id).subscribe((res) => {
         if (this.selectedState && this.selectedState.state_id == state_id) {
           this.selectedState = null;
-          this.fetchCities();
+          this.fetchDistricts();
         }
         this.stateList.splice(index, 1);
       }, err => {
@@ -183,6 +189,79 @@ export class MasterDetailsComponent implements OnInit {
   /************** STATE EVENTS END ********************/
 
 
+/************** DISTRICT EVENTS START ********************/
+onDistrictSelected(district, event) {
+  if (event && event.target.classList.value.includes("fa")) {
+    return;
+  }
+  this.selectedDistrict = { ...district };
+  this.fetchCities();
+}
+
+
+onDistrictEdited(district) {
+  if (district != null) {
+    this.selectedDistrictEdit = { ...district };
+  }
+  else {
+    this.selectedDistrictEdit = {
+      ...district,
+      country_id: this.selectedState.country_id,
+      state_id: this.selectedState.state_id
+    };
+  }
+}
+
+onDeleteDistrict(district_id, index) {
+  if (confirm("Are you sure?")) {
+    this.commonService.deleteDistrict(district_id).subscribe((res) => {
+      if (this.selectedDistrict && this.selectedDistrict.district_id == district_id) {
+        this.selectedDistrict = null;
+        this.fetchCities();
+      }
+      this.districtList.splice(index, 1);
+    }, err => {
+      alert("Can't delete district.")
+    });
+  }
+}
+
+addDistrict() {
+  if(this.selectedDistrictEdit.district_name.trim().length == 0){
+    alert("Empty District Name");
+    return;
+  }
+  if (this.districtList.some(district => (district.district_id == this.selectedDistrictEdit.district_id ? false : district.district_name.toLowerCase().replace(/ /g, '') == this.selectedDistrictEdit.district_name.toLowerCase().replace(/ /g, ' ')))) {
+    alert("district Name Already Exists.");
+    return;
+  }
+  if (this.selectedDistrictEdit.district_id) {
+    let districtToEdit = this.districtList.find(district => district.district_id == this.selectedDistrictEdit.district_id);
+    if (districtToEdit) {
+      //api Edit
+      this.commonService.updateDistrict(this.selectedDistrictEdit.district_id, this.selectedDistrictEdit).
+        subscribe((res: any) => {
+          districtToEdit.district_name = this.selectedDistrictEdit.district_name;
+          this.districtClose.nativeElement.click();
+        }, err => {
+          alert('Failed To update district');
+        });
+    }
+  }
+  else {
+    //api Add
+    this.commonService.addDistrict(this.selectedDistrictEdit).subscribe((res: any) => {
+      this.selectedDistrictEdit.district_id = res.district_id;
+      this.districtList.push(this.selectedDistrictEdit);
+      this.cdRef.detectChanges();
+      this.districtClose.nativeElement.click();
+    }, err => {
+      alert("Failed To add district");
+    });
+  }
+}
+/************** DISTRICT EVENTS END ********************/
+
 
   /************** CITY EVENTS START ********************/
   onCitySelected(city, event) {
@@ -202,7 +281,8 @@ export class MasterDetailsComponent implements OnInit {
       this.selectedCityEdit = {
         ...city,
         country_id: this.selectedState.country_id,
-        state_id: this.selectedState.state_id
+        state_id: this.selectedState.state_id,
+        district_id:this.selectedDistrict.district_id
       };
     }
   }
@@ -462,19 +542,38 @@ export class MasterDetailsComponent implements OnInit {
         else {
           this.selectedState = null;
         }
-        this.fetchCities();
+        this.fetchDistricts();
       });
     }
     else {
       this.stateList = [];
       this.selectedState = null;
+      this.fetchDistricts();
+    }
+  }
+
+  fetchDistricts(){
+    if (this.selectedState) {
+      this.commonService.getSpecificDistrictDetails(this.selectedState.state_id).subscribe(districtList => {
+        this.districtList = districtList;
+        if (this.districtList.length) {
+          this.selectedDistrict = this.districtList[0];
+        }
+        else {
+          this.selectedDistrict = null;
+        }
+        this.fetchCities();
+      });
+    } else {
+      this.districtList = [];
+      this.selectedDistrict = null;
       this.fetchCities();
     }
   }
 
   fetchCities() {
-    if (this.selectedState) {
-      this.commonService.getSpecificCitiesDetails(this.selectedState.state_id).subscribe(cityList => {
+    if (this.selectedDistrict) {
+      this.commonService.getSpecificCitiesDetails(this.selectedDistrict.district_id).subscribe(cityList => {
         this.cityList = cityList;
         if (this.cityList.length) {
           this.selectedCity = this.cityList[0];

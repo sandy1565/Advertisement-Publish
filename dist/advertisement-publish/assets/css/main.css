@@ -2079,7 +2079,6 @@
 	input[type="text"],
 	input[type="password"],
 	input[type="email"],
-	select,
 	textarea {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -3098,7 +3097,7 @@
 	}
 
 	#header {
-		background: #1c1c1c;
+		background: #1976d2;
 		color: #d5d5d5;
 		cursor: default;
 		height: 5em;
@@ -3137,7 +3136,7 @@
 			padding: 0;
 			position: absolute;
 			top: 0;
-			color: #ea4949;
+			color: white;
 			font-size: 1.75em;
 			text-transform: none;
 			font-weight: normal;
@@ -3254,7 +3253,7 @@
 			line-height: 2.25em;
 			position: absolute;
 			text-align: center;
-			top: 0.5em;
+			top: 13px;
 			width: 3.5em;
 		}
 

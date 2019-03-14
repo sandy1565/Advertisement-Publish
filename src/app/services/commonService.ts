@@ -73,6 +73,25 @@ export class CommonService {
   }
 
 
+  public addDistrict(district) {
+    return this.http.post(`${URN}district`,district, {
+      headers: authHeader()
+    });
+  }
+  
+  public updateDistrict(id,district) {
+    return this.http.put(`${URN}district/${id}`,district, {
+      headers: authHeader()
+    });
+  }
+
+  public deleteDistrict(id){
+    return this.http.delete(`${URN}district/${id}`, {
+      headers: authHeader()
+    });
+  }
+
+
   public addLocation(location) {
     return this.http.post(`${URN}location`,location, {
       headers: authHeader()
@@ -137,6 +156,12 @@ export class CommonService {
     return this.http.get(`${URN}getState/${country_id}`, {
       headers: authHeader()
     }).pipe(map(data => <State[]>data));
+  }
+
+  public getSpecificDistrictDetails(state_id) {
+    return this.http.get(`${URN}district/${state_id}`, {
+      headers: authHeader()
+    }).pipe(map(data => data));
   }
 
   public getCitiesDetails(): Observable<Cities[]> {
