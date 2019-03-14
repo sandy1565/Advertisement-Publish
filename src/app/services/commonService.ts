@@ -54,6 +54,18 @@ export class CommonService {
     });
   }
 
+  public addDistricts(district){
+    return this.http.post(`${URN}district`, district, {
+      headers: authHeader()
+    })
+  }
+
+  public getDistrictDetails(): Observable<State[]> {
+    return this.http.get(`${URN}district`, {
+      headers: authHeader()
+    }).pipe(map(data => <State[]>data));
+  }
+
   public addCity(city) {
     return this.http.post(`${URN}city`,city, {
       headers: authHeader()

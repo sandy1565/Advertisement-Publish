@@ -29,6 +29,7 @@
       </div>
     </div>
 
+    <!-- Email Address -->
     <div class="form-group">
       <label class="label-control">Email Address:</label>
       <input type="email" name="email_id" class="form-control"
@@ -53,6 +54,7 @@
       </select>
     </div>
 
+    <!-- States -->
     <div class="form-group">
       <label class="control-label" for="States">States:</label>
       <select [(ngModel)]="person_record.state_id" name="state_id" (change)="onSelectState($event.target.value)"
@@ -68,6 +70,23 @@
       </select>
     </div>
 
+    <!-- Districts -->
+    <div class="form-group">
+      <label class="control-label" for="district">District :</label>
+      <select class="form-control input-lg" id="district" [(ngModel)]="person_record.district_id" name="district_id"
+        (change)="onSelectDistrict($event.target.value)" #districtName="ngModel"
+        [ngClass]="{ 'is-invalid': personForm.submitted && districtName.invalid }" required>
+        <option *ngFor="let district of districts" value="{{ district.district_id }}">{{
+          district.district_name
+        }}</option>
+        <div *ngIf="personForm.submitted && districtName.invalid" class="invalid-feedback">
+          <div *ngIf="districtName.errors.required">District Name is required</div>
+        </div>
+      </select>
+    </div>
+
+
+    <!-- Cities -->
     <div class="form-group">
       <label class="control-label" for="City">City:</label>
       <select class="form-control input-lg" id="city" [(ngModel)]="person_record.city_id" name="city_id"

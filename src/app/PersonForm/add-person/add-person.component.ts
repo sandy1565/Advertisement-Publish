@@ -12,6 +12,7 @@ import { CommonService } from '../../services/commonService';
 export class PersonFormComponent implements OnInit {
   countries = [];
   states = [];
+  districts = [];
   cities = [];
   blocks = [];
   locations = [];
@@ -34,13 +35,15 @@ export class PersonFormComponent implements OnInit {
   selectedLocationName;
   selectedFloorType;
   selectedStateName;
+  selectedDistrictName;
   selectedCityName;
   selectedCountry = 1;
   selectedState;
   selectedCity;
+  selectedDistrict;
   model: any = {};
   gender = ['Male', 'Female', 'Transgender'];
-  person_record:any = {};
+  person_record: any = {};
   editMode = false;
 
   constructor(private service: PersonService, private route: Router, private commonService: CommonService, private activatedRoute: ActivatedRoute) { }
@@ -55,12 +58,16 @@ export class PersonFormComponent implements OnInit {
   ngOnInit() {
     this.commonService.getCountryDetails().subscribe(countryList => {
       localStorage.setItem('countryDetails', JSON.stringify(countryList));
-      this.onSelectCountry(this.selectedCountry);
+      // this.onSelectCountry(this.selectedCountry);
     });
 
     this.commonService.getStateDetails().subscribe(statesList => {
       localStorage.setItem('stateDetail', JSON.stringify(statesList));
     });
+
+    this.commonService.getDistrictDetails().subscribe(districtList => {
+      localStorage.setItem('districtDetails', JSON.stringify(districtList));
+    })
 
     this.commonService.getCitiesDetails().subscribe(cityList => {
       localStorage.setItem('cityDetails', JSON.stringify(cityList));
@@ -87,22 +94,33 @@ export class PersonFormComponent implements OnInit {
     };
   }
 
-  onSelectCountry(country_id: number) {  
+  onSelectCountry(country_id: number) {
     this.selectedCountry = country_id;
-    console.log('=============country_id===================', country_id);
     this.states = this.getStates().filter(item => {
       return item.country_id === Number(country_id);
     });
+    this.districts = [];
+    this.cities = [];
+    this.locations =[];
   }
 
   onSelectState(state_id: number) {
-    console.log('=========================== Onselect');
     this.selectedState = state_id;
     this.selectedStateName = this.selectedState;
-    this.cities = this.getCity().filter(item => {
-      // console.log("-----onSelectState--------this.cities", this.cities);
+    this.districts = this.getDistrict().filter(item => {
       return item.state_id === Number(state_id);
     });
+    this.cities = [];
+    this.locations =[];
+  }
+
+  onSelectDistrict(district_id: number) {
+    this.selectedDistrict = district_id;
+    this.selectedDistrictName = this.selectedDistrict;
+    this.cities = this.getCity().filter(item => {
+      return item.district_id === Number(district_id);
+    });
+    this.locations = [];
   }
 
   onSelectCity(city_id: number) {
@@ -141,6 +159,10 @@ export class PersonFormComponent implements OnInit {
     return JSON.parse(localStorage.getItem('stateDetail'));
   }
 
+  getDistrict() {
+    return JSON.parse(localStorage.getItem('districtDetails'));
+  }
+
   getCity() {
     console.log('=================== getCity()');
     return JSON.parse(localStorage.getItem('cityDetails'));
@@ -169,20 +191,20 @@ export class PersonFormComponent implements OnInit {
     console.log(this.selectedFloorType);
   }
 
-  onSubmit(data){
-    if(this.editMode) {
+  onSubmit(data) {
+    if (this.editMode) {
       this.service.updatePersonDetail(data, this.person_record.person_id).subscribe(data => {
         console.log(data);
         this.route.navigateByUrl('/super-admin-dashboard/person-list');
       })
     }
-    else{
-    this.service.addPersonDetails(data).subscribe(data => {
-      console.log(data);
-      console.log('added successfully');
-      this.route.navigateByUrl('/super-admin-dashboard/person-list');
-    });
-  }
+    else {
+      this.service.addPersonDetails(data).subscribe(data => {
+        console.log(data);
+        console.log('added successfully');
+        this.route.navigateByUrl('/super-admin-dashboard/person-list');
+      });
+    }
   }
 
   ////// validation/////////////
