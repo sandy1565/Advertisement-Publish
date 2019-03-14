@@ -129,7 +129,7 @@
           <button *ngIf="selectedState" (click)="onDistrictEdited(null)" data-toggle="modal" data-target="#exampleModal9">Add New District</button>
         </div>
       <div class="col-lg-4 col-md-4 col-sm-12">
-        <h4>Cities IN ({{selectedState?.statename}})</h4>
+        <h4>Cities IN ({{selectedDistrict?.district_name}})</h4>
         <input type="text" [(ngModel)]="citySearch" placeholder="search cities" style="margin-bottom:10px;">        
         <ul class="scroll-wrapper">
           <li *ngFor="let city of cityList | search:'cityname':citySearch as listCity;let cityIndex = index;" title="select" class="box-shadow"
@@ -166,7 +166,7 @@
             </div>
           </div>
         </div>
-        <button *ngIf="selectedState" (click)="onCityEdited(null)" data-toggle="modal" data-target="#exampleModal2">Add New City</button>
+        <button *ngIf="selectedDistrict" (click)="onCityEdited(null)" data-toggle="modal" data-target="#exampleModal2">Add New City</button>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-12">
           <h4>Locations IN ({{selectedCity?.cityname}})</h4>
