@@ -10,8 +10,7 @@ export class AdminSidebarComponent implements OnInit {
 
   ngOnInit() {}
 
-  openDropdown(e) {
-    console.log('hi this is ddp');
+  ngAfterViewInit(){
     const dropdown = document.getElementsByClassName('dropdown-btn');
     let i;
     for (i = 0; i < dropdown.length; i++) {
@@ -25,6 +24,10 @@ export class AdminSidebarComponent implements OnInit {
         }
       });
     }
+  }
+
+  openDropdown(e) {
+    console.log('hi this is ddp');   
   }
 
 

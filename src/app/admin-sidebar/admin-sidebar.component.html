@@ -7,12 +7,12 @@
         <!-- Sidebar -->
 
         <div class="sidenav" style="padding-top: 110px;">
-            <button class="dropdown-btn" (click)="openDropdown($event)">Person Details 
+            <button class="dropdown-btn" (click)="openDropdown($event)" >Person Details 
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-container">
-              <a href="#" routerLink="/admin-dashboard/add-person">Add Person Details</a>
-              <a href="#" routerLink="/admin-dashboard/person-list">View Person List</a>
+              <a href="#" routerLink="/admin-dashboard/add-person" appToggler>Add Person Details</a>
+              <a href="#" routerLink="/admin-dashboard/person-list" appToggler>View Person List</a>
               <!-- <a href="#">Link 3</a> -->
             </div>
 
@@ -20,16 +20,16 @@
                 <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-container">
-                <a href="#" routerLink="/admin-dashboard/advt-details">Add Advertisement</a>
-                <a href="#" routerLink="/admin-dashboard/advt-details-list">View Advertisement List</a>
+                <a href="#" routerLink="/admin-dashboard/advt-details" appToggler>Add Advertisement</a>
+                <a href="#" routerLink="/admin-dashboard/advt-details-list" appToggler>View Advertisement List</a>
                 <!-- <a href="#">Link 3</a> -->
               </div>
 
-              <button class="dropdown-btn" (click)="openDropdown($event)">Publish Details 
+              <button class="dropdown-btn" (click)="openDropdown($event)" appToggler>Publish Details 
                 <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-container">
-                <a href="#" routerLink="/super-admin-dashboard/advertise-publish">Add Advertise</a>
+                <a href="#" routerLink="/super-admin-dashboard/advertise-publish" appToggler>Add Advertise</a>
                 <!-- <a href="#" routerLink="/super-admin-dashboard/view-publish">View Advertise List</a> -->
                 <!-- <a href="#">Link 3</a> -->
               </div>
