@@ -200,13 +200,14 @@ onDistrictSelected(district, event) {
 
 
 onDistrictEdited(district) {
+
   if (district != null) {
     this.selectedDistrictEdit = { ...district };
   }
   else {
     this.selectedDistrictEdit = {
       ...district,
-      country_id: this.selectedState.country_id,
+      country_id: this.selectedCountry.country_id,
       state_id: this.selectedState.state_id
     };
   }
@@ -350,8 +351,8 @@ addDistrict() {
       this.selectedLocationEdit = {
         ...location,
         country_id: this.selectedCountry.country_id,
-        state_id: this.selectedCity.state_id,
-        city_id: this.selectedCity.city_id
+        state_id: this.selectedState.state_id,
+        city_id: this.selectedCity.city_id,
       };
     }
   }
@@ -361,7 +362,7 @@ addDistrict() {
       this.commonService.deleteLocation(location_id).subscribe((res) => {
         this.locationList.splice(index, 1);
       }, err => {
-        alert("Can't delete City.")
+        alert("Can't delete Location.")
       });
     }
   }
@@ -372,7 +373,7 @@ addDistrict() {
       return;
     }
     if (this.locationList.some(location => (location.location_id == this.selectedLocationEdit.location_id ? false : location.location_name.toLowerCase().replace(/ /g, '') == this.selectedLocationEdit.location_name.toLowerCase().replace(/ /g, ' ')))) {
-      alert("City Name Already Exists.");
+      alert("Location Name Already Exists.");
       return;
     }
     if (this.selectedLocationEdit.location_id) {
