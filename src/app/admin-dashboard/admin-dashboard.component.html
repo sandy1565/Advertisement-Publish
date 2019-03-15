@@ -1,5 +1,12 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
 <div class="container-fluid">
-    <app-admin-sidebar class="d-none d-sm-none d-md-none col-lg-3 d-lg-block d-xl-block" id="left-nav"></app-admin-sidebar>
+
+    <div class="row">
+        <div class="d-none d-sm-none d-md-none col-lg-3 d-lg-block d-xl-block" id="left-nav">
+            <app-admin-sidebar></app-admin-sidebar>
+        </div>
+        <div class="col-sm-12 col-lg-9" id="right-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>

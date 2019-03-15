@@ -522,6 +522,14 @@ addDistrict() {
         this.selectedCountry = {};
       }
       this.fetchStates();
+    },()=>{
+      this.selectedState = null;
+      this.stateList = [];
+      this.selectedDistrict = null;
+      this.districtList = [];
+      this.selectedCity = null;
+      this.cityList = [];
+      this.locationList = [];
     });
 
     this.commonService.getFloor().subscribe(data => {
@@ -544,6 +552,12 @@ addDistrict() {
           this.selectedState = null;
         }
         this.fetchDistricts();
+      },()=>{
+        this.selectedDistrict = null;
+        this.districtList = [];
+        this.selectedCity = null;
+        this.cityList = [];
+        this.locationList = [];
       });
     }
     else {
@@ -564,6 +578,10 @@ addDistrict() {
           this.selectedDistrict = null;
         }
         this.fetchCities();
+      },()=>{ 
+        this.selectedCity = null;
+        this.cityList = [];
+        this.locationList = [];
       });
     } else {
       this.districtList = [];
@@ -583,6 +601,9 @@ addDistrict() {
           this.selectedCity = null;
         }
         this.fetchLocations();
+      },()=>{
+        this.selectedCity = null;
+        this.locationList = [];
       });
     } else {
       this.cityList = [];

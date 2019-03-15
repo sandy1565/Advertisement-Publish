@@ -196,6 +196,8 @@ export class PersonFormComponent implements OnInit {
       this.service.updatePersonDetail(data, this.person_record.person_id).subscribe(data => {
         console.log(data);
         this.route.navigateByUrl('/super-admin-dashboard/person-list');
+      },(err:any)=>{
+        alert(err.message);
       })
     }
     else {
@@ -203,6 +205,8 @@ export class PersonFormComponent implements OnInit {
         console.log(data);
         console.log('added successfully');
         this.route.navigateByUrl('/super-admin-dashboard/person-list');
+      },(err:any)=>{
+        alert(err.message);
       });
     }
   }
