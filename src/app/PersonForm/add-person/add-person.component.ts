@@ -120,7 +120,6 @@ export class PersonFormComponent implements OnInit {
     this.cities = this.getCity().filter(item => {
       return item.district_id === Number(district_id);
     });
-    this.locations = [];
   }
 
   onSelectCity(city_id: number) {
@@ -128,6 +127,7 @@ export class PersonFormComponent implements OnInit {
     const locationData = {
       country_id: this.selectedCountry,
       state_id: this.selectedState,
+      district_id:this.selectedDistrict,
       city_id: this.selectedCity
     };
 
