@@ -89,7 +89,9 @@ export class PersonFormComponent implements OnInit {
         this.person_record = resp.data;
         this.onSelectCountry(+this.person_record.country_id);
         this.onSelectState(+this.person_record.state_id);
+        this.onSelectDistrict(+this.person_record.district_id);
         this.onSelectCity(+this.person_record.city_id);
+     
       })
     };
   }
@@ -207,7 +209,7 @@ export class PersonFormComponent implements OnInit {
     }
   }
 
-  ////// validation/////////////
+  ////// validation /////////////
 
   keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
