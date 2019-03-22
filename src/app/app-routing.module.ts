@@ -50,6 +50,7 @@ const routes: Routes = [
   children: [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     { path: 'add-person', component: PersonFormComponent },
+    { path: 'edit-person-details/:id', component: PersonFormComponent },
     { path: 'person-list', component: PersonListComponent },
     { path: 'advt-details', component: AdvtDetailsComponent},
     { path: 'advt-details-list', component: AdvtDetailsListComponent}
