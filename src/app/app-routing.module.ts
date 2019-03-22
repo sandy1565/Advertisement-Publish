@@ -39,6 +39,7 @@ const routes: Routes = [
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard],
     children: [
     { path: '', redirectTo: 'admin-dashboard', pathMatch: 'full' },
+    { path: 'edit-person-details/:id', component: PersonFormComponent },
     { path: 'add-person', component: PersonFormComponent },
     { path: 'person-list', component: PersonListComponent },
     { path: 'advt-details', component: AdvtDetailsComponent },

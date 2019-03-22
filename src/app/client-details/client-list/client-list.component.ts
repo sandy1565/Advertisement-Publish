@@ -11,6 +11,7 @@ export class ClientListComponent implements OnInit {
 
   clientList = [];
   p = 1;
+  domain = "super-admin-dashboard";
   constructor(private clientService:ClientService, private router:Router) { }
 
   ngOnInit() {
@@ -20,6 +21,8 @@ export class ClientListComponent implements OnInit {
     },error=>{
 
     })
+
+    this.domain = location.pathname.split("/")[1];
   }
 
   onClickDelete(client_id) {
