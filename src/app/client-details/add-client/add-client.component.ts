@@ -19,8 +19,11 @@ export class AddClientComponent implements OnInit {
   states = [];
   cities = [];
   locations = [];
+  districts = [];
   blocks = [];
   locationId;
+  selectedDistrict:any='';
+  selectedDistrictName='';
   profile_pic = null;
   document_file = null;
   private base64textString:any="";
@@ -49,6 +52,7 @@ export class AddClientComponent implements OnInit {
           this.client_record = resp.data;
           this.onSelectCountry(+this.client_record.country_id);
           this.onSelectState(+this.client_record.state_id);
+          this.onSelectDistrict(+this.client_record.district_id);
           this.onSelectCity(+this.client_record.city_id);
           
         },(err)=>{
@@ -63,12 +67,24 @@ export class AddClientComponent implements OnInit {
       localStorage.setItem("stateDetail", JSON.stringify(statesList));
     });
 
+    this.commonService.getDistrictDetails().subscribe(districtList => {
+      localStorage.setItem('districtDetails', JSON.stringify(districtList));
+    })
+
     this.commonService.getCitiesDetails().subscribe(cityList => {
       localStorage.setItem("cityDetails", JSON.stringify(cityList));
     });
 
     this.commonService.getBlock().subscribe(data => {
       this.blocks = data;
+    });
+  }
+
+  onSelectDistrict(district_id: number) {
+    this.selectedDistrict = district_id;
+    this.selectedDistrictName = this.selectedDistrict;
+    this.cities = this.getCity().filter(item => {
+      return item.district_id === Number(district_id);
     });
   }
 
@@ -79,14 +95,20 @@ export class AddClientComponent implements OnInit {
       return item.country_id === Number(country_id);
     });
   }
+  
+  getDistrict() {
+    return JSON.parse(localStorage.getItem('districtDetails'));
+  }
 
   onSelectState(state_id: number) {
     this.selectedState = state_id;
     this.selectedStateName = this.selectedState;
-    this.cities = this.getCity().filter(item => {
-      // console.log("-----onSelectState--------this.cities", this.cities);
+    this.districts = this.getDistrict().filter(item => {
       return item.state_id === Number(state_id);
     });
+    this.cities = [];
+    this.locations =[];
+   
   }
 
   onSelectCity(city_id: number) {

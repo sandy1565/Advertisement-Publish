@@ -4,7 +4,7 @@
     <!--First Name-->
     <div class="form-group">
       <label class="label-control">First Name:</label>
-      <input type="text" name="firstname" class="form-control" minlength="3" maxlength="20"
+      <input  type="text" name="firstname" class="form-control" minlength="3" maxlength="20"
         (keypress)="keyPressed($event)" required [(ngModel)]="person_record.firstname" id="first_name"
         #firstName="ngModel" />
       <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="text-danger">
@@ -143,7 +143,7 @@
     <!-- Address -->
     <div class="form-group">
       <label class="label-control">Address:</label>
-      <input type="text" name="address" required [(ngModel)]="person_record.address" #Address="ngModel"
+      <input type="text" id="address" name="address" required [(ngModel)]="person_record.address" #Address="ngModel"
         class="form-control" />
       <!-- <div *ngIf="Address.errors && (Address.dirty || Address.touched)" class="text-danger">
         <div [hidden]="!Address.hasError('required')">Address is Required</div>
@@ -185,7 +185,7 @@
     <!--Mobile Number 1 -->
    <div class="form-group">
       <label>Mobile Number 1:</label>
-      <input id="mobile_number1" name="mobile_number1" minlength="10" maxlength="10" (keypress)="keyPress($event)"
+      <input #M1 id="mobile_number1" name="mobile_number1" minlength="10" maxlength="10" (keypress)="keyPress($event)"
         required [(ngModel)]="person_record.mobile_number1" #mobilenumber1="ngModel" class="form-control" />
       <div *ngIf="mobilenumber1.errors && (mobilenumber1.dirty || mobilenumber1.touched)" class="text-danger">
         <div [hidden]="!mobilenumber1.hasError('required')">Mobile Numberis Required</div>
@@ -202,5 +202,7 @@
     <button type="submit" class="btn btn-primary mb-2" style="margin-right: 10px;">
       Submit
     </button>
+
+    <!-- <button (click)="job()"> BATCH</button> -->
   </div>
 </form>

@@ -15,7 +15,9 @@ import { CommonService } from "../../services/commonService";
 export class PersonListComponent implements OnInit {
   persons: any;
   dataRefresher: any;
+  p:any;
   filteredRegistration: PersonModel[];
+  domain = "super-admin-dashboard";
 
   constructor(
     private service: PersonService,
@@ -29,7 +31,9 @@ export class PersonListComponent implements OnInit {
     this.service.getPerson().subscribe(data => {
       this.persons = data;
     });
+    this.domain = location.pathname.split("/")[1];
   }
+
 
   onClickDelete(person_id) {
     console.log(person_id);

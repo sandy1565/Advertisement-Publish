@@ -17,10 +17,10 @@
           <td>{{ advt.client_name }}</td>
           <td>{{ advt.advt_details }}</td>
           <td>{{ advt.status }}</td>
-          <button type="button" *ngIf="advt.status != 'published'" class="btn btn-primary" [routerLink]="['/super-admin-dashboard','edit-details',advt.advt_id]">
+          <button type="button" *ngIf="advt.status != 'published'" class="btn btn-primary" [routerLink]="['/',domain,'edit-details',advt.advt_id]">
             Edit
           </button>
-          <button type="button" *ngIf="advt.status == 'published'" class="btn btn-primary" [routerLink]="['/super-admin-dashboard','view-details',advt.advt_id]">
+          <button type="button" *ngIf="advt.status == 'published'" class="btn btn-primary" [routerLink]="['/',domain,'view-details',advt.advt_id]">
             View
           </button>
           <button  type="button" (click)="openReport(advt.advt_id)" class="btn btn-info"  *ngIf="advt.status == 'published'" >

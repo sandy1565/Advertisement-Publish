@@ -41,7 +41,7 @@ export class AdvtDetailsListComponent implements OnInit {
     private advtService: AdvtDetailsService,
     private modalService: BsModalService
   ) {}
-
+  domain = "super-admin-dashboard";
   ngOnInit() {
     this.filteredRegistration = this.users;
       this.advtService.getAdvts().subscribe(data => {
@@ -55,6 +55,8 @@ export class AdvtDetailsListComponent implements OnInit {
     this.advtService.getClient().subscribe(data => {
       this.clientName = data;
     });
+
+    this.domain = location.pathname.split("/")[1];
   }
 
   selectClientName() {
