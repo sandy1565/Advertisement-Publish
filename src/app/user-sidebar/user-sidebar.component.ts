@@ -9,9 +9,7 @@ export class UserSidebarComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
-
-  openDropdown(e) {
-    console.log('hi this is ddp');
+  ngAfterViewInit(){
     const dropdown = document.getElementsByClassName('dropdown-btn');
     let i;
     for (i = 0; i < dropdown.length; i++) {
@@ -25,6 +23,10 @@ export class UserSidebarComponent implements OnInit {
         }
       });
     }
+  }
+
+  openDropdown(e) {
+    console.log('hi this is ddp');
   }
 
 

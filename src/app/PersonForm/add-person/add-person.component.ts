@@ -5,11 +5,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location as LocationService } from '@angular/common';
 import { Gender } from '../../services/commonModal';
 import { CommonService } from '../../services/commonService';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-add-person',
   templateUrl: './add-person.component.html',
   styleUrls: ['./add-person.component.scss']
 })
+
 export class PersonFormComponent implements OnInit {
   countries = [];
   states = [];
@@ -47,9 +50,14 @@ export class PersonFormComponent implements OnInit {
   person_record: any = {};
   editMode = false;
 
+<<<<<<< Updated upstream
   constructor(private service: PersonService, private route: Router, 
     private locationRoute: LocationService,
     private commonService: CommonService, private activatedRoute: ActivatedRoute) { }
+=======
+  constructor(private service: PersonService, private route: Router, private commonService: CommonService,
+     private activatedRoute: ActivatedRoute, private toastr: ToastrService) { }
+>>>>>>> Stashed changes
 
   genderModel = new Gender();
 
@@ -103,7 +111,6 @@ export class PersonFormComponent implements OnInit {
         this.onSelectState(+this.person_record.state_id);
         this.onSelectDistrict(+this.person_record.district_id);
         this.onSelectCity(+this.person_record.city_id);
-     
       })
     };
 
@@ -222,6 +229,7 @@ export class PersonFormComponent implements OnInit {
   }
 
   onSubmit(data) {
+<<<<<<< Updated upstream
     let fname = document.getElementById("first_name");
     if (this.editMode) {
       this.service.updatePersonDetail(data, this.person_record.person_id).subscribe(data => {
@@ -230,11 +238,25 @@ export class PersonFormComponent implements OnInit {
         // this.ngOnInit();
         // this.route.navigateByUrl('/super-admin-dashboard/person-list');
       },(err:any)=>{
+=======
+    let fstname = document.getElementById('first_name');
+    if (this.editMode) {
+      this.service.updatePersonDetail(data, this.person_record.person_id).subscribe(data => {
+        console.log(data);
+        this.ngOnInit();
+      },(err:any)=>{
+        // this.toastr.error('Please Provide another mobile number, this number is already registered.');
+>>>>>>> Stashed changes
         alert(err.message);
       })
     }
     else {
+      if(data.mobile_number1.length != 10){
+        this.toastr.error('Please Provide a Valid Number.');
+      }
+      else {
       this.service.addPersonDetails(data).subscribe(data => {
+<<<<<<< Updated upstream
         // console.log(data);
         this.locationRoute.back();
         console.log('added successfully');
@@ -248,11 +270,18 @@ export class PersonFormComponent implements OnInit {
         // this.route.navigateByUrl('/super-admin-dashboard/person-list');
       },(err:any)=>{
         alert(err.message);
+=======
+        console.log('added successfully');
+      },(err:any)=>{
+        this.toastr.error('Please Provide another mobile number, this number is already registered.');
+        // alert(err.message);
+>>>>>>> Stashed changes
       });
+    }
     }
   }
 
-  ////// validation /////////////
+  ////// validation/////////////
 
   keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;

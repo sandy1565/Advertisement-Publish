@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/advertisement-publish",
+    "public": "./dist/advertisement-publish",
     "ignore": [
       "firebase.json",
       "**/.*",

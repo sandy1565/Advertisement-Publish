@@ -17,7 +17,11 @@
         <td>{{person.lastname}}</td>
         <td>{{person.mobile_number1}}</td>
         <td>
+<<<<<<< Updated upstream
             <button type="button" class="btn btn-primary mr-3" [routerLink]="['/',domain,'edit-person-details',person.person_id]">
+=======
+            <button type="button" class="btn btn-primary mr-3" [routerLink]="['/admin-dashboard','edit-person-details',person.person_id]">
+>>>>>>> Stashed changes
               Edit
             </button>
             <button type="button" class="btn btn-danger" (click)="onClickDelete(person.person_id)" >Delete</button>

@@ -1,77 +1,13 @@
-<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
-<!------ Include the above in your HEAD tag ---------->
+<div id="wrapper" >
+  <!-- Sidebar -->
+  <div class="sidenav" style="padding-top: 110px;">        
+      <button class="dropdown-btn" (click)="openDropdown($event)">Person Details 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container">
+        <a href="#" appToggler routerLink="/dashboard/add-person">Add Person Details</a>
+        <!-- <a href="#" appToggler routerLink="/super-admin-dashboard/person-list">View Person List</a> -->
+        <!-- <a href="#">Link 3</a> -->
+      </div>
 
-   <div id="wrapper" >
-        <!-- Sidebar -->
-
-        <div class="sidenav" style="padding-top: 110px;">
-            <button class="dropdown-btn" (click)="openDropdown($event)">Person Details 
-              <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-container">
-              <a href="#" appToggler routerLink="/dashboard/add-person">Add Person Details</a>
-              <a href="#" appToggler routerLink="/dashboard/person-list">View Person List</a>
-              <!-- <a href="#">Link 3</a> -->
-            </div>
-
-            <button class="dropdown-btn" (click)="openDropdown($event)">Advertisement Details 
-                <i class="fa fa-caret-down"></i>
-              </button>
-              <div class="dropdown-container">
-                <a href="#" appToggler routerLink="/dashboard/advt-details">Add Advertisement</a>
-                <a href="#" appToggler routerLink="/dashboard/advt-details-list">View Advertisement List</a>
-                <!-- <a href="#">Link 3</a> -->
-              </div>
-
-              <button class="dropdown-btn" (click)="openDropdown($event)">Publish Details 
-                <i class="fa fa-caret-down"></i>
-              </button>
-              <div class="dropdown-container">
-                <a href="#" appToggler routerLink="/dashboard/advertise-publish">Add Advertise</a>
-                <!-- <a href="#" routerLink="/super-admin-dashboard/view-publish">View Advertise List</a> -->
-                <!-- <a href="#">Link 3</a> -->
-              </div>
-
-          </div>
-
-        <!-- <div id="sidebar-wrapper">
-             <ul class="sidebar-nav">
-               <li class="sidebar-brand">
-                    <a href="#">
-                        Advt Sidebar
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="/super-admin-dashboard/add-person">Add Person</a>
-                </li>
-                <li>
-                    <a routerLink="/super-admin-dashboard/person-list">View Person List</a>
-                </li>
-                <li>
-                    <a href="#">Publish Advertisment</a>
-                </li>
-            </ul>
-        </div> -->
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <!-- <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Simple Sidebar</h1>
-                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- /#page-content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-     <!-- Menu Toggle Script -->
-    
+</div>

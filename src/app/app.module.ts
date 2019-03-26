@@ -39,6 +39,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { MasterDetailsComponent } from './super-admin-dashboard/master-details/master-details.component';
 import { SearchPipe } from './search.pipe'; 
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { SearchPipe } from './search.pipe';
     NgxPaginationModule,
     NgxClickToEditModule,
     NgSelectModule,
-    NgHttpLoaderModule.forRoot()
+    NgHttpLoaderModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [ AuthGuard, DatePipe, BsModalRef, AudioRecordingService ],
   bootstrap: [AppComponent],
