@@ -17,11 +17,7 @@ export class PersonListComponent implements OnInit {
   dataRefresher: any;
   p:any;
   filteredRegistration: PersonModel[];
-<<<<<<< Updated upstream
   domain = "super-admin-dashboard";
-=======
-  p:any;
->>>>>>> Stashed changes
 
   constructor(
     private service: PersonService,

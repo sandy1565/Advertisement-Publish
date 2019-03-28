@@ -50,14 +50,8 @@ export class PersonFormComponent implements OnInit {
   person_record: any = {};
   editMode = false;
 
-<<<<<<< Updated upstream
-  constructor(private service: PersonService, private route: Router, 
-    private locationRoute: LocationService,
-    private commonService: CommonService, private activatedRoute: ActivatedRoute) { }
-=======
   constructor(private service: PersonService, private route: Router, private commonService: CommonService,
      private activatedRoute: ActivatedRoute, private toastr: ToastrService) { }
->>>>>>> Stashed changes
 
   genderModel = new Gender();
 
@@ -229,16 +223,6 @@ export class PersonFormComponent implements OnInit {
   }
 
   onSubmit(data) {
-<<<<<<< Updated upstream
-    let fname = document.getElementById("first_name");
-    if (this.editMode) {
-      this.service.updatePersonDetail(data, this.person_record.person_id).subscribe(data => {
-        console.log(data);
-        this.locationRoute.back();
-        // this.ngOnInit();
-        // this.route.navigateByUrl('/super-admin-dashboard/person-list');
-      },(err:any)=>{
-=======
     let fstname = document.getElementById('first_name');
     if (this.editMode) {
       this.service.updatePersonDetail(data, this.person_record.person_id).subscribe(data => {
@@ -246,7 +230,6 @@ export class PersonFormComponent implements OnInit {
         this.ngOnInit();
       },(err:any)=>{
         // this.toastr.error('Please Provide another mobile number, this number is already registered.');
->>>>>>> Stashed changes
         alert(err.message);
       })
     }
@@ -256,26 +239,10 @@ export class PersonFormComponent implements OnInit {
       }
       else {
       this.service.addPersonDetails(data).subscribe(data => {
-<<<<<<< Updated upstream
-        // console.log(data);
-        this.locationRoute.back();
-        console.log('added successfully');
-        // this.person_record.firstname = '';
-        // this.person_record.middlename = '';
-        // this.person_record.lastname = '';
-        // this.person_record.gender = 'Male';
-        // this.person_record.mobile_number1 = '';
-        // fname.focus();
-        // this.ngOnInit();
-        // this.route.navigateByUrl('/super-admin-dashboard/person-list');
-      },(err:any)=>{
-        alert(err.message);
-=======
         console.log('added successfully');
       },(err:any)=>{
         this.toastr.error('Please Provide another mobile number, this number is already registered.');
         // alert(err.message);
->>>>>>> Stashed changes
       });
     }
     }

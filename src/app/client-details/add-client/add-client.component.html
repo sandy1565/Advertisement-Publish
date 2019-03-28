@@ -1,11 +1,11 @@
-o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.valid && onSubmit(clientForm.value)">
+<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.valid && onSubmit(clientForm.value)">
   <div class="container-fluid">
     <h2>Client Details: </h2>
 
     <!-- Client Name-->
     <div class="form-group">
       <label for="" class="label-control">Client Name: </label>
-      <input type="text" class="form-control" name="client_name" [(ngModel)]="client_record.client_name" #clientName="ngModel"
+      <input type="text" class="form-control" maxlength="30" name="client_name" [(ngModel)]="client_record.client_name" #clientName="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && clientName.invalid }" required>
       <div *ngIf="clientForm.submitted && clientName.invalid" class="invalid-feedback">
         <div *ngIf="clientName.errors.required">Client Name is required</div>
@@ -15,7 +15,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Phone Number -->
     <div class="form-group">
       <label for="" class="label-control" >Phone Number</label>
-      <input type="text" placeholder="Phone Number" name="phone_number" [(ngModel)]="client_record.phone_number" #phoneNumber="ngModel"
+      <input type="text" maxlength="10" placeholder="Phone Number" name="phone_number" [(ngModel)]="client_record.phone_number" #phoneNumber="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && phoneNumber.invalid }" required />
       <div *ngIf="clientForm.submitted && phoneNumber.invalid" class="invalid-feedback">
         <div *ngIf="phoneNumber.errors.required">Phone Number is required</div>
@@ -33,7 +33,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     </div>
 
     <!-- Address -->
-
+    <!-- Country -->
     <div class="form-group">
       <label class="control-label" for="Country">Country:</label>
       <select *ngIf="getCountries()"  [(ngModel)]="client_record.country_id" name="country_id"
@@ -48,6 +48,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
       </select>
     </div>
     
+    <!-- State -->
     <div class="form-group">
       <label class="control-label" for="States">States:</label>
       <select  [(ngModel)]="client_record.state_id" name="state_id" (change)="onSelectState($event.target.value)"
@@ -79,6 +80,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
       </select>
     </div>
 
+    <!-- Cities -->
     <div class="form-group">
       <label class="control-label" for="City">City:</label>
       <select class="form-control input-lg" id="city" [(ngModel)]="client_record.city_id" name="city_id"
@@ -125,7 +127,7 @@ o<form class="form container" #clientForm="ngForm" (ngSubmit)="clientForm.form.v
     <!-- Client Representative name -->
     <div class="form-group">
       <label for="" class="control-label">Client Representative Name: </label>
-      <input type="text" name="representative_name" [(ngModel)]="client_record.representative_name" placeholder="resprntative name" #representativeName="ngModel"
+      <input type="text" maxlength="25" name="representative_name" [(ngModel)]="client_record.representative_name" placeholder="resprntative name" #representativeName="ngModel"
         [ngClass]="{ 'is-invalid': clientForm.submitted && representativeName.invalid }" required />
         <div *ngIf="clientForm.submitted && representativeName.invalid" class="invalid-feedback">
           <div *ngIf="representativeName.errors.required">Representative Name is required</div>

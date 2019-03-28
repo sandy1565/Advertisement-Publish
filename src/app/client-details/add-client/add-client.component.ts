@@ -3,6 +3,7 @@ import { CommonService } from "../../services/commonService";
 import { ClientService } from "../client-service/client.service";
 import { ActivatedRoute, Router, } from '@angular/router';
 import {Location} from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-add-client",
@@ -34,7 +35,8 @@ export class AddClientComponent implements OnInit {
     private clientService: ClientService,
     private activatedRoute:ActivatedRoute,
     private router:Router,
-    private _location: Location
+    private _location: Location,
+    private toastr: ToastrService
   ) {}
 
   typeOfFirm = [
@@ -185,8 +187,9 @@ export class AddClientComponent implements OnInit {
     // console.log(binaryString);
     console.log(btoa(binaryString));
   }
-
+//clientForm.form.valid && 
   onSubmit(data) {
+    console.log("====================",data);
     if(this.editMode){
       if(this.profile_pic){
         this.client_record.profile_pic = this.profile_pic;
@@ -207,6 +210,11 @@ export class AddClientComponent implements OnInit {
       });
       return;
     }
+    else {
+      if(data.phone_number.length != 10){
+        this.toastr.error('Please Provide a Valid Number.');
+      }
+      else {
     data.profile_pic = this.profile_pic;
     data.document_file = this.document_file;
     this.clientService
@@ -216,4 +224,6 @@ export class AddClientComponent implements OnInit {
       }, (err: any) => {});
       
   }
+}
+}
 }

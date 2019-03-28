@@ -115,9 +115,13 @@ export class ClientAdvtListComponent implements OnInit {
 
   approveAdvrt(advt){
     
-    this.advtService.updateAdvtDetails({...advt,status:(advt.status?'approved':'unapproved')},advt.advt_id).subscribe(data=>{
+    this.advtService.updateStatusAdvtDetails({...advt,status:(advt.status?'approved':'unapproved')},advt.advt_id).subscribe(data=>{
       // advt.status = !advt.status;
+      alert("updated status");
       this.cdRef.detectChanges();
+    },err=>{
+      alert("Error updating records");
+      advt.status =  !advt.status;
     });
   }
 

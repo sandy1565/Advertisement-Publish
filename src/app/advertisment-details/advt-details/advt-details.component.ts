@@ -37,6 +37,9 @@ export class AdvtDetailsComponent implements OnInit {
   states = [];
   cities = [];
   locations = [];
+  districts = [];
+  selectedDistrict:any='';
+  selectedDistrictName='';
   selectedCountry;
   selectedLocationName;
   selectedFloorType;
@@ -106,7 +109,8 @@ export class AdvtDetailsComponent implements OnInit {
         }});
         this.onSelectCountry(+this.advt_record.country_id);
         this.onSelectState(+this.advt_record.state_id);
-        this.onSelectCity(+this.advt_record.city_id);
+        this.onSelectDistrict(+this.advt_record.district_id);
+        
         console.log(this.publish_dates );
       },(err)=>{
 
@@ -125,6 +129,10 @@ export class AdvtDetailsComponent implements OnInit {
     this.commonService.getStateDetails().subscribe(statesList => {
       localStorage.setItem("stateDetail", JSON.stringify(statesList));
     });
+
+    this.commonService.getDistrictDetails().subscribe(districtList => {
+      localStorage.setItem('districtDetails', JSON.stringify(districtList));
+    })
 
     this.commonService.getCitiesDetails().subscribe(cityList => {
       localStorage.setItem("cityDetails", JSON.stringify(cityList));
@@ -175,12 +183,36 @@ export class AdvtDetailsComponent implements OnInit {
     });
   }
 
+  // onSelectState(state_id: number) {
+  //   this.selectedState = state_id;
+  //   this.selectedStateName = this.selectedState;
+  //   this.cities = this.getCity().filter(item => {
+  //     return item.state_id === Number(state_id);
+  //   });
+  // }
+
+  getDistrict() {
+    return JSON.parse(localStorage.getItem('districtDetails'));
+  }
+
   onSelectState(state_id: number) {
     this.selectedState = state_id;
     this.selectedStateName = this.selectedState;
-    this.cities = this.getCity().filter(item => {
+    this.districts = this.getDistrict().filter(item => {
       return item.state_id === Number(state_id);
     });
+    this.cities = [];
+    this.locations =[];
+   
+  }
+
+  onSelectDistrict(district_id: number) {
+    this.selectedDistrict = district_id;
+    this.selectedDistrictName = this.selectedDistrict;
+    this.cities = this.getCity().filter(item => {
+      return item.district_id === Number(district_id);
+    });
+    this.onSelectCity(+this.advt_record.city_id);
   }
 
   onSelectCity(city_id: number) {

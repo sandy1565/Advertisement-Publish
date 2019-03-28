@@ -35,6 +35,11 @@ export class AdvtDetailsService {
     });
   }
 
+  public updateStatusAdvtDetails(details: AdvtModel, key: number) {
+    return this.http.put(`${URN}updateStatuAdvt/` + key, details,{  headers: authHeader()
+    });
+  }
+
   public deleteAdvt(key: number) {
     return this.http.delete(`${URN}deleteAdvt/` + key, {
       headers: authHeader()
