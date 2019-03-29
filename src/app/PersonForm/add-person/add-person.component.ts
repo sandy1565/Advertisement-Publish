@@ -108,18 +108,6 @@ export class PersonFormComponent implements OnInit {
       })
     };
 
-    // this.person_record.country_id = "1";
-    // this.onSelectCountry(+this.person_record.country_id);
-    // this.person_record.state_id = "27";
-    // this.onSelectState(+this.person_record.state_id);    
-    // this.person_record.district_id = "11";
-    // this.onSelectDistrict(+this.person_record.district_id);    
-    // this.person_record.city_id = "25"; 
-    // this.onSelectCity(+this.person_record.city_id);
-    // this.person_record.block_id = 24;    
-    // this.person_record.gender = 'Male';
-
-   
   }
 
 
